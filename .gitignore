@@ -91,3 +91,5 @@ lint/tmp/
 GameFinder/\.idea/workspace\.xml
 
 GameFinder/\.idea/libraries/
+
+\.idea/
