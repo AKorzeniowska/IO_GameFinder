@@ -87,3 +87,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+GameFinder/\.idea/workspace\.xml
+
+GameFinder/\.idea/libraries/
