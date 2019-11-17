@@ -1,9 +1,11 @@
 package com.example.ioagh.gamefinder.ui
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.ioagh.gamefinder.R.*
+import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -21,11 +23,9 @@ class RegisterActivity : AppCompatActivity() {
         passwordRegisterRepeat.hint = "retype password"
         registerActivityButton.setOnClickListener() {
             //TODO  register verification by mOAuth
-            //oAuth register
-            //val intent = Intent(this, <some class>
-            //startActivity(intent)
-            //finish()
-            Toast.makeText(this, "To be implemented", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, ApplicationActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

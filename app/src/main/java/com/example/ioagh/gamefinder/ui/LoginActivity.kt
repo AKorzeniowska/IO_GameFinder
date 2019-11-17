@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 
 import com.example.ioagh.gamefinder.R.*
+import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,10 +24,9 @@ class LoginActivity : AppCompatActivity() {
         passwordLogin.hint = "Enter a password"
         loginActivityButton.setOnClickListener() {
             //TODO check if email and password are valid
-            //val intent = Intent(this, <some class>)
-            //startActivity(intent)
-            //finish()
-            Toast.makeText(this, "To be implemented", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, ApplicationActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

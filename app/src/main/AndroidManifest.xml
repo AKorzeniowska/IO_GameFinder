@@ -9,6 +9,24 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.main.ChatActivity">
+        </activity>
+        <activity android:name=".ui.profile.UserChatListActivity">
+        </activity>
+        <activity android:name=".ui.profile.EditProfileActivity">
+        </activity>
+        <activity android:name=".ui.profile.UserGameListActivity">
+        </activity>
+        <activity android:name=".ui.main.ChooseGameActivity">
+        </activity>
+        <activity android:name=".ui.profile.ProfileActivity">
+        </activity>
+        <activity android:name=".ui.main.SearchGameActivity">
+        </activity>
+        <activity android:name=".ui.main.AddGameActivity">
+        </activity>
+        <activity android:name=".ui.main.ApplicationActivity">
+        </activity>
         <activity android:name=".ui.RegisterActivity">
         </activity>
         <activity android:name=".ui.LoginActivity">
