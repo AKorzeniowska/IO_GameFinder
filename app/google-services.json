@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "783421229454",
+    "firebase_url": "https://gamefinder-a1331.firebaseio.com",
+    "project_id": "gamefinder-a1331",
+    "storage_bucket": "gamefinder-a1331.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783421229454:android:3c228b14a44a0716d7bcdf",
+        "android_client_info": {
+          "package_name": "com.example.ioagh.gamefinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783421229454-fsvupnjob49j2oi1lmto6h5hekr8j69k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ioagh.gamefinder",
+            "certificate_hash": "a773fac672a7e5d62d3931e2ebc341931bc18a21"
+          }
+        },
+        {
+          "client_id": "783421229454-59npfpa9qtivohs1d93v2hc4ia10cs9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqST8642xSMDqhca_9hB5yajWv7KimcRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "783421229454-59npfpa9qtivohs1d93v2hc4ia10cs9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

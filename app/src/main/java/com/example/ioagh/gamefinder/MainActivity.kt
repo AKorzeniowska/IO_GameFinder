@@ -6,17 +6,31 @@ import android.os.Bundle
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.ui.LoginActivity
 import com.example.ioagh.gamefinder.ui.RegisterActivity
+import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
 
-        //TODO check if user is already signed in, when it's true then proceed to main app
-
+        mAuth = FirebaseAuth.getInstance()
         initView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val currentUser = mAuth.currentUser
+        if (currentUser != null){
+            val appActivity = Intent(this, ApplicationActivity::class.java)
+            startActivity(appActivity)
+            finish()
+        }
     }
 
     private fun initView() {
