@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.ioagh.gamefinder.R.attr
 import com.example.ioagh.gamefinder.R.layout
+import com.example.ioagh.gamefinder.providers.createUser
+import com.example.ioagh.gamefinder.providers.userExists
 import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
@@ -16,7 +18,7 @@ import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
-    lateinit var mAuth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +29,19 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        emailRegister.hint = "Enter an email"
-        passwordRegister.hint = "password"
-        passwordRegisterRepeat.hint = "retype password"
+        emailRegister.hint = "podaj e-mail"
+        passwordRegister.hint = "podaj hasło"
+        passwordRegisterRepeat.hint = "powtórz hasło"
+        nickRegister.hint = "podaj nazwę użytkownika"
         registerActivityButton.setOnClickListener() {
             createAccount(emailRegister.text.toString(),
                 passwordRegister.text.toString(),
-                passwordRegisterRepeat.text.toString())
+                passwordRegisterRepeat.text.toString(),
+                nickRegister.text.toString())
         }
     }
 
-    private fun createAccount(email: String, password: String, passwordRepeat: String) {
+    private fun createAccount(email: String, password: String, passwordRepeat: String, nick: String) {
         if (password != passwordRepeat){
             Toast.makeText(
                 this, "Podane hasła są różne",
@@ -46,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        if (password == "" || email == ""){
+        if (password == "" || email == "" || nick == ""){
             Toast.makeText(
                 this, "Podaj dane do rejestracji",
                 Toast.LENGTH_SHORT
@@ -75,6 +79,11 @@ class RegisterActivity : AppCompatActivity() {
                         this, "Zarejestrowano!",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    if (userExists(nick)){
+                        createUser(nick)
+                    }
+
                     val appActivity = Intent(this, ApplicationActivity::class.java)
                     startActivity(appActivity)
                     finish()
