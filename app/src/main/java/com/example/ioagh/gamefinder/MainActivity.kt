@@ -1,8 +1,8 @@
 package com.example.ioagh.gamefinder
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.ui.LoginActivity
 import com.example.ioagh.gamefinder.ui.RegisterActivity

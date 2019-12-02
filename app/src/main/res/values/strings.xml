@@ -2,4 +2,17 @@
     <string name="app_name">GameFinder</string>
     <string name="sign_in">Sign in</string>
     <string name="log_in">Log in</string>
+    <string name="search_game">Szukaj rozrgrywki</string>
+    <string name="add_game">Dodaj Rozgrywkę</string>
+    <string name="chat">Konwersacje</string>
+    <string name="my_profile">Mój profil</string>
+    <string name="game_finder">Game Finder</string>
+    <string name="type_game_name">Podaj nazwe gry</string>
+    <string name="localization">Lokalizacja</string>
+    <string name="user_profile_localization">Użyj lokalizacji profilu</string>
+    <string name="user_current_localization">Użyj obecnej lokalizacji</string>
+    <string name="game_owner">Jestem właścicielem/mistrzem gry</string>
+    <string name="gather_team">zbieram drużynę do game pubu</string>
+    <string name="game_pub">Game Pub</string>
+    <string name="number_of_players">Ilość graczy</string>
 </resources>

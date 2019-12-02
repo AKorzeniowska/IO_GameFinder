@@ -1,10 +1,10 @@
 package com.example.ioagh.gamefinder.ui
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.annotation.NonNull
 import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this, OnCompleteListener <AuthResult>() {
+            .addOnCompleteListener(this) {
                 @Override
                 fun onComplete(@NonNull task: Task<AuthResult>) {
                     if (task.isSuccessful) {
@@ -64,6 +64,6 @@ class LoginActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
-            })
+            }
     }
 }

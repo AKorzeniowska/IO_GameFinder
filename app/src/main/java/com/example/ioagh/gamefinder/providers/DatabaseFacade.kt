@@ -2,9 +2,8 @@ package com.example.ioagh.gamefinder.providers
 
 import android.content.Context
 import android.content.Intent
-import android.support.annotation.NonNull
-import android.support.v4.content.ContextCompat.startActivity
 import android.widget.Toast
+import androidx.annotation.NonNull
 import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
 import com.google.android.gms.tasks.OnCompleteListener

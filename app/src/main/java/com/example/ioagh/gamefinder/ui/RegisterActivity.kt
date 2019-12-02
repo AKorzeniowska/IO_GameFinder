@@ -2,9 +2,8 @@ package com.example.ioagh.gamefinder.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.ioagh.gamefinder.R.attr
 import com.example.ioagh.gamefinder.R.layout
 import com.example.ioagh.gamefinder.providers.createUser
