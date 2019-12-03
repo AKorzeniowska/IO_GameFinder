@@ -13,9 +13,6 @@ import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.runners.MockitoJUnitRunner
 
 
 @RunWith(AndroidJUnit4::class)

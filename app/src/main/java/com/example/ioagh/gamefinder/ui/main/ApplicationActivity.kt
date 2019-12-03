@@ -3,22 +3,21 @@ package com.example.ioagh.gamefinder.ui.main
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_application.*
 
 class ApplicationActivity : AppCompatActivity() {
 
-    companion object DatabaseInfoProvider {
-        const val JDBC_DRIVER = ""
-        const val URL = "sql7.freesqldatabase.com"
-        const val USER = "sql7311651"
-        const val PASSWORD = "cQwhQGVu9w"
-    }
+    lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_application)
+
+        mAuth = FirebaseAuth.getInstance()
 
         initView()
     }
@@ -42,6 +41,13 @@ class ApplicationActivity : AppCompatActivity() {
         userProfileButton.setOnClickListener() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+        }
+
+        logoutButton.setOnClickListener() {
+            val intent = Intent(this, MainActivity::class.java)
+            mAuth.signOut()
+            startActivity(intent)
+            finish()
         }
     }
 }

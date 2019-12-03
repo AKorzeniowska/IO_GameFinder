@@ -27,7 +27,7 @@ fun createGame(game: Game, context: Context){
             @Override
             fun onComplete(@NonNull task: Task<String>) {
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "Rozgrywka dodana!", Toast.LENGTH_SHORT)
+                    callToast(context, "Rozgrywka dodana!")
                 }
             }
         })
@@ -51,4 +51,8 @@ fun userExists(username: String): Boolean{
         }
     })
     return result
+}
+
+fun callToast(context: Context, text: String){
+    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }

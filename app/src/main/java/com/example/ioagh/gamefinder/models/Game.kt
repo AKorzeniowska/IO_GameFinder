@@ -11,8 +11,9 @@ class Game {
     var gamers: Int? = null
     var date: String? = null
     var durationInMinutes: Int? = null
+    var owner: String? = null
 
-    constructor(gameName: String, localization: String, gameKind: Int, gameTypes: List<Int>, gamers: Int, date: String, durationInMinutes: Int){
+    constructor(gameName: String, localization: String, gameKind: Int, gameTypes: List<Int>, gamers: Int, date: String, durationInMinutes: Int, owner: String){
         this.gameName = gameName
         this.localization = localization
         this.gameKind = gameKind
@@ -20,6 +21,7 @@ class Game {
         this.gamers = gamers
         this.date = date
         this.durationInMinutes = durationInMinutes
+        this.owner = owner
     }
 
     companion object GameKinds {

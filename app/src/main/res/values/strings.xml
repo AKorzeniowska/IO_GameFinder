@@ -15,4 +15,6 @@
     <string name="gather_team">zbieram drużynę do game pubu</string>
     <string name="game_pub">Game Pub</string>
     <string name="number_of_players">Ilość graczy</string>
+    <string name="no_login_data">Podaj dane logowania!</string>
+    <string name="logout">Wyloguj</string>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ioagh.gamefinder.R
 
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
@@ -38,31 +39,31 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signIn(email: String, password: String) {
-        if (emailLogin.text.toString() == "" || passwordLogin.text.toString() == "" ) {
+        if (emailLogin.text.toString() == "" || passwordLogin.text.toString() == "") {
             Toast.makeText(
-                this, "Podaj dane logowania",
+                this, R.string.no_login_data,
                 Toast.LENGTH_SHORT
             ).show()
             return
         }
 
         mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) {
-                @Override
-                fun onComplete(@NonNull task: Task<AuthResult>) {
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        var user: FirebaseUser? = mAuth.currentUser
-                        val appActivity = Intent(this, ApplicationActivity::class.java)
-                        startActivity(appActivity)
-                        finish()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(
-                            this, "Niepoprawne dane logowania",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        this, "Zalogowano",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    var user: FirebaseUser? = mAuth.currentUser
+                    val appActivity = Intent(this, ApplicationActivity::class.java)
+                    startActivity(appActivity)
+                    finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(
+                        this, "Niepoprawne dane logowania",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
