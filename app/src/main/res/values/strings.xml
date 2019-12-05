@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GameFinder</string>
-    <string name="sign_in">Sign in</string>
-    <string name="log_in">Log in</string>
+    <string name="sign_in">Zarejestruj się</string>
+    <string name="log_in">Zaloguj się</string>
     <string name="search_game">Szukaj rozrgrywki</string>
     <string name="add_game">Dodaj Rozgrywkę</string>
     <string name="chat">Konwersacje</string>
@@ -17,8 +17,14 @@
     <string name="number_of_players">Ilość graczy</string>
     <string name="no_login_data">Podaj dane logowania!</string>
     <string name="logout">Wyloguj</string>
-    <string name="email">Email address</string>
-    <string name="password">Password</string>
-    <string name="password_repeat">Confirm password</string>
-    <string name="icon">Icon</string>
+    <string name="email">Adres e-mail</string>
+    <string name="password">Hasło</string>
+    <string name="password_repeat">Powtórz hasło</string>
+    <string name="icon">Ikona</string>
+    <string name="nick">Nick</string>
+    <string name="name">Imię</string>
+    <string name="age">Wiek</string>
+    <string name="login">Login</string>
+    <string name="addPhoto">Dodaj zdjęcie</string>
+    <string name="back">Cofnij</string>
 </resources>
