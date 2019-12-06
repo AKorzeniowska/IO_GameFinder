@@ -27,4 +27,9 @@
     <string name="login">Login</string>
     <string name="addPhoto">Dodaj zdjęcie</string>
     <string name="back">Cofnij</string>
+    <string name="open_navigation_drawer">Otwórz szufladę nawigacji</string>
+    <string name="close_navigation_drawer">Zamknij szufladę nawigacji</string>
+
+
+
 </resources>
