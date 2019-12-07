@@ -31,12 +31,13 @@ class RegisterActivity : AppCompatActivity() {
         emailRegister.hint = "podaj e-mail"
         passwordRegister.hint = "podaj hasło"
         passwordRegisterRepeat.hint = "powtórz hasło"
-        nickRegister.hint = "podaj nazwę użytkownika"
+//        nickRegister.hint = "podaj nazwę użytkownika"
         registerActivityButton.setOnClickListener() {
             createAccount(emailRegister.text.toString(),
                 passwordRegister.text.toString(),
                 passwordRegisterRepeat.text.toString(),
-                nickRegister.text.toString())
+//                nickRegister.text.toString())
+                "Justysia")
         }
     }
 

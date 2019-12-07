@@ -46,6 +46,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.0'
 
+    implementation 'com.scaledrone:scaledrone-java:0.6.0'
+
     //implementation 'com.google.firebase:firebase-database:19.2.0'
 
 }
