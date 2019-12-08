@@ -2,6 +2,7 @@ package com.example.ioagh.gamefinder.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ioagh.gamefinder.R.attr
@@ -68,7 +69,7 @@ class RegisterActivity : AppCompatActivity() {
             ).show()
             return
         }
-
+        progressBar.visibility = View.VISIBLE
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(
                 this
@@ -94,6 +95,7 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+                progressBar.visibility = View.INVISIBLE
             }
     }
 }
