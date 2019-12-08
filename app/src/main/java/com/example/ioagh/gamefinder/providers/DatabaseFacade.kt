@@ -1,7 +1,6 @@
 package com.example.ioagh.gamefinder.providers
 
 import android.content.Context
-import android.opengl.Visibility
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -10,7 +9,6 @@ import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.models.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
-import com.example.ioagh.gamefinder.R.string.*
 
 
 val firebaseDatabase = FirebaseDatabase.getInstance()
@@ -65,7 +63,7 @@ fun decreaseGamersNumber(gameId: String){
     gamesReference.child(gameId).addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val game = dataSnapshot.getValue<Game>(Game::class.java)
-            gamesReference.child(gameId).child("gamers").setValue(game!!.gamers!! - 1)
+            gamesReference.child(gameId).child("gamers").setValue(game!!.players!! - 1)
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
@@ -78,7 +76,7 @@ fun increaseGamersNumber(gameId: String){
     gamesReference.child(gameId).addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val game = dataSnapshot.getValue<Game>(Game::class.java)
-            gamesReference.child(gameId).child("gamers").setValue(game!!.gamers!! + 1)
+            gamesReference.child(gameId).child("gamers").setValue(game!!.players!! + 1)
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
@@ -121,7 +119,7 @@ fun setViewIfUserJoinedGame(gameId: String, username: String, button: Button){
                     }
                     button.visibility = View.VISIBLE
                 }
-        
+
         override fun onCancelled(databaseError: DatabaseError) {
             println("The read failed: " + databaseError.code)
         }

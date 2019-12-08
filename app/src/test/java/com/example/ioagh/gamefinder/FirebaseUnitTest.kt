@@ -19,7 +19,7 @@ class FirebaseUnitTest {
     @Test
     fun addGameToDatabaseTest(){
         val game = Game("Ryzyko", "Kraków, Prądnik Czerowny",
-            Game.OWNER, listOf(1, 2, 3), 5, "2019-12-31 20:00", 270)
+            Game.OWNER, listOf(1, 2, 3), 5, 9, "2019-12-31 20:00", 270, "owner")
 
         createGame(game, mockContext)
     }

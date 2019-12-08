@@ -12,8 +12,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_choose_game.*
-import kotlinx.android.synthetic.main.game_list_item.*
 
 
 class ChooseGameActivity : AppCompatActivity() {
@@ -72,7 +70,7 @@ class ChooseGameActivity : AppCompatActivity() {
                     game.gameKind == gameKind &&
                     game.localization == localization &&
                    // game.date == date &&
-                    game.gamers!! >= minPlayers && game.gamers!! <= maxPlayers) {
+                    game.players!! >= minPlayers && game.players!! <= maxPlayers) {
             return true
         }
         return false
