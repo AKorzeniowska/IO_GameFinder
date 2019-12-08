@@ -11,6 +11,8 @@ class Message {
         this.belongsToCurrentUser = belongsToCurrentUser
     }
 
+    constructor(){}
+
     fun getText(): String {
         return text
     }

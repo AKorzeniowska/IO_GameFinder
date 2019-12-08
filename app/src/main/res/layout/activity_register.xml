@@ -88,7 +88,7 @@
                 android:singleLine="true" />
 
         <EditText
-                android:id="@+id/name"
+                android:id="@+id/nameRegister"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="16dp"
@@ -101,7 +101,7 @@
                 android:singleLine="true" />
 
         <EditText
-                android:id="@+id/age"
+                android:id="@+id/ageRegister"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="16dp"

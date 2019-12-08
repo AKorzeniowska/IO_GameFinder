@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.annotation.NonNull
 import com.example.ioagh.gamefinder.models.Game
+import com.example.ioagh.gamefinder.models.User
 import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -23,18 +24,26 @@ private val gameTypesReference = databaseReference.child("game_types")
 fun createGame(game: Game, context: Context){
     val pushedGameReference: DatabaseReference = gamesReference.push()
     pushedGameReference.setValue(game)
-        .addOnCompleteListener(OnCompleteListener<Void>() {
+        .addOnCompleteListener {
             @Override
             fun onComplete(@NonNull task: Task<String>) {
                 if (task.isSuccessful) {
                     callToast(context, "Rozgrywka dodana!")
                 }
             }
-        })
+        }
 }
 
-fun createUser(username: String?){
-    username?.let { usersReference.child(it).setValue(0) }
+fun createUser(context: Context, user: User, username: String){
+    usersReference.child(username).setValue(user)
+        .addOnCompleteListener {
+            @Override
+            fun onComplete(@NonNull task: Task<String>){
+                if (task.isSuccessful){
+                    callToast(context, "Zarejestrowano!")
+                }
+            }
+        }
 }
 
 fun userExists(username: String): Boolean{
