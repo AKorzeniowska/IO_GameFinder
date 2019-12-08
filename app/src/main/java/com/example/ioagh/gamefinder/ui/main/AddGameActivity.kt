@@ -1,12 +1,16 @@
 package com.example.ioagh.gamefinder.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_add_game.*
 
@@ -17,6 +21,7 @@ class AddGameActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference = firebaseDatabase.reference
+    private val gamesReference = databaseReference.child("games")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,15 +44,15 @@ class AddGameActivity : AppCompatActivity() {
                 numberOfPlayersEditText.text.isNullOrBlank() ||
                 searchLocalizationEditText.text.isNullOrBlank() ||
                 gameTimeEditText.text.isNullOrBlank() || gameTypeRadioGroup.checkedRadioButtonId == -1)) {
-                val game = createGame()
-                databaseReference.child("games").push().setValue(game)
+                val game = buildGame()
+                createGame(game)
             } else {
                 Toast.makeText(this, "Jakies pole puste", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun createGame() :Game {
+    private fun buildGame() :Game {
         val game = Game()
 
         game.date = gameDatePicker.year.toString().plus("-").plus(gameDatePicker.month.toString()).plus("-")
@@ -70,5 +75,13 @@ class AddGameActivity : AppCompatActivity() {
             game.owner = mAuth.currentUser!!.displayName
         }
         return game
+    }
+
+    fun createGame(game: Game){
+        val pushedGameReference: DatabaseReference = gamesReference.push()
+        pushedGameReference.setValue(game)
+            .addOnSuccessListener {
+                 Toast.makeText(this, "Rozgrywka dodana!", Toast.LENGTH_SHORT).show()
+            }
     }
 }
