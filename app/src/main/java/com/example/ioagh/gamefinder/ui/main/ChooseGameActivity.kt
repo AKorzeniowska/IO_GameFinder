@@ -21,24 +21,40 @@ class ChooseGameActivity : AppCompatActivity() {
     private val databaseReference = firebaseDatabase.reference
     private lateinit var recyclerView : RecyclerView
 
+    private lateinit var gameName: String
+    private  var gameKind: Int = 0
+    private  var minPlayers: Int = 0
+    private  var maxPlayers: Int = 0
+    private lateinit var localization: String
+    private lateinit var date: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_choose_game)
+        gameName = intent.getStringExtra("gameName")
+        gameKind = intent.getStringExtra("gameKind").toInt()
+        minPlayers = intent.getStringExtra("minNumberOfPeople").toInt()
+        maxPlayers = intent.getStringExtra("maxNumberOfPeople").toInt()
+        localization = intent.getStringExtra("localization")
+        date = intent.getStringExtra("date")
 
         retrieveData(this)
     }
 
     fun retrieveData(ctx: Context) {
-        val list : ArrayList<Game> = ArrayList()
         databaseReference.child("games").addValueEventListener(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 println(p0.toString())
             }
 
             override fun onDataChange(p0: DataSnapshot) {
+                val list : ArrayList<Game> = ArrayList()
                 for(data in p0.children) {
                     if (data != null) {
-                        list.add(data.getValue(Game::class.java)!!)
+                        val game = data.getValue(Game::class.java)!!
+                        if (validate(game)) {
+                            list.add(game)
+                        }
                     }
                 }
                 recyclerView = findViewById(id.chooseGameRecyclerView)
@@ -48,5 +64,16 @@ class ChooseGameActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    fun validate(game: Game): Boolean {
+        if (game.gameName == gameName &&
+                    game.gameKind == gameKind &&
+                    game.localization == localization &&
+                   // game.date == date &&
+                    game.gamers!! >= minPlayers && game.gamers!! <= maxPlayers) {
+            return true
+        }
+        return false
     }
 }

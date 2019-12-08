@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 import com.example.ioagh.gamefinder.R.*
@@ -58,14 +59,14 @@ class SearchGameActivity : AppCompatActivity() {
 
     fun searchGame() {
         searchGameButton.setOnClickListener {
-            val intent = Intent(this, ChooseGameActivity::class.java)
-            intent.putExtra("gameName", gameNameField.text.toString())
-            intent.putExtra("gameKind", "")
-            intent.putExtra("minNumberOfPeople", minNumberOfPlayersField.text.toString())
-            intent.putExtra("maxNumberOfPeople", maxNumberOfPlayersField.text.toString())
-            intent.putExtra("localization", searchLocalizationEdit.text.toString())
-            intent.putExtra("date", chooseDateField.text.toString())
-            startActivity(intent)
+                val intent = Intent(this, ChooseGameActivity::class.java)
+                intent.putExtra("gameName", gameNameField.text.toString())
+                intent.putExtra("gameKind", typeOfGameField.text.toString())
+                intent.putExtra("minNumberOfPeople", minNumberOfPlayersField.text.toString())
+                intent.putExtra("maxNumberOfPeople", maxNumberOfPlayersField.text.toString())
+                intent.putExtra("localization", searchLocalizationEdit.text.toString())
+                intent.putExtra("date", chooseDateField.text.toString())
+                startActivity(intent)
         }
     }
 }
