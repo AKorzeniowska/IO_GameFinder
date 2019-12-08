@@ -1,46 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.ioagh.gamefinder">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.ioagh.gamefinder">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:name="MainApplication"
-            tools:ignore="GoogleAppIndexingWarning"
-            >
-        <activity android:name=".ui.main.ChatActivity">
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/gf_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/gf_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.main.ChatActivity"></activity>
+        <activity android:name=".ui.profile.UserChatListActivity"></activity>
+        <activity android:name=".ui.profile.EditProfileActivity"></activity>
+        <activity android:name=".ui.profile.UserGameListActivity"></activity>
+        <activity android:name=".ui.main.ChooseGameActivity"></activity>
+        <activity android:name=".ui.profile.ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.profile.UserChatListActivity">
-        </activity>
-        <activity android:name=".ui.profile.EditProfileActivity">
-        </activity>
-        <activity android:name=".ui.profile.UserGameListActivity">
-        </activity>
-        <activity android:name=".ui.main.ChooseGameActivity">
-        </activity>
-        <activity android:name=".ui.profile.ProfileActivity">
-        </activity>
-        <activity android:name=".ui.main.SearchGameActivity">
-        </activity>
-        <activity android:name=".ui.main.AddGameActivity">
-
-        </activity>
-        <activity android:name=".ui.main.ApplicationActivity">
-        </activity>
-        <activity android:name=".ui.RegisterActivity">
-        </activity>
-        <activity android:name=".ui.LoginActivity">
-        </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.main.SearchGameActivity"></activity>
+        <activity android:name=".ui.main.AddGameActivity"></activity>
+        <activity android:name=".ui.main.ApplicationActivity"></activity>
+        <activity android:name=".ui.RegisterActivity"></activity>
+        <activity android:name=".ui.LoginActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

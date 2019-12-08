@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="NavigationView"
+    >
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_chat"
+            android:title="Chat" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="Search" />
+    </group>
+
+    <item android:title="Temporary">
+        <menu>
+            <item android:id="@+id/nav_tmp"
+            android:icon="@drawable/ic_search"
+            android:title="Temporary" />
+        </menu>
+    </item>
+
+</menu>
