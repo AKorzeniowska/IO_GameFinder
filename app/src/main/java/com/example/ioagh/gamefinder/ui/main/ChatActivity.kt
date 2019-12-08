@@ -7,33 +7,42 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.models.MemberData
-import com.example.ioagh.gamefinder.ui.adapters.MessageAdapter
 import com.example.ioagh.gamefinder.models.Message
+import com.example.ioagh.gamefinder.ui.adapters.MessageAdapter
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.firebase.auth.FirebaseAuth
 import com.scaledrone.lib.*
+import kotlinx.android.synthetic.main.activity_chat.*
 import java.util.*
 
 
 class ChatActivity : RoomListener, AppCompatActivity() {
 
     private val channelID = "odGUUSff4QpqU8tt"
-    private val roomName = "observable-room"
+    private var roomName: String? = null
     private lateinit var editText: EditText
     private lateinit var scaledrone: Scaledrone
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messagesView: ListView
+    private lateinit var mAuth: FirebaseAuth
+    private val roomNamePrefix = "observable-"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        editText = this.findViewById(R.id.editText)
+        chatSendButton.isEnabled = false
+        roomName = intent.extras.getString("chatroom")
+        roomName = roomNamePrefix + roomName
+
+        editText = findViewById(R.id.editText)
         messageAdapter = MessageAdapter(this)
         messagesView = findViewById(R.id.messages_view)
         messagesView.adapter = messageAdapter
 
+        mAuth = FirebaseAuth.getInstance()
         startScaleDroneChat()
     }
 
@@ -48,10 +57,27 @@ class ChatActivity : RoomListener, AppCompatActivity() {
     override fun onMessage(room: Room?, receivedMessage: com.scaledrone.lib.Message) {
         val mapper = ObjectMapper()
         try {
-            val data = mapper.treeToValue(
-                receivedMessage.member?.clientData,
-                MemberData::class.java
-            )
+            val data =
+                mapper.treeToValue(
+                    receivedMessage.member?.clientData,
+                    MemberData::class.java
+                )
+            val belongsToCurrentUser =
+                receivedMessage.clientID == scaledrone.clientID
+            val message =
+                Message(receivedMessage.data.asText(), data, belongsToCurrentUser)
+            runOnUiThread {
+                messageAdapter.add(message)
+                messagesView.setSelection(messagesView.count - 1)
+            }
+        } catch (e: JsonProcessingException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun parseMessage(receivedMessage: com.scaledrone.lib.Message){
+        try {
+            val data: MemberData = MemberData("", getRandomColor())
             val belongsToCurrentUser =
                 receivedMessage.clientID == scaledrone.clientID
             val message =
@@ -66,14 +92,25 @@ class ChatActivity : RoomListener, AppCompatActivity() {
     }
 
     private fun startScaleDroneChat(){
-        val data: MemberData = MemberData(getRandomName(), getRandomColor())
+        val nick: String
+        if (mAuth.currentUser?.displayName != null) {
+            nick = mAuth.currentUser!!.displayName!!
+        }
+        else{
+            nick = "nazwa_usera"
+        }
+        val data: MemberData = MemberData(nick, getRandomColor())
         scaledrone = Scaledrone(channelID, data)
 
         scaledrone.connect(object : Listener {
             override fun onOpen() {
-                println("Scaledrone connection open")
-                // Since the MainActivity itself already implement RoomListener we can pass it as a target
-                scaledrone.subscribe(roomName, this@ChatActivity)
+                println("Scaledrone - connected to the room")
+                val chatroom = scaledrone.subscribe(roomName, this@ChatActivity, SubscribeOptions(50))
+
+                chatroom.listenToHistoryEvents { room, message ->
+                    parseMessage(message)
+                }
+                chatSendButton.isEnabled = true
             }
 
             override fun onOpenFailure(ex: java.lang.Exception?) {
@@ -88,7 +125,6 @@ class ChatActivity : RoomListener, AppCompatActivity() {
                 System.err.println(reason)
             }
         })
-
     }
 
     fun sendMessage(view: View?) {
@@ -97,12 +133,6 @@ class ChatActivity : RoomListener, AppCompatActivity() {
             scaledrone.publish("observable-room", message)
             editText.text.clear()
         }
-    }
-
-
-
-    private fun getRandomName(): String{
-        return "pajac"
     }
 
     private fun getRandomColor(): String{

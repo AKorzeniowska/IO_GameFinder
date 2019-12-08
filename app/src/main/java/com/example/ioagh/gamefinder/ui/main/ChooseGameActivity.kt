@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_choose_game.*
+import kotlinx.android.synthetic.main.game_list_item.*
 
 
 class ChooseGameActivity : AppCompatActivity() {
@@ -76,4 +77,5 @@ class ChooseGameActivity : AppCompatActivity() {
         }
         return false
     }
+
 }

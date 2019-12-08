@@ -29,7 +29,9 @@
     <string name="back">Cofnij</string>
     <string name="open_navigation_drawer">Otwórz szufladę nawigacji</string>
     <string name="close_navigation_drawer">Zamknij szufladę nawigacji</string>
-
+    <string name="join_game">Dołącz do gry</string>
+    <string name="already_joined">Już dołączyłeś</string>
+    <string name="edit_game">Edytuj</string>
 
 
 </resources>
