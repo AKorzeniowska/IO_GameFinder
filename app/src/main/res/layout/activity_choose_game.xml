@@ -7,4 +7,12 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.ChooseGameActivity">
 
+        <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/chooseGameRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+              tools:listitem="@layout/game_list_item"
+        >
+        </androidx.recyclerview.widget.RecyclerView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

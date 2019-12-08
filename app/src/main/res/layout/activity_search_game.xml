@@ -5,6 +5,105 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/searchGameConstraintLayout"
         tools:context=".ui.main.SearchGameActivity">
-
+    <TextView
+            android:text="Nazwa gry"
+            android:layout_width="81dp"
+            android:layout_height="29dp"
+            android:id="@+id/gameNameLabel" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+            android:text="Rodzaj gry"
+            android:layout_width="92dp"
+            android:layout_height="22dp"
+            android:id="@+id/gameTypLabel" app:layout_constraintStart_toStartOf="@+id/gameNameField"
+            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/gameNameField"/>
+    <TextView
+            android:text="Minimalna ilość graczy"
+            android:layout_width="92dp"
+            android:layout_height="22dp"
+            android:id="@+id/minNumberOfPlayersLabel"
+            app:layout_constraintStart_toStartOf="@+id/typeOfGameField"
+            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/typeOfGameField"/>
+    <TextView
+            android:text="Maksymalna ilość graczy"
+            android:layout_width="93dp"
+            android:layout_height="22dp"
+            android:id="@+id/maxNumberOfPlayersLabel" app:layout_constraintStart_toStartOf="@+id/minNumberOfPlayersField"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/minNumberOfPlayersField"/>
+    <EditText
+            android:layout_width="333dp"
+            android:layout_height="31dp"
+            android:inputType="textPersonName"
+            android:hint="Podaj nazwe"
+            android:ems="10"
+            android:id="@+id/gameNameField"
+            app:layout_constraintStart_toStartOf="@+id/gameNameLabel"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/gameNameLabel"/>
+    <EditText
+            android:layout_width="340dp"
+            android:layout_height="31dp"
+            android:inputType="number"
+            android:hint="Podaj rodzaj gry"
+            android:ems="10"
+            android:id="@+id/typeOfGameField"
+            app:layout_constraintStart_toStartOf="@+id/gameNameLabel" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/gameTypLabel"/>
+    <EditText
+            android:layout_width="339dp"
+            android:layout_height="35dp"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/minNumberOfPlayersField"
+            app:layout_constraintStart_toStartOf="@+id/minNumberOfPlayersLabel"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/minNumberOfPlayersLabel"/>
+    <EditText
+            android:layout_width="336dp"
+            android:layout_height="34dp"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/maxNumberOfPlayersField"
+            app:layout_constraintStart_toStartOf="@+id/maxNumberOfPlayersLabel" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/maxNumberOfPlayersLabel"/>
+    <TextView
+            android:layout_width="322dp"
+            android:layout_height="41dp"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/chooseDateField"
+            app:layout_constraintStart_toStartOf="@+id/dateFieldLabel"
+            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/dateFieldLabel"/>
+    <TextView
+            android:text="Data"
+            android:layout_width="66dp"
+            android:layout_height="23dp" android:id="@+id/dateFieldLabel"
+            app:layout_constraintStart_toStartOf="@+id/searchLocalizationEdit"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/searchLocalizationEdit"/>
+    <TextView
+            android:text="Lokalizacja"
+            android:layout_width="85dp"
+            android:layout_height="25dp"
+            android:id="@+id/localizationLabel" app:layout_constraintStart_toStartOf="@+id/maxNumberOfPlayersField"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/maxNumberOfPlayersField"/>
+    <EditText
+            android:layout_width="327dp"
+            android:layout_height="41dp"
+            android:inputType="textPersonName"
+            android:hint="Lokalizacja"
+            android:ems="10"
+            android:id="@+id/searchLocalizationEdit"
+            app:layout_constraintStart_toStartOf="@+id/localizationLabel" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/localizationLabel"/>
+    <Button
+            android:text="Wyszukaj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchGameButton" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/chooseDateField" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

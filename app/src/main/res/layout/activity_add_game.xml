@@ -47,7 +47,7 @@
             android:layout_height="22dp"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/localizationEditText" android:layout_marginStart="8dp"
+            android:id="@+id/searchLocalizationEditText" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -88,16 +88,16 @@
     <com.google.android.gms.maps.MapView
             android:layout_width="252dp"
             android:layout_height="191dp"
-            android:id="@+id/mapView" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/localizationEditText"
+            android:id="@+id/mapView" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/searchLocalizationEdit"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/localizationRadioGroup" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.654"/>
     <RadioGroup
             android:layout_width="184dp"
             android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="@+id/localizationEditText" android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="@+id/localizationEditText" app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/localizationEditText"
+            app:layout_constraintEnd_toEndOf="@+id/searchLocalizationEdit" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="@+id/searchLocalizationEdit" app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/searchLocalizationEdit"
             android:id="@+id/localizationRadioGroup">
         <RadioButton
                 android:text="@string/user_profile_localization"
