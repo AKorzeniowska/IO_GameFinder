@@ -29,7 +29,7 @@ class ChatActivity : RoomListener, AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        editText = findViewById(R.id.editText)
+        editText = this.findViewById(R.id.editText)
         messageAdapter = MessageAdapter(this)
         messagesView = findViewById(R.id.messages_view)
         messagesView.adapter = messageAdapter
@@ -49,7 +49,7 @@ class ChatActivity : RoomListener, AppCompatActivity() {
         val mapper = ObjectMapper()
         try {
             val data = mapper.treeToValue(
-                receivedMessage.member.clientData,
+                receivedMessage.member?.clientData,
                 MemberData::class.java
             )
             val belongsToCurrentUser =
@@ -102,8 +102,7 @@ class ChatActivity : RoomListener, AppCompatActivity() {
 
 
     private fun getRandomName(): String{
-        val nouns = arrayOf("waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird", "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower", "firefly", "feather", "grass", "haze", "mountain", "night", "pond", "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf", "thunder", "violet", "water", "wildflower", "wave", "water", "resonance", "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper", "frog", "smoke", "star")
-        return nouns[(Math.random() * nouns.size).toInt()]
+        return "pajac"
     }
 
     private fun getRandomColor(): String{
