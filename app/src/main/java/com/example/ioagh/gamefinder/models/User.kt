@@ -1,9 +1,9 @@
 package com.example.ioagh.gamefinder.models
 
 class User {
-    var createdGames: List<String>? = null
-    var previousGames: List<String>? = null
-    var futureGames: List<String>? = null
+    var createdGames: List<String>? = ArrayList<String>()
+    var previousGames: List<String>? = ArrayList<String>()
+    var futureGames: List<String>? = ArrayList<String>()
     var localization: String? = null
     var age: Int? = null
     var name: String? = null
@@ -21,4 +21,6 @@ class User {
         this.age = age
         this.name = name
     }
+
+    constructor(){}
 }

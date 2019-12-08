@@ -20,12 +20,13 @@ import java.util.*
 class ChatActivity : RoomListener, AppCompatActivity() {
 
     private val channelID = "odGUUSff4QpqU8tt"
-    private val roomName = "observable-room"
+    private var roomName: String? = null
     private lateinit var editText: EditText
     private lateinit var scaledrone: Scaledrone
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messagesView: ListView
     private lateinit var mAuth: FirebaseAuth
+    private val roomNamePrefix = "observable-"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,9 @@ class ChatActivity : RoomListener, AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         chatSendButton.isEnabled = false
+        roomName = intent.extras.getString("chatroom")
+        roomName = roomNamePrefix + roomName
+
         editText = findViewById(R.id.editText)
         messageAdapter = MessageAdapter(this)
         messagesView = findViewById(R.id.messages_view)
@@ -101,7 +105,6 @@ class ChatActivity : RoomListener, AppCompatActivity() {
         scaledrone.connect(object : Listener {
             override fun onOpen() {
                 println("Scaledrone - connected to the room")
-                // Since the MainActivity itself already implement RoomListener we can pass it as a target
                 val chatroom = scaledrone.subscribe(roomName, this@ChatActivity, SubscribeOptions(50))
 
                 chatroom.listenToHistoryEvents { room, message ->

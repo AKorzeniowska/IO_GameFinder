@@ -23,6 +23,7 @@ class Game {
         this.durationInMinutes = durationInMinutes
         this.owner = owner
     }
+    constructor(){}
 
     companion object GameKinds {
         const val GAME_PUB = 1

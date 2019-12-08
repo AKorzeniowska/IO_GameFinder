@@ -34,7 +34,7 @@ class ApplicationActivity : AppCompatActivity() {
         }
 
         openChatButton.setOnClickListener() {
-            val intent = Intent(this, ChatActivity::class.java)
+            val intent = Intent(this, ChatListActivity::class.java)
             startActivity(intent)
         }
 
@@ -48,6 +48,11 @@ class ApplicationActivity : AppCompatActivity() {
             mAuth.signOut()
             startActivity(intent)
             finish()
+        }
+
+        sample_game.setOnClickListener(){
+            val intent = Intent(this, PickedGameActivity::class.java)
+            startActivity(intent)
         }
     }
 }
