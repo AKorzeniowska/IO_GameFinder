@@ -37,6 +37,12 @@ class LoginActivity : AppCompatActivity() {
 
             signIn(emailLogin.text.toString(), passwordLogin.text.toString())
         }
+
+        registerInsteadOfLoginButton.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun signIn(email: String, password: String) {

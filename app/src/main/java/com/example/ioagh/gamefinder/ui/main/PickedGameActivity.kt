@@ -3,6 +3,7 @@ package com.example.ioagh.gamefinder.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.providers.addGameToJoined
 import com.example.ioagh.gamefinder.providers.decreaseGamersNumber

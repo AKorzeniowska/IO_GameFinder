@@ -32,6 +32,7 @@
     <string name="join_game">Dołącz do gry</string>
     <string name="already_joined">Już dołączyłeś</string>
     <string name="edit_game">Edytuj</string>
+    <string name="user_already_exists">Użytkownik z takim nickiem już istnieje</string>
 
 
 </resources>

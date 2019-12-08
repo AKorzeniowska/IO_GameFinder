@@ -33,6 +33,7 @@ class ChatActivity : RoomListener, AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        chatSendButton.visibility = View.INVISIBLE
         chatSendButton.isEnabled = false
         roomName = intent.extras.getString("chatroom")
         roomName = roomNamePrefix + roomName
@@ -111,6 +112,7 @@ class ChatActivity : RoomListener, AppCompatActivity() {
                     parseMessage(message)
                 }
                 chatSendButton.isEnabled = true
+                chatSendButton.visibility = View.VISIBLE
             }
 
             override fun onOpenFailure(ex: java.lang.Exception?) {
@@ -130,7 +132,7 @@ class ChatActivity : RoomListener, AppCompatActivity() {
     fun sendMessage(view: View?) {
         val message = editText.text.toString()
         if (message.isNotEmpty()) {
-            scaledrone.publish("observable-room", message)
+            scaledrone.publish(roomName, message)
             editText.text.clear()
         }
     }

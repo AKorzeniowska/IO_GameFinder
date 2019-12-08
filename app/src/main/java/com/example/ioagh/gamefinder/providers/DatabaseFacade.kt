@@ -13,12 +13,12 @@ import com.google.firebase.database.*
 import com.example.ioagh.gamefinder.R.string.*
 
 
-private val firebaseDatabase = FirebaseDatabase.getInstance()
-private val databaseReference = firebaseDatabase.reference
+val firebaseDatabase = FirebaseDatabase.getInstance()
+val databaseReference = firebaseDatabase.reference
 
-private val gamesReference = databaseReference.child("games")
-private val usersReference = databaseReference.child("users")
-private val gameTypesReference = databaseReference.child("game_types")
+val gamesReference = databaseReference.child("games")
+val usersReference = databaseReference.child("users")
+val gameTypesReference = databaseReference.child("game_types")
 
 fun createGame(game: Game, context: Context){
     val pushedGameReference: DatabaseReference = gamesReference.push()
@@ -111,17 +111,17 @@ fun setViewIfUserJoinedGame(gameId: String, username: String, button: Button){
             val gameListFuture = user?.futureGames as ArrayList<String>
             val gameListPrevious = user.previousGames as ArrayList<String>
             val gameListOwned = user.createdGames as ArrayList<String>
-            if (gameListFuture.contains(gameId) || gameListPrevious.contains(gameId)) {
-                button.isClickable = false
-                button.text = "Już dołączyłeś"
-            }
-            if (gameListOwned.contains(gameId)){
-                button.isClickable = false
-                //button.visibility = View.INVISIBLE
-                button.text = "To twoja gra gościu"
-            }
-        }
-
+                    if (gameListFuture.contains(gameId) || gameListPrevious.contains(gameId)) {
+                        button.isClickable = false
+                        button.text = "Już dołączyłeś"
+                    }
+                    if (gameListOwned.contains(gameId)){
+                        button.isClickable = false
+                        button.text = "To twoja gra gościu"
+                    }
+                    button.visibility = View.VISIBLE
+                }
+        
         override fun onCancelled(databaseError: DatabaseError) {
             println("The read failed: " + databaseError.code)
         }

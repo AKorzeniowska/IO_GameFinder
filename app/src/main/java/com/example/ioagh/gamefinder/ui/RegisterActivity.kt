@@ -10,9 +10,13 @@ import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.models.User
 import com.example.ioagh.gamefinder.providers.createUser
 import com.example.ioagh.gamefinder.providers.userExists
+import com.example.ioagh.gamefinder.providers.usersReference
 import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.regex.Pattern
 
@@ -72,42 +76,58 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        if(userExists(nick)){
-            Toast.makeText(this, "Taki użytkownik już istnieje!", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val context = this
+        usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
 
-        progressBar.visibility = View.VISIBLE
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(
-                this
-            ) { task ->
-                if (task.isSuccessful) { // Sign in success, update UI with the signed-in user's information
-                    val user = mAuth.currentUser
-                    val profileUpdates =
-                        UserProfileChangeRequest.Builder()
-                            .setDisplayName(nick)
-                            //.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
-                            .build()
+            }
 
-                    user!!.updateProfile(profileUpdates)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val dbuser = User(age.toInt(), name)
-                                createUser(this, dbuser, nick)
-                                val appActivity = Intent(this, ApplicationActivity::class.java)
-                                startActivity(appActivity)
-                                finish()
-                            }
-                        }
-
-                } else { // If sign in fails, display a message to the user.
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.hasChild(nick)) {
                     Toast.makeText(
-                        this, "Błąd podczas rejestracji",
+                        context, R.string.user_already_exists,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                progressBar.visibility = View.INVISIBLE
+                else{
+                    createUser(email, password, nick, age, name)
+                }
             }
-    }
+        })
+}
+
+private fun createUser(email: String, password: String, nick: String, age:String, name:String){
+    progressBar.visibility = View.VISIBLE
+    mAuth.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener(
+            this
+        ) { task ->
+            if (task.isSuccessful) { // Sign in success, update UI with the signed-in user's information
+                val user = mAuth.currentUser
+                val profileUpdates =
+                    UserProfileChangeRequest.Builder()
+                        .setDisplayName(nick)
+                        //.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
+                        .build()
+
+                user!!.updateProfile(profileUpdates)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val dbuser = User(age.toInt(), name)
+                            createUser(this, dbuser, nick)
+                            val appActivity = Intent(this, ApplicationActivity::class.java)
+                            startActivity(appActivity)
+                            finish()
+                        }
+                    }
+
+            } else {
+                Toast.makeText(
+                    this, "Błąd podczas rejestracji",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            progressBar.visibility = View.INVISIBLE
+        }
+}
 }

@@ -95,7 +95,7 @@
 
         <Button
 
-                android:id="@+id/registerButton"
+                android:id="@+id/registerInsteadOfLoginButton"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:background="@drawable/rounded_button_outline_bold"
