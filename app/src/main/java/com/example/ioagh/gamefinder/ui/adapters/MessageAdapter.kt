@@ -1,7 +1,5 @@
 package com.example.ioagh.gamefinder.ui.adapters
 
-import android.R.layout
-import android.R.id
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
@@ -35,36 +33,32 @@ class MessageAdapter(var context: Context) : BaseAdapter() {
         return i.toLong()
     }
 
-    override fun getView(
-        i: Int,
-        convertView: View,
-        viewGroup: ViewGroup
-    ): View {
-        var convertView = convertView
+    override fun getView(i: Int, convertView: View?, viewGroup: ViewGroup): View {
+        var retView: View
         val holder = MessageViewHolder()
         val messageInflater =
             context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val message: Message = messages[i]
         if (message.isBelongsToCurrentUser()) {
-            convertView = messageInflater.inflate(R.layout.my_message, null)
+            retView = messageInflater.inflate(R.layout.my_message, null)
             holder.messageBody =
-                convertView.findViewById<View>(R.id.message_body) as TextView
-            convertView.tag = holder
+                retView.findViewById<View>(R.id.message_body) as TextView
+            retView.tag = holder
             holder.messageBody?.text = message.getText()
         } else {
-            convertView = messageInflater.inflate(R.layout.their_message, null)
+            retView = messageInflater.inflate(R.layout.their_message, null)
             holder.avatar =
-                convertView.findViewById(R.id.avatar) as View
-            holder.name = convertView.findViewById<View>(R.id.name) as TextView
+                retView.findViewById(R.id.avatar) as View
+            holder.name = retView.findViewById<View>(R.id.name) as TextView
             holder.messageBody =
-                convertView.findViewById<View>(R.id.message_body) as TextView
-            convertView.tag = holder
+                retView.findViewById<View>(R.id.message_body) as TextView
+            retView.tag = holder
             holder.name?.text = message.getMemberData().name
             holder.messageBody?.text = message.getText()
             val drawable = holder.avatar!!.background as GradientDrawable
             drawable.setColor(Color.parseColor(message.getMemberData().color))
         }
-        return convertView
+        return retView
     }
 
 }
