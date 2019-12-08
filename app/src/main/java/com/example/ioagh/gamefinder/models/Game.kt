@@ -1,6 +1,6 @@
 package com.example.ioagh.gamefinder.models
 
-import com.example.ioagh.gamefinder.providers.parseStringToDate
+
 import java.util.*
 
 class Game {
@@ -12,6 +12,8 @@ class Game {
     var date: String? = null
     var durationInMinutes: Int? = null
     var owner: String? = null
+
+    constructor() {}
 
     constructor(gameName: String, localization: String, gameKind: Int, gameTypes: List<Int>, gamers: Int, date: String, durationInMinutes: Int, owner: String){
         this.gameName = gameName

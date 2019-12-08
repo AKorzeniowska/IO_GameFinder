@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ioagh.gamefinder.R.*
+import com.example.ioagh.gamefinder.models.Game
 import kotlinx.android.synthetic.main.game_list_item.view.*
 
-class ChooseGameAdapter(private val myDataset: Array<String>,private val ctx: Context): RecyclerView.Adapter<ChooseGameAdapter.ViewHolder>() {
+class ChooseGameAdapter(private val myDataset: ArrayList<Game>, private val ctx: Context): RecyclerView.Adapter<ChooseGameAdapter.ViewHolder>() {
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -24,6 +25,6 @@ class ChooseGameAdapter(private val myDataset: Array<String>,private val ctx: Co
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.gameName.text = myDataset[position]
+        holder.view.gameName.text = myDataset[position].gameName
     }
 }
