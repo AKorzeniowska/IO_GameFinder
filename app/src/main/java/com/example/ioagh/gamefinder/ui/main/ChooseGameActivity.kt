@@ -21,7 +21,7 @@ class ChooseGameActivity : AppCompatActivity() {
     private lateinit var recyclerView : RecyclerView
 
     private lateinit var gameName: String
-    private  var gameKind: Int = 0
+    private  var gameKind: String = ""
     private  var minPlayers: Int = 0
     private  var maxPlayers: Int = 0
     private lateinit var localization: String
@@ -31,7 +31,7 @@ class ChooseGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_choose_game)
         gameName = intent.getStringExtra("gameName")
-        gameKind = intent.getStringExtra("gameKind").toInt()
+        gameKind = intent.getStringExtra("gameKind")
         minPlayers = intent.getStringExtra("minNumberOfPeople").toInt()
         maxPlayers = intent.getStringExtra("maxNumberOfPeople").toInt()
         localization = intent.getStringExtra("localization")
@@ -66,10 +66,10 @@ class ChooseGameActivity : AppCompatActivity() {
     }
 
     fun validate(game: Game): Boolean {
-        if (game.gameName == gameName &&
-                    game.gameKind == gameKind &&
-                    game.localization == localization &&
-                   // game.date == date &&
+        if (game.gameName!!.contains(gameName) &&
+            (gameKind.isBlank() || gameKind.toInt() == game.gameKind) &&
+            (localization.isBlank() || game.localization!!.contains(localization)) &&
+                    //game.date == date &&
                     game.players!! >= minPlayers && game.players!! <= maxPlayers) {
             return true
         }

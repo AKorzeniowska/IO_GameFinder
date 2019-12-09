@@ -68,7 +68,7 @@ class AddGameActivity : AppCompatActivity() {
         game.gameTypes = list
         game.gameKind = gameTypeRadioGroup.checkedRadioButtonId
         game.localization = searchLocalizationEditText.text.toString()
-        game.gamers = numberOfPlayersEditText.text.toString().toInt()
+        game.players = numberOfPlayersEditText.text.toString().toInt()
         game.gameName = gameNameEditText.text.toString()
 
         if (mAuth.currentUser != null && mAuth.currentUser!!.displayName != null) {
