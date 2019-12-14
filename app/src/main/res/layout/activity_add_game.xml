@@ -102,7 +102,7 @@
                 app:layout_constraintStart_toStartOf="@+id/searchLocalizationEditText"
                 android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/searchLocalizationEditText">
             <RadioButton
-                    android:text="Wybierz lokalizacje"
+                    android:text="@string/localization"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/radioButton5" android:layout_weight="1"/>
             <RadioButton
@@ -131,19 +131,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/gamePubRadioButton" android:layout_weight="1"/>
         </RadioGroup>
-        <Button
-                android:text="Dodaj grę"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addGameButton"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintHorizontal_bias="0.543" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/predictedGameTimeLabel"
-                app:layout_constraintVertical_bias="1.0"/>
+
         <TextView
-                android:text="Gatunek"
+                android:text="@string/game_type"
                 android:layout_width="66dp"
                 android:layout_height="21dp"
                 android:id="@+id/textView" app:layout_constraintStart_toStartOf="@+id/gamePubEditText"
@@ -157,33 +147,78 @@
         </LinearLayout>
 
         <TextView
-                android:text="Data rozgrywki"
-                android:layout_width="200dp"
-                android:layout_height="21dp"
-                android:id="@+id/gameDateLabel" app:layout_constraintStart_toStartOf="@+id/numberOfPlayersEditText"
-                app:layout_constraintTop_toBottomOf="@+id/numberOfPlayersEditText" android:layout_marginTop="8dp"
-        />
-
-        <DatePicker android:layout_width="200dp" android:layout_height="wrap_content"
-                    android:id="@+id/gameDatePicker" app:layout_constraintStart_toStartOf="@+id/gameDateLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/gameDateLabel" android:layout_marginTop="8dp"
-        />
+                android:id="@+id/gameDateLabel"
+                android:layout_width="116dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/game_date"
+                app:layout_constraintStart_toStartOf="@+id/numberOfPlayersEditText"
+                app:layout_constraintTop_toBottomOf="@+id/numberOfPlayersEditText" />
 
         <TextView
-                android:text="Przewidywany czas gry(w minutach)"
+                android:id="@+id/gameDateLabel2"
+                android:layout_width="116dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/game_time"
+                app:layout_constraintStart_toEndOf="@+id/gameDateLabel"
+                app:layout_constraintTop_toBottomOf="@+id/numberOfPlayersEditText" />
+
+        <EditText
+                android:id="@+id/gameTimeEditText"
+                android:layout_width="296dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="75dp"
+                android:autofillHints="hh:mm"
+                android:ems="10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/predictedGameTimeLabel"
+                app:layout_constraintTop_toBottomOf="@+id/predictedGameTimeLabel"
+                app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+                android:id="@+id/addGameButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/add_game"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.543"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/predictedGameTimeLabel"
+                app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+                android:id="@+id/predictedGameTimeLabel"
                 android:layout_width="200dp"
                 android:layout_height="21dp"
-                android:id="@+id/predictedGameTimeLabel" app:layout_constraintStart_toStartOf="@+id/gameDatePicker"
-                app:layout_constraintTop_toBottomOf="@+id/gameDatePicker" android:layout_marginTop="8dp"
-        />
-        <EditText
-                    android:id="@+id/gameTimeEditText"
-                  android:layout_width="296dp"
-                  android:layout_height="47dp"
-                  android:inputType="number"
-                  android:ems="10"
-                    app:layout_constraintStart_toStartOf="@+id/predictedGameTimeLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/predictedGameTimeLabel" android:layout_marginTop="8dp"
-        />
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="84dp"
+                android:text="@string/estimated_game_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gameDateLabel" />
+
+        <TextView
+                android:id="@+id/addDateTextView"
+                android:layout_width="118dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="58dp"
+                android:layout_marginTop="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gameDateLabel" />
+
+        <TextView
+                android:id="@+id/addTimeTextView"
+                android:layout_width="118dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toEndOf="@+id/addDateTextView"
+                app:layout_constraintTop_toBottomOf="@+id/gameDateLabel2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

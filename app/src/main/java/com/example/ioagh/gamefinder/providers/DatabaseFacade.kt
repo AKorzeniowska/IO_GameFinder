@@ -43,21 +43,6 @@ fun createUser(context: Context, user: User, username: String){
         }
 }
 
-fun userExists(username: String): Boolean{
-    var result: Boolean = false
-    usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
-        override fun onCancelled(p0: DatabaseError) {
-            result = true
-        }
-
-        override fun onDataChange(snapshot: DataSnapshot) {
-            if (snapshot.hasChild(username)) {
-                result = true
-            }
-        }
-    })
-    return result
-}
 
 fun decreaseGamersNumber(gameId: String){
     gamesReference.child(gameId).addListenerForSingleValueEvent(object : ValueEventListener {

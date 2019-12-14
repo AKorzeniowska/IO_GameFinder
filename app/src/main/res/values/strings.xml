@@ -2,8 +2,8 @@
     <string name="app_name">GameFinder</string>
     <string name="sign_in">Zarejestruj się</string>
     <string name="log_in">Zaloguj się</string>
-    <string name="search_game">Szukaj rozrgrywki</string>
-    <string name="add_game">Dodaj Rozgrywkę</string>
+    <string name="search_game">Szukaj rozgrrywki</string>
+    <string name="add_game">Dodaj rozgrywkę</string>
     <string name="chat">Konwersacje</string>
     <string name="my_profile">Mój profil</string>
     <string name="game_finder">Game Finder</string>
@@ -33,6 +33,10 @@
     <string name="already_joined">Już dołączyłeś</string>
     <string name="edit_game">Edytuj</string>
     <string name="user_already_exists">Użytkownik z takim nickiem już istnieje</string>
+    <string name="estimated_game_time">Przewidywany czas gry</string>
+    <string name="game_type">Gatunek</string>
+    <string name="game_date">Data rozgrywki</string>
+    <string name="game_time">Godzina rozgrywki</string>
 
 
 </resources>

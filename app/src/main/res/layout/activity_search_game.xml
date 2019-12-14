@@ -47,7 +47,7 @@
             android:layout_width="340dp"
             android:layout_height="31dp"
             android:inputType="number"
-            android:hint="Podaj rodzaj gry"
+            android:hint="@string/game_type"
             android:ems="10"
             android:id="@+id/typeOfGameField"
             app:layout_constraintStart_toStartOf="@+id/gameNameLabel" android:layout_marginTop="8dp"
@@ -68,22 +68,45 @@
             android:id="@+id/maxNumberOfPlayersField"
             app:layout_constraintStart_toStartOf="@+id/maxNumberOfPlayersLabel" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/maxNumberOfPlayersLabel"/>
+
     <TextView
-            android:layout_width="322dp"
-            android:layout_height="41dp"
-            android:inputType="text"
-            android:ems="10"
             android:id="@+id/chooseDateField"
+            android:layout_width="94dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
             app:layout_constraintStart_toStartOf="@+id/dateFieldLabel"
-            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/dateFieldLabel"/>
+            app:layout_constraintTop_toBottomOf="@+id/dateFieldLabel" />
+
     <TextView
-            android:text="Data"
+            android:id="@+id/chooseTimeField"
+            android:layout_width="94dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="126dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            app:layout_constraintStart_toEndOf="@+id/chooseDateField"
+            app:layout_constraintTop_toBottomOf="@+id/dateFieldLabel2" />
+
+    <TextView
+            android:text="@string/game_date"
             android:layout_width="66dp"
             android:layout_height="23dp" android:id="@+id/dateFieldLabel"
             app:layout_constraintStart_toStartOf="@+id/searchLocalizationEdit"
             android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/searchLocalizationEdit"/>
+
     <TextView
-            android:text="Lokalizacja"
+            android:id="@+id/dateFieldLabel2"
+            android:layout_width="66dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="228dp"
+            android:layout_marginTop="24dp"
+            android:text="Godzina"
+            app:layout_constraintStart_toStartOf="@+id/searchLocalizationEdit"
+            app:layout_constraintTop_toBottomOf="@+id/searchLocalizationEdit" />
+
+    <TextView
+            android:text="@string/localization"
             android:layout_width="85dp"
             android:layout_height="25dp"
             android:id="@+id/localizationLabel" app:layout_constraintStart_toStartOf="@+id/maxNumberOfPlayersField"
@@ -93,7 +116,6 @@
             android:layout_width="327dp"
             android:layout_height="41dp"
             android:inputType="textPersonName"
-            android:hint="Lokalizacja"
             android:ems="10"
             android:id="@+id/searchLocalizationEdit"
             app:layout_constraintStart_toStartOf="@+id/localizationLabel" android:layout_marginTop="8dp"

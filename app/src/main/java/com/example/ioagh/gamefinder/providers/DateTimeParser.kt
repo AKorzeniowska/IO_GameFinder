@@ -3,6 +3,8 @@ package com.example.ioagh.gamefinder.providers
 import android.text.format.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.floor
+import kotlin.math.min
 
 val sdfDateFromString = SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.US)
 val sdfStringFromDate = SimpleDateFormat("yyyy-MM-dd", Locale.US)
@@ -28,4 +30,17 @@ fun getMinutesFromDate(date: Date): Int{
 
 fun getOnlyDateFromDate(date: Date): String{
     return sdfStringFromDate.format(date)
+}
+
+fun parseMinutesToSring(minutes: Int): String{
+    var output = ""
+    val hours = floor((minutes/60).toDouble()).toInt()
+    val remainingMinutes = minutes - hours*60
+    return "$hours:$remainingMinutes"
+}
+
+fun parseStringToMinutes(string: String): Int{
+    val hours = string.split(':')[0].toInt()
+    val minutes = string.split(':')[1].toInt()
+    return hours*60 + minutes
 }

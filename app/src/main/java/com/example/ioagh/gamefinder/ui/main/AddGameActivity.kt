@@ -1,42 +1,54 @@
 package com.example.ioagh.gamefinder.ui.main
 
+import android.R
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.CheckBox
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.providers.addGameToOwned
+import com.example.ioagh.gamefinder.providers.gameTypesReference
 import com.example.ioagh.gamefinder.providers.gamesReference
+import com.example.ioagh.gamefinder.providers.parseStringToMinutes
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_add_game.*
+import kotlinx.android.synthetic.main.activity_search_game.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AddGameActivity : AppCompatActivity() {
 
-    private val array : Array<String> = arrayOf("1", "2" , "3")
-    //TODO replace with actual gameKinds
+    private lateinit var array : ArrayList<String>
     private lateinit var mAuth: FirebaseAuth
 
+    private lateinit var mDateSetListener : DatePickerDialog.OnDateSetListener
+    private lateinit var mTimeSetListener : TimePickerDialog.OnTimeSetListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_add_game)
 
+        array = ArrayList()
         mAuth = FirebaseAuth.getInstance()
         initView()
     }
 
     private fun initView() {
-        for (value in array) {
-            val checkbox = CheckBox(this)
-            checkbox.text = value
-            gameKindCheckBoxes.addView(checkbox)
-        }
+
+        setGameTypes(this)
+        setDateTimePicker()
 
         addGameButton.setOnClickListener() {
             if (!(gameNameEditText.text.isNullOrBlank() ||
@@ -49,14 +61,34 @@ class AddGameActivity : AppCompatActivity() {
                 Toast.makeText(this, "Uzupełnij wszystkie pola!", Toast.LENGTH_LONG).show()
             }
         }
+
     }
 
-    private fun buildGame() :Game {
+    private fun setGameTypes(ctx: Context){
+            gameTypesReference.addValueEventListener(object: ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    println(p0.toString())
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    for (data in p0.children){
+                        array.add(data.getValue(String::class.java)!!)
+                    }
+
+                    for (value in array) {
+                        val checkbox = CheckBox(ctx)
+                        checkbox.text = value
+                        gameKindCheckBoxes.addView(checkbox)
+                    }
+                }
+            })
+    }
+
+    private fun buildGame(): Game {
         val game = Game()
 
-        game.date = gameDatePicker.year.toString().plus("-").plus(gameDatePicker.month.toString()).plus("-")
-            .plus(gameDatePicker.dayOfMonth.toString())
-        game.durationInMinutes = gameTimeEditText.text.toString().toInt()
+        game.date = addDateTextView.text.toString() + " " + addTimeTextView.text.toString()
+        game.durationInMinutes = parseStringToMinutes(gameTimeEditText.text.toString())
         val list = ArrayList<Int>()
         for (i in 0..gameKindCheckBoxes.childCount) {
             if (gameKindCheckBoxes.getChildAt(i) != null) {
@@ -84,5 +116,50 @@ class AddGameActivity : AppCompatActivity() {
                 Toast.makeText(this, "Rozgrywka dodana!", Toast.LENGTH_SHORT).show()
                 finish()
             }
+    }
+
+    private fun setDateTimePicker(){
+        mDateSetListener = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
+            addDateTextView.text  = "$i-$i1-$i2"
+        }
+        mTimeSetListener = TimePickerDialog.OnTimeSetListener{
+                view: TimePicker?, hourOfDay: Int, minute: Int -> addTimeTextView.text =
+            "$hourOfDay:$minute"
+        }
+
+        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
+        addDateTextView.text = spf.format(Calendar.getInstance().time)
+
+        addDateTextView.setOnClickListener() {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val dialog = DatePickerDialog(this,
+                R.style.Theme_Holo_Dialog_MinWidth,
+                mDateSetListener,
+                year, month, day)
+
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+        }
+
+        val stf = SimpleDateFormat("hh:mm", Locale.US)
+        addTimeTextView.text = stf.format(Calendar.getInstance().time)
+
+        addTimeTextView.setOnClickListener{
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timeDialog = TimePickerDialog(this,
+                R.style.Theme_Holo_Dialog_MinWidth,
+                mTimeSetListener,
+                hour, minute, true)
+
+            timeDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            timeDialog.show()
+        }
     }
 }

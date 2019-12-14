@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentActivity
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.models.User
 import com.example.ioagh.gamefinder.providers.createUser
-import com.example.ioagh.gamefinder.providers.userExists
 import com.example.ioagh.gamefinder.providers.usersReference
 import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
 import com.google.firebase.auth.FirebaseAuth

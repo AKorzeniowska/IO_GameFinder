@@ -1,12 +1,14 @@
 package com.example.ioagh.gamefinder.ui.main
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -24,6 +26,7 @@ import java.text.SimpleDateFormat
 class SearchGameActivity : AppCompatActivity() {
 
     private lateinit var mDateSetListener : DatePickerDialog.OnDateSetListener
+    private lateinit var mTimeSetListener : TimePickerDialog.OnTimeSetListener
 
     private var list: ArrayList<Game> = ArrayList<Game>()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
@@ -32,18 +35,28 @@ class SearchGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_search_game)
+
+        setDateTimePicker()
+        searchGame()
+    }
+
+    private fun setDateTimePicker(){
         mDateSetListener = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
             chooseDateField.text  = "$i-$i1-$i2"
         }
+        mTimeSetListener = TimePickerDialog.OnTimeSetListener{
+                view: TimePicker?, hourOfDay: Int, minute: Int -> chooseTimeField.text =
+            "$hourOfDay:$minute"
+        }
 
-        var spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
+        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
         chooseDateField.text = spf.format(Calendar.getInstance().time)
 
         chooseDateField.setOnClickListener() {
             val calendar = Calendar.getInstance()
-            var year = calendar.get(Calendar.YEAR)
-            var month = calendar.get(Calendar.MONTH)
-            var day = calendar.get(Calendar.DAY_OF_MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
 
             val dialog = DatePickerDialog(this,
                 android.R.style.Theme_Holo_Dialog_MinWidth,
@@ -54,7 +67,22 @@ class SearchGameActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        searchGame()
+        val stf = SimpleDateFormat("hh:mm", Locale.US)
+        chooseTimeField.text = stf.format(Calendar.getInstance().time)
+
+        chooseTimeField.setOnClickListener{
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timeDialog = TimePickerDialog(this,
+                android.R.style.Theme_Holo_Dialog_MinWidth,
+                mTimeSetListener,
+                hour, minute, true)
+
+            timeDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            timeDialog.show()
+        }
     }
 
     private fun searchGame() {
