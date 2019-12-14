@@ -89,7 +89,24 @@ fun addGameToJoined(gameId: String, username: String){
     usersReference.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val user = dataSnapshot.getValue<User>(User::class.java)
-            val gameList = user?.futureGames as ArrayList<String>
+            val gameList = user?.joinedGames as ArrayList<String>
+            if (!gameList.contains(gameId)) {
+                gameList.add(gameId)
+            }
+            usersReference.child(username).setValue(user)
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            println("The read failed: " + databaseError.code)
+        }
+    })
+}
+
+fun addGameToOwned(gameId: String, username: String){
+    usersReference.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val user = dataSnapshot.getValue<User>(User::class.java)
+            val gameList = user?.createdGames as ArrayList<String>
             if (!gameList.contains(gameId)) {
                 gameList.add(gameId)
             }
@@ -106,10 +123,9 @@ fun setViewIfUserJoinedGame(gameId: String, username: String, button: Button){
     usersReference.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val user = dataSnapshot.getValue<User>(User::class.java)
-            val gameListFuture = user?.futureGames as ArrayList<String>
-            val gameListPrevious = user.previousGames as ArrayList<String>
+            val gameListFuture = user?.joinedGames as ArrayList<String>
             val gameListOwned = user.createdGames as ArrayList<String>
-                    if (gameListFuture.contains(gameId) || gameListPrevious.contains(gameId)) {
+                    if (gameListFuture.contains(gameId)) {
                         button.isClickable = false
                         button.text = "Już dołączyłeś"
                     }

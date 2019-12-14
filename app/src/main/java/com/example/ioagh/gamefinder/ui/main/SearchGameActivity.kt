@@ -57,7 +57,7 @@ class SearchGameActivity : AppCompatActivity() {
         searchGame()
     }
 
-    fun searchGame() {
+    private fun searchGame() {
         searchGameButton.setOnClickListener {
                 val intent = Intent(this, ChooseGameActivity::class.java)
                 intent.putExtra("gameName", gameNameField.text.toString())

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
+import com.example.ioagh.gamefinder.providers.addGameToOwned
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -77,11 +78,12 @@ class AddGameActivity : AppCompatActivity() {
         return game
     }
 
-    fun createGame(game: Game){
+    private fun createGame(game: Game){
         val pushedGameReference: DatabaseReference = gamesReference.push()
         pushedGameReference.setValue(game)
             .addOnSuccessListener {
-                 Toast.makeText(this, "Rozgrywka dodana!", Toast.LENGTH_SHORT).show()
+                addGameToOwned(pushedGameReference.key.toString(), mAuth.currentUser!!.displayName!!)
+                Toast.makeText(this, "Rozgrywka dodana!", Toast.LENGTH_SHORT).show()
             }
     }
 }

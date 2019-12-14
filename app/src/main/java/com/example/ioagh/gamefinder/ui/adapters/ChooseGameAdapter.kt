@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
+import com.example.ioagh.gamefinder.models.GameViewModel
 import kotlinx.android.synthetic.main.game_list_item.view.*
 
-class ChooseGameAdapter(private val myDataset: ArrayList<Game>, private val ctx: Context): RecyclerView.Adapter<ChooseGameAdapter.ViewHolder>() {
+class ChooseGameAdapter(private val gameModels: ArrayList<GameViewModel>, private val ctx: Context): RecyclerView.Adapter<ChooseGameAdapter.ViewHolder>() {
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    var onItemClick: ((GameViewModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -21,10 +22,21 @@ class ChooseGameAdapter(private val myDataset: ArrayList<Game>, private val ctx:
     }
 
     override fun getItemCount(): Int {
-        return myDataset.size
+        return gameModels.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.gameName.text = myDataset[position].gameName
+        val gameModel = gameModels[position]
+        holder.itemView.gameName.text = gameModel.game.gameName
+    }
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val view = itemView
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(gameModels[adapterPosition])
+            }
+        }
     }
 }

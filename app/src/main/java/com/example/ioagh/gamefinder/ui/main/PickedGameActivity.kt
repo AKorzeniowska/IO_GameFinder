@@ -21,14 +21,14 @@ class PickedGameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_picked_game)
 
         mAuth = FirebaseAuth.getInstance()
-        gameId = "-Lv0oLkSpWW72w4asmtu"
+        gameId = intent.getStringExtra("gameHash")
         initView()
     }
 
     private fun initView(){
         setViewIfUserJoinedGame(gameId, mAuth.currentUser?.displayName.toString(), joinGameButton)
 
-        joinGameButton.setOnClickListener(){
+        joinGameButton.setOnClickListener {
             decreaseGamersNumber(gameId)
             addGameToJoined(gameId, mAuth.currentUser?.displayName.toString())
             val intent = Intent(this, ChatActivity::class.java)
