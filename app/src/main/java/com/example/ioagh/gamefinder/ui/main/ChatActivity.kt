@@ -35,7 +35,7 @@ class ChatActivity : RoomListener, AppCompatActivity() {
 
         chatSendButton.visibility = View.INVISIBLE
         chatSendButton.isEnabled = false
-        roomName = intent.extras.getString("chatroom")
+        roomName = intent.getStringExtra("chatroom")
         roomName = roomNamePrefix + roomName
 
         editText = findViewById(R.id.editText)

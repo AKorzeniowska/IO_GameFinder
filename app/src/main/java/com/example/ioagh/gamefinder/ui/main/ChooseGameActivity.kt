@@ -12,6 +12,7 @@ import com.example.ioagh.gamefinder.R.id
 import com.example.ioagh.gamefinder.R.layout
 import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.models.GameViewModel
+import com.example.ioagh.gamefinder.providers.gamesReference
 import com.example.ioagh.gamefinder.ui.adapters.ChooseGameAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,8 +22,6 @@ import com.google.firebase.database.ValueEventListener
 
 class ChooseGameActivity : AppCompatActivity() {
 
-    private val firebaseDatabase = FirebaseDatabase.getInstance()
-    private val databaseReference = firebaseDatabase.reference
     private lateinit var recyclerView : RecyclerView
     private lateinit var adapter: ChooseGameAdapter
 
@@ -57,7 +56,7 @@ class ChooseGameActivity : AppCompatActivity() {
 
     fun retrieveData(ctx: Context) {
         val packageContext = this
-        databaseReference.child("games").addValueEventListener(object: ValueEventListener{
+        gamesReference.addValueEventListener(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 println(p0.toString())
             }

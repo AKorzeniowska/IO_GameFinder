@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.providers.addGameToOwned
+import com.example.ioagh.gamefinder.providers.gamesReference
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -20,9 +21,6 @@ class AddGameActivity : AppCompatActivity() {
     private val array : Array<String> = arrayOf("1", "2" , "3")
     //TODO replace with actual gameKinds
     private lateinit var mAuth: FirebaseAuth
-    private val firebaseDatabase = FirebaseDatabase.getInstance()
-    private val databaseReference = firebaseDatabase.reference
-    private val gamesReference = databaseReference.child("games")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +34,7 @@ class AddGameActivity : AppCompatActivity() {
     private fun initView() {
         for (value in array) {
             val checkbox = CheckBox(this)
-            checkbox.setText(value)
+            checkbox.text = value
             gameKindCheckBoxes.addView(checkbox)
         }
 
@@ -48,7 +46,7 @@ class AddGameActivity : AppCompatActivity() {
                 val game = buildGame()
                 createGame(game)
             } else {
-                Toast.makeText(this, "Jakies pole puste", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Uzupełnij wszystkie pola!", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -84,6 +82,7 @@ class AddGameActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 addGameToOwned(pushedGameReference.key.toString(), mAuth.currentUser!!.displayName!!)
                 Toast.makeText(this, "Rozgrywka dodana!", Toast.LENGTH_SHORT).show()
+                finish()
             }
     }
 }
