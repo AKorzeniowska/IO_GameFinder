@@ -48,7 +48,7 @@ fun decreaseGamersNumber(gameId: String){
     gamesReference.child(gameId).addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val game = dataSnapshot.getValue<Game>(Game::class.java)
-            gamesReference.child(gameId).child("gamers").setValue(game!!.players!! - 1)
+            gamesReference.child(gameId).child("players").setValue(game!!.players!! - 1)
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
@@ -61,7 +61,7 @@ fun increaseGamersNumber(gameId: String){
     gamesReference.child(gameId).addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val game = dataSnapshot.getValue<Game>(Game::class.java)
-            gamesReference.child(gameId).child("gamers").setValue(game!!.players!! + 1)
+            gamesReference.child(gameId).child("players").setValue(game!!.players!! + 1)
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
