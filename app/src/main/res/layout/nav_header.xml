@@ -14,4 +14,9 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/gf_logo"/>
 
+    <TextView
+            android:id="@+id/nav_display_name"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content" />
+
 </LinearLayout>

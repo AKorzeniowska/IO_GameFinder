@@ -42,6 +42,7 @@
     <string name="two_different_passwords">"Podane hasła są różne"</string>
     <string name="no_registration_data">"Podaj dane do rejestracji"</string>
     <string name="invalid_email_address">"Błędny adres e-mail"</string>
-
+    <string name="invalid_game_data">"Uzupełnij wszystkie pola!"</string>
+    <string name="game_added">"Rozgrywka dodana!"</string>
 
 </resources>

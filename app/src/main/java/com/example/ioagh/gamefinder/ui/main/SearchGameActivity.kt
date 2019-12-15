@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import kotlinx.android.synthetic.main.activity_search_game.*
@@ -28,6 +29,8 @@ class SearchGameActivity : AppCompatActivity() {
     private lateinit var mDateSetListener : DatePickerDialog.OnDateSetListener
     private lateinit var mTimeSetListener : TimePickerDialog.OnTimeSetListener
 
+    private lateinit var mAuth: FirebaseAuth
+
     private var list: ArrayList<Game> = ArrayList<Game>()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference = firebaseDatabase.reference
@@ -36,6 +39,7 @@ class SearchGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_search_game)
 
+        mAuth = FirebaseAuth.getInstance()
         setDateTimePicker()
         searchGame()
     }
@@ -94,6 +98,7 @@ class SearchGameActivity : AppCompatActivity() {
                 intent.putExtra("maxNumberOfPeople", maxNumberOfPlayersField.text.toString())
                 intent.putExtra("localization", searchLocalizationEdit.text.toString())
                 intent.putExtra("date", chooseDateField.text.toString())
+                intent.putExtra("owner", "")
                 startActivity(intent)
         }
     }
