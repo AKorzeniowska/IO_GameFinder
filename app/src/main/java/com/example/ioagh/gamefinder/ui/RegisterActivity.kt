@@ -11,6 +11,7 @@ import com.example.ioagh.gamefinder.models.User
 import com.example.ioagh.gamefinder.providers.createUser
 import com.example.ioagh.gamefinder.providers.usersReference
 import com.example.ioagh.gamefinder.ui.main.ApplicationActivity
+import com.example.ioagh.gamefinder.validators.EmailValidator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
@@ -64,10 +65,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        val regex = "^[a-zA-Z0-9_!#\$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+.[a-zA-Z0-9.-]+\$"
-        val pattern = Pattern.compile(regex)
-        val matcher = pattern.matcher(email)
-        if (!matcher.matches()){
+        if (!EmailValidator.validate(email)){
             Toast.makeText(
                 this, "Błędny adres e-mail",
                 Toast.LENGTH_SHORT
