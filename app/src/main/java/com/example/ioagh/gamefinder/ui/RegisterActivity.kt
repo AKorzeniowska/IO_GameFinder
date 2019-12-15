@@ -113,7 +113,7 @@ private fun createUser(email: String, password: String, nick: String, age:String
                             val dbuser: User = if (!age.isBlank()) {
                                 User(age.toInt(), name)
                             } else User(null, name)
-                            createUser(this, dbuser, nick)
+                            createUser( dbuser, nick)
                             val appActivity = Intent(this, ApplicationActivity::class.java)
                             startActivity(appActivity)
                             finish()

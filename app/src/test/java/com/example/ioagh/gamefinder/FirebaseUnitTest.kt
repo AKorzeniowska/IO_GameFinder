@@ -20,15 +20,7 @@ import org.mockito.Mockito.mock
 import org.mockito.runners.MockitoJUnitRunner
 import java.util.*
 
-@RunWith(MockitoJUnitRunner::class)
 class FirebaseUnitTest {
-
-    private lateinit var mockContext: Context
-
-    @Before
-    fun setUp() {
-        mockContext = mock(Context::class.java)
-    }
 
     @Test
     fun addGameToDatabaseTest(){
@@ -37,7 +29,7 @@ class FirebaseUnitTest {
             Game.OWNER, listOf(1, 2, 3), 5, 9, "2019-12-31 20:00", 270, "owner")
 
         //when
-        val key = createGame(game, mockContext)
+        val key = createGame(game)
         Thread.sleep(2000)
 
         //then

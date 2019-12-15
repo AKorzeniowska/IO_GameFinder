@@ -18,30 +18,14 @@ val gamesReference = databaseReference.child("games")
 val usersReference = databaseReference.child("users")
 val gameTypesReference = databaseReference.child("game_types")
 
-fun createGame(game: Game, context: Context): String?{
+fun createGame(game: Game): String?{
     val pushedGameReference: DatabaseReference = gamesReference.push()
     pushedGameReference.setValue(game)
-        .addOnCompleteListener {
-            @Override
-            fun onComplete(@NonNull task: Task<String>) {
-                if (task.isSuccessful) {
-                    callToast(context, "Rozgrywka dodana!")
-                }
-            }
-        }
     return pushedGameReference.key
 }
 
-fun createUser(context: Context, user: User, username: String){
+fun createUser(user: User, username: String){
     usersReference.child(username).setValue(user)
-        .addOnCompleteListener {
-            @Override
-            fun onComplete(@NonNull task: Task<String>){
-                if (task.isSuccessful){
-                    callToast(context, "Zarejestrowano!")
-                }
-            }
-        }
 }
 
 
