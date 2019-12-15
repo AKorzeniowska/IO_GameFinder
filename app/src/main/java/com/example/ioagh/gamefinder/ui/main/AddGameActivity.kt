@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_search_game.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.R.string.*
 
 class AddGameActivity : AppCompatActivity() {
 
@@ -54,7 +55,8 @@ class AddGameActivity : AppCompatActivity() {
             if (!(gameNameEditText.text.isNullOrBlank() ||
                 numberOfPlayersEditText.text.isNullOrBlank() ||
                 searchLocalizationEditText.text.isNullOrBlank() ||
-                gameTimeEditText.text.isNullOrBlank() || gameTypeRadioGroup.checkedRadioButtonId == -1)) {
+                gameTimeEditText.text.isNullOrBlank() ||
+                gameTypeRadioGroup.checkedRadioButtonId == -1)) {
                 val game = buildGame()
                 createGame(game)
             } else {
@@ -101,6 +103,7 @@ class AddGameActivity : AppCompatActivity() {
         game.localization = searchLocalizationEditText.text.toString()
         game.players = numberOfPlayersEditText.text.toString().toInt()
         game.gameName = gameNameEditText.text.toString()
+        game.maxPlayers = numberOfPlayersEditText.text.toString().toInt()
 
         if (mAuth.currentUser != null && mAuth.currentUser!!.displayName != null) {
             game.owner = mAuth.currentUser!!.displayName
@@ -145,7 +148,7 @@ class AddGameActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        val stf = SimpleDateFormat("hh:mm", Locale.US)
+        val stf = SimpleDateFormat("hh:mm", Locale.GERMANY)
         addTimeTextView.text = stf.format(Calendar.getInstance().time)
 
         addTimeTextView.setOnClickListener{

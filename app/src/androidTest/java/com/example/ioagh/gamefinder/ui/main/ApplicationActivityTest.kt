@@ -20,9 +20,6 @@ class ApplicationActivityTest {
 
     @Test
     fun testButtons() {
-
-   //     Instrumentation.ActivityMonitor activityMonitor = new Instrumentation().addMonitor(ProfileActivity::class.java, null, false)
-
         onView(withId(id.userProfileButton)).perform(ViewActions.click())
     }
 }
