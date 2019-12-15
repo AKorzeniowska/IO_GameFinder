@@ -31,6 +31,7 @@ class ChooseGameActivity : AppCompatActivity() {
     private var maxPlayers: Int? = null
     private lateinit var localization: String
     private lateinit var date: String
+    private lateinit var owner: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,7 @@ class ChooseGameActivity : AppCompatActivity() {
             null
         localization = intent.getStringExtra("localization")
         date = intent.getStringExtra("date")
+        owner = intent.getStringExtra("owner")
 
         retrieveData(this)
     }
@@ -93,7 +95,8 @@ class ChooseGameActivity : AppCompatActivity() {
             (localization.isBlank() || game.localization!!.contains(localization)) &&
                     //game.date == date &&
             (minPlayers == null || game.maxPlayers!! >= minPlayers!!) &&
-            (maxPlayers == null || game.maxPlayers!! <= maxPlayers!!)) {
+            (maxPlayers == null || game.maxPlayers!! <= maxPlayers!!) &&
+            (owner.isBlank() || game.owner == owner)) {
             return true
         }
         return false
