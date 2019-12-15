@@ -18,7 +18,7 @@ val gamesReference = databaseReference.child("games")
 val usersReference = databaseReference.child("users")
 val gameTypesReference = databaseReference.child("game_types")
 
-fun createGame(game: Game, context: Context){
+fun createGame(game: Game, context: Context): String?{
     val pushedGameReference: DatabaseReference = gamesReference.push()
     pushedGameReference.setValue(game)
         .addOnCompleteListener {
@@ -29,6 +29,7 @@ fun createGame(game: Game, context: Context){
                 }
             }
         }
+    return pushedGameReference.key
 }
 
 fun createUser(context: Context, user: User, username: String){
