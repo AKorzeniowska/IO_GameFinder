@@ -15,7 +15,7 @@ class User {
         this.name = name
     }
 
-    constructor(age:Int, name:String){
+    constructor(age:Int?, name:String?){
         this.age = age
         this.name = name
     }

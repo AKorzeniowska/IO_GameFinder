@@ -37,6 +37,11 @@
     <string name="game_type">Gatunek</string>
     <string name="game_date">Data rozgrywki</string>
     <string name="game_time">Godzina rozgrywki</string>
+    <string name="invalid_login_data">"Niepoprawne dane logowania"</string>
+    <string name="login_successful">"Zalogowano"</string>
+    <string name="two_different_passwords">"Podane hasła są różne"</string>
+    <string name="no_registration_data">"Podaj dane do rejestracji"</string>
+    <string name="invalid_email_address">"Błędny adres e-mail"</string>
 
 
 </resources>

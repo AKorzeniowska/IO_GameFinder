@@ -51,7 +51,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun createAccount(email: String, password: String, passwordRepeat: String, nick: String, name: String, age: String) {
         if (password != passwordRepeat){
             Toast.makeText(
-                this, "Podane hasła są różne",
+                this, R.string.two_different_passwords,
                 Toast.LENGTH_SHORT
             ).show()
             return
@@ -59,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
 
         if (password == "" || email == "" || nick == ""){
             Toast.makeText(
-                this, "Podaj dane do rejestracji",
+                this, R.string.no_registration_data,
                 Toast.LENGTH_SHORT
             ).show()
             return
@@ -67,7 +67,7 @@ class RegisterActivity : AppCompatActivity() {
 
         if (!EmailValidator.validate(email)){
             Toast.makeText(
-                this, "Błędny adres e-mail",
+                this, R.string.invalid_email_address,
                 Toast.LENGTH_SHORT
             ).show()
             return
@@ -110,7 +110,9 @@ private fun createUser(email: String, password: String, nick: String, age:String
                 user!!.updateProfile(profileUpdates)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            val dbuser = User(age.toInt(), name)
+                            val dbuser: User = if (!age.isBlank()) {
+                                User(age.toInt(), name)
+                            } else User(null, name)
                             createUser(this, dbuser, nick)
                             val appActivity = Intent(this, ApplicationActivity::class.java)
                             startActivity(appActivity)

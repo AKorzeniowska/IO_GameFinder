@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(
-                        this, "Zalogowano",
+                        this, R.string.login_successful,
                         Toast.LENGTH_SHORT
                     ).show()
                     var user: FirebaseUser? = mAuth.currentUser
@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(
-                        this, "Niepoprawne dane logowania",
+                        this, R.string.invalid_login_data,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
