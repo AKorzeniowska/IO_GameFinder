@@ -26,7 +26,7 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
 
         setNavigationViewListener()
 
-        nav_display_name.text = "Zalogowany jako: " + mAuth.currentUser!!.displayName!!
+        //nav_display_name.text = "Zalogowany jako: " + mAuth.currentUser!!.displayName!!
         mAuth = FirebaseAuth.getInstance()
 
         initView()
