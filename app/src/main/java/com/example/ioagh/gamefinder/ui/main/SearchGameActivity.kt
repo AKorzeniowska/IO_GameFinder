@@ -98,7 +98,7 @@ class SearchGameActivity : AppCompatActivity() {
                 intent.putExtra("maxNumberOfPeople", maxNumberOfPlayersField.text.toString())
                 intent.putExtra("localization", searchLocalizationEdit.text.toString())
                 intent.putExtra("date", chooseDateField.text.toString())
-                intent.putExtra("owner", mAuth.currentUser!!.displayName!!)
+                intent.putExtra("owner", "")
                 startActivity(intent)
         }
     }
