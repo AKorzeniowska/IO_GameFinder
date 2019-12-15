@@ -87,6 +87,7 @@ class ChooseGameActivity : AppCompatActivity() {
         })
     }
 
+
     fun validate(game: Game): Boolean {
         if ((gameName.isBlank() ||game.gameName!!.contains(gameName)) &&
             (gameKind.isBlank() || gameKind.toInt() == game.gameKind) &&

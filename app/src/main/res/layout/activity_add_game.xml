@@ -112,7 +112,7 @@
             <RadioButton
                     android:text="@string/user_current_localization"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/radioButton2" android:layout_weight="1"/>
+                    android:layout_height="wrap_content" android:id="@+id/useCurrentLocationRadioButton" android:layout_weight="1"/>
         </RadioGroup>
         <RadioGroup
                 android:layout_width="202dp"
