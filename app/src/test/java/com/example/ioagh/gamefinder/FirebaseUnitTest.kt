@@ -53,7 +53,7 @@ class FirebaseUnitTest {
                         break
                     }
                 }
-                assertFalse(isTrue)
+                assertTrue(isTrue)
             }
         })
     }
