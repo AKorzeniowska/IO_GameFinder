@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ListView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.models.MemberData
 import com.example.ioagh.gamefinder.models.Message
@@ -19,6 +23,7 @@ import java.util.*
 
 class ChatActivity : RoomListener, AppCompatActivity() {
 
+    private var drawer: DrawerLayout? = null
     private val channelID = "odGUUSff4QpqU8tt"
     private var roomName: String? = null
     private lateinit var editText: EditText
@@ -32,6 +37,18 @@ class ChatActivity : RoomListener, AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawer = findViewById(R.id.drawer_layout)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawer, toolbar,
+            R.string.open_navigation_drawer, R.string.close_navigation_drawer
+        )
+        drawer!!.addDrawerListener(toggle)
+        toggle.syncState()
 
         chatSendButton.visibility = View.INVISIBLE
         chatSendButton.isEnabled = false
@@ -144,5 +161,12 @@ class ChatActivity : RoomListener, AppCompatActivity() {
             sb.append(java.lang.Integer.toHexString(r.nextInt()))
         }
         return sb.toString().substring(0,7)
+    }
+
+    override fun onBackPressed() {
+        if (drawer!!.isDrawerOpen(GravityCompat.START)) {
+            drawer!!.closeDrawer(GravityCompat.START)
+        }
+        super.onBackPressed()
     }
 }

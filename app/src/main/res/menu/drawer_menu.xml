@@ -11,17 +11,22 @@
             android:icon="@drawable/ic_chat"
             android:title="Chat" />
         <item
-            android:id="@+id/nav_search"
+            android:id="@+id/nav_search_game"
             android:icon="@drawable/ic_search"
             android:title="Search" />
+        <item
+            android:id="@+id/nav_add_game"
+            android:icon="@drawable/ic_add"
+            android:title="Add game" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
     </group>
 
-    <item android:title="Temporary">
-        <menu>
-            <item android:id="@+id/nav_tmp"
-            android:icon="@drawable/ic_search"
-            android:title="Temporary" />
-        </menu>
-    </item>
 
 </menu>

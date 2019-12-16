@@ -1,94 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.drawerlayout.widget.DrawerLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.main.ApplicationActivity">
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context=".ui.main.ApplicationActivity"
-        tools:openDrawer="start"
-        android:id="@+id/drawer_layout">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.main.ApplicationActivity">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
-    <Button
-            android:text="@string/search_game"
+
+        <Button
+            android:id="@+id/searchGameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/searchGameButton" android:layout_marginTop="44dp"
-            app:layout_constraintTop_toBottomOf="@+id/applicationTitleTextView" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
-    <Button
-            android:text="@string/add_game"
+            android:layout_marginTop="15dp"
+            android:text="@string/search_game" />
+
+        <Button
+            android:id="@+id/addGameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/addGameButton" android:layout_marginTop="88dp"
-            app:layout_constraintTop_toBottomOf="@+id/searchGameButton" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.501"/>
+            android:layout_marginTop="15dp"
+            android:text="@string/add_game" />
 
-    <Button
+        <Button
             android:id="@+id/sample_game"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="15dp"
-            android:text="przykładowa rozgrywka TEST"
-            app:layout_constraintBottom_toTopOf="@+id/openChatButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addGameButton" />
+            android:layout_marginTop="15dp"
+            android:text="przykładowa rozgrywka TEST" />
 
-    <Button
-            android:text="@string/chat"
+        <Button
+            android:id="@+id/openChatButton"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:id="@+id/openChatButton" android:layout_marginTop="88dp"
-            app:layout_constraintTop_toBottomOf="@+id/addGameButton" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
-    <Button
-            android:text="@string/logout"
+            android:layout_marginTop="15dp"
+            android:text="@string/chat" />
+
+        <Button
+            android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/logoutButton" android:layout_marginTop="92dp"
-            app:layout_constraintTop_toBottomOf="@+id/openChatButton" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginBottom="125dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    <Button
-            android:text="@string/my_profile"
+            android:layout_marginTop="15dp"
+            android:text="@string/logout" />
+
+        <Button
+            android:id="@+id/userProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/userProfileButton" android:layout_marginTop="92dp"
-            app:layout_constraintTop_toBottomOf="@+id/openChatButton" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    <TextView
-            android:text="@string/game_finder"
-            android:layout_width="100dp"
-            android:layout_height="32dp"
-            android:id="@+id/applicationTitleTextView" android:layout_marginTop="56dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.498"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="15dp"
+            android:text="@string/my_profile" />
+
+
+    </LinearLayout>
+
+
     <com.google.android.material.navigation.NavigationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:id="@+id/nav_view"
-            app:headerLayout="@layout/nav_header"
-            app:menu="@menu/drawer_menu"
-            />
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu" />
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
