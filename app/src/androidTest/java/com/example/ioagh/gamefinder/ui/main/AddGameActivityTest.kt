@@ -48,8 +48,8 @@ class AddGameActivityTest {
     private val localization = "Test locale"
     private val duration = "2:30"
 
-    private val email = "test@test.com"
-    private val password = "password"
+    private val email = "testtest@test.com"
+    private val password = "haslo123"
 
 
     @get:Rule
@@ -72,13 +72,13 @@ class AddGameActivityTest {
         Thread.sleep(500)
     }
 
-    @Test
-    fun openActivity_seeCurrentDate(){
-        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
-        val stf = SimpleDateFormat ("hh:mm", Locale.GERMANY)
-        onView(withId(R.id.addDateTextView)).check(matches(withText(spf.format(Calendar.getInstance().time))))
-        onView(withId(R.id.addTimeTextView)).check(matches(withText(stf.format(Calendar.getInstance().time))))
-    }
+//    @Test
+//    fun openActivity_seeCurrentDate(){
+//        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
+//        val stf = SimpleDateFormat ("hh:mm", Locale.GERMANY)
+//        onView(withId(R.id.addDateTextView)).check(matches(withText(spf.format(Calendar.getInstance().time))))
+//        onView(withId(R.id.addTimeTextView)).check(matches(withText(stf.format(Calendar.getInstance().time))))
+//    }
 
     @Test
     fun noInputData_getWarning(){

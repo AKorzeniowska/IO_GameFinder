@@ -68,10 +68,10 @@ class SearchGameActivity : AppCompatActivity() {
         mDateSetListener = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
             chooseDateField.text  = "$i-$i1-$i2"
         }
-        mTimeSetListener = TimePickerDialog.OnTimeSetListener{
-                view: TimePicker?, hourOfDay: Int, minute: Int -> chooseTimeField.text =
-            "$hourOfDay:$minute"
-        }
+//        mTimeSetListener = TimePickerDialog.OnTimeSetListener{
+//                view: TimePicker?, hourOfDay: Int, minute: Int -> chooseTimeField.text =
+//            "$hourOfDay:$minute"
+//        }
 
         val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
         chooseDateField.text = spf.format(Calendar.getInstance().time)
@@ -92,21 +92,21 @@ class SearchGameActivity : AppCompatActivity() {
         }
 
         val stf = SimpleDateFormat("hh:mm", Locale.US)
-        chooseTimeField.text = stf.format(Calendar.getInstance().time)
-
-        chooseTimeField.setOnClickListener{
-            val calendar = Calendar.getInstance()
-            val hour = calendar.get(Calendar.HOUR_OF_DAY)
-            val minute = calendar.get(Calendar.MINUTE)
-
-            val timeDialog = TimePickerDialog(this,
-                android.R.style.Theme_Holo_Dialog_MinWidth,
-                mTimeSetListener,
-                hour, minute, true)
-
-            timeDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            timeDialog.show()
-        }
+//        chooseTimeField.text = stf.format(Calendar.getInstance().time)
+//
+//        chooseTimeField.setOnClickListener{
+//            val calendar = Calendar.getInstance()
+//            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+//            val minute = calendar.get(Calendar.MINUTE)
+//
+//            val timeDialog = TimePickerDialog(this,
+//                android.R.style.Theme_Holo_Dialog_MinWidth,
+//                mTimeSetListener,
+//                hour, minute, true)
+//
+//            timeDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//            timeDialog.show()
+//        }
     }
 
     private fun searchGame() {

@@ -40,7 +40,7 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
 
         val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar,
-            string.open_navigation_drawer, string.close_navigation_drawer
+            R.string.open_navigation_drawer, R.string.close_navigation_drawer
         )
         drawer!!.addDrawerListener(toggle)
         toggle.syncState()
@@ -97,24 +97,24 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
                 intent = Intent(this, ChatListActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_search -> {
-                intent = Intent(this, SearchGameActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.nav_my_games -> {
-                intent = Intent(this, ChooseGameActivity::class.java)
-                intent.putExtra("gameName", "")
-                intent.putExtra("gameKind", "")
-                intent.putExtra("minNumberOfPeople", "")
-                intent.putExtra("maxNumberOfPeople", "")
-                intent.putExtra("localization", "")
-                intent.putExtra("date", "")
-                intent.putExtra("owner", mAuth.currentUser!!.displayName!!)
-                startActivity(intent)
-            }
-            R.id.nav_joined_games -> {
-
-            }
+//            R.id.nav_search -> {
+//                intent = Intent(this, SearchGameActivity::class.java)
+//                startActivity(intent)
+//            }
+//            R.id.nav_my_games -> {
+//                intent = Intent(this, ChooseGameActivity::class.java)
+//                intent.putExtra("gameName", "")
+//                intent.putExtra("gameKind", "")
+//                intent.putExtra("minNumberOfPeople", "")
+//                intent.putExtra("maxNumberOfPeople", "")
+//                intent.putExtra("localization", "")
+//                intent.putExtra("date", "")
+//                intent.putExtra("owner", mAuth.currentUser!!.displayName!!)
+//                startActivity(intent)
+//            }
+//            R.id.nav_joined_games -> {
+//
+//            }
             R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)

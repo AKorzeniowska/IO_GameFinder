@@ -39,8 +39,8 @@ class LoginActivityTest {
     fun setData(){
         Intents.init()
         login = "login"
-        password = "password"
-        mail = "test@test.com"
+        password = "haslo123"
+        mail = "testtest@test.com"
     }
 
     @After

@@ -4,6 +4,7 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_add_game"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -19,7 +20,7 @@
             tools:context=".ui.main.AddGameActivity">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbar_add_game"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorAccent"
@@ -268,7 +269,7 @@
                 android:id="@+id/predictedGameTimeLabel"
                 style="@style/ButtonLabelStyle"
                 android:layout_marginTop="16dp"
-                android:text="Przewidywany czas gry(w minutach)"
+                android:text="Przewidywany czas gry"
                 app:layout_constraintStart_toStartOf="@+id/gameDatePicker"
                 app:layout_constraintTop_toBottomOf="@+id/gameDatePicker" />
 
@@ -276,7 +277,6 @@
                 android:id="@+id/gameTimeEditText"
                 style="@style/EditTextAddGame"
                 android:ems="10"
-                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="@+id/predictedGameTimeLabel"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="@+id/predictedGameTimeLabel"

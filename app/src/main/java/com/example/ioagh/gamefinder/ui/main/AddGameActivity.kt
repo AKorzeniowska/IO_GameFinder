@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.providers.addGameToOwned
@@ -49,10 +48,10 @@ class AddGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_add_game)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = toolbar_add_game
         setSupportActionBar(toolbar)
 
-        drawer = findViewById(R.id.drawer_layout)
+        drawer = drawer_layout_add_game
 
         val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar,
@@ -93,7 +92,7 @@ class AddGameActivity : AppCompatActivity() {
 
                 override fun onDataChange(p0: DataSnapshot) {
                     for (data in p0.children){
-                        array.add(data.getValue(String::class.java)!!)
+                        //array.add(data.getValue(String::class.java)!!)
                     }
 
                     for (value in array) {
@@ -108,7 +107,7 @@ class AddGameActivity : AppCompatActivity() {
     private fun buildGame(): Game {
         val game = Game()
 
-        game.date = addDateTextView.text.toString() + " " + addTimeTextView.text.toString()
+        //game.date = addDateTextView.text.toString() + " " + addTimeTextView.text.toString()
         game.durationInMinutes = parseStringToMinutes(gameTimeEditText.text.toString())
         val list = ArrayList<Int>()
         for (i in 0..gameKindCheckBoxes.childCount) {
@@ -148,47 +147,47 @@ class AddGameActivity : AppCompatActivity() {
     }
 
     private fun setDateTimePicker(){
-        mDateSetListener = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
-            addDateTextView.text  = "$i-$i1-$i2"
-        }
-        mTimeSetListener = TimePickerDialog.OnTimeSetListener{
-                view: TimePicker?, hourOfDay: Int, minute: Int -> addTimeTextView.text =
-            "$hourOfDay:$minute"
-        }
-
-        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
-        addDateTextView.text = spf.format(Calendar.getInstance().time)
-
-        addDateTextView.setOnClickListener() {
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-            val dialog = DatePickerDialog(this,
-                R.style.Theme_Holo_Dialog_MinWidth,
-                mDateSetListener,
-                year, month, day)
-
-            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.show()
-        }
-
-        val stf = SimpleDateFormat("hh:mm", Locale.GERMANY)
-        addTimeTextView.text = stf.format(Calendar.getInstance().time)
-
-        addTimeTextView.setOnClickListener{
-            val calendar = Calendar.getInstance()
-            val hour = calendar.get(Calendar.HOUR_OF_DAY)
-            val minute = calendar.get(Calendar.MINUTE)
-
-            val timeDialog = TimePickerDialog(this,
-                R.style.Theme_Holo_Dialog_MinWidth,
-                mTimeSetListener,
-                hour, minute, true)
-
-            timeDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            timeDialog.show()
-        }
+//        mDateSetListener = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
+//            addDateTextView.text  = "$i-$i1-$i2"
+//        }
+//        mTimeSetListener = TimePickerDialog.OnTimeSetListener{
+//                view: TimePicker?, hourOfDay: Int, minute: Int -> addTimeTextView.text =
+//            "$hourOfDay:$minute"
+//        }
+//
+//        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
+//        addDateTextView.text = spf.format(Calendar.getInstance().time)
+//
+//        addDateTextView.setOnClickListener() {
+//            val calendar = Calendar.getInstance()
+//            val year = calendar.get(Calendar.YEAR)
+//            val month = calendar.get(Calendar.MONTH)
+//            val day = calendar.get(Calendar.DAY_OF_MONTH)
+//
+//            val dialog = DatePickerDialog(this,
+//                R.style.Theme_Holo_Dialog_MinWidth,
+//                mDateSetListener,
+//                year, month, day)
+//
+//            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//            dialog.show()
+//        }
+//
+//        val stf = SimpleDateFormat("hh:mm", Locale.GERMANY)
+//        addTimeTextView.text = stf.format(Calendar.getInstance().time)
+//
+//        addTimeTextView.setOnClickListener{
+//            val calendar = Calendar.getInstance()
+//            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+//            val minute = calendar.get(Calendar.MINUTE)
+//
+//            val timeDialog = TimePickerDialog(this,
+//                R.style.Theme_Holo_Dialog_MinWidth,
+//                mTimeSetListener,
+//                hour, minute, true)
+//
+//            timeDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//            timeDialog.show()
+//        }
     }
 }
