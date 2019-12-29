@@ -77,11 +77,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
             startActivity(intent)
             finish()
         }
-
-        sample_game.setOnClickListener(){
-            val intent = Intent(this, PickedGameActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onBackPressed() {

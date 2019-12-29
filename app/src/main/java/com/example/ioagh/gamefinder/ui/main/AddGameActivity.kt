@@ -37,8 +37,7 @@ class AddGameActivity : AppCompatActivity() {
 
     private var drawer: DrawerLayout? = null
 
-    private val array : Array<String> = arrayOf("1", "2" , "3")
-    //TODO replace with actual gameKinds
+    private val array : MutableList<String> = mutableListOf()
     private lateinit var mAuth: FirebaseAuth
 
     private lateinit var mDateSetListener : DatePickerDialog.OnDateSetListener
@@ -92,7 +91,7 @@ class AddGameActivity : AppCompatActivity() {
 
                 override fun onDataChange(p0: DataSnapshot) {
                     for (data in p0.children){
-                        //array.add(data.getValue(String::class.java)!!)
+                        array.add(data.getValue(String::class.java)!!)
                     }
 
                     for (value in array) {
