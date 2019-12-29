@@ -5,9 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.R.id
 import com.example.ioagh.gamefinder.R.layout
 import com.example.ioagh.gamefinder.models.Game
@@ -25,6 +30,8 @@ class ChooseGameActivity : AppCompatActivity() {
     private lateinit var recyclerView : RecyclerView
     private lateinit var adapter: ChooseGameAdapter
 
+    private var drawer: DrawerLayout? = null
+
     private lateinit var gameName: String
     private lateinit var gameKind: String
     private var minPlayers: Int? = null
@@ -36,6 +43,18 @@ class ChooseGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_choose_game)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawer = findViewById(R.id.drawer_layout)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawer, toolbar,
+            R.string.open_navigation_drawer, R.string.close_navigation_drawer
+        )
+        drawer!!.addDrawerListener(toggle)
+        toggle.syncState()
 
         gameName = intent.getStringExtra("gameName")
         gameKind = intent.getStringExtra("gameKind")
@@ -103,4 +122,10 @@ class ChooseGameActivity : AppCompatActivity() {
         return false
     }
 
+    override fun onBackPressed() {
+        if (drawer!!.isDrawerOpen(GravityCompat.START)) {
+            drawer!!.closeDrawer(GravityCompat.START)
+        }
+        super.onBackPressed()
+    }
 }

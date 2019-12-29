@@ -10,7 +10,12 @@ import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.example.ioagh.gamefinder.R
 
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
@@ -25,6 +30,8 @@ import kotlinx.android.synthetic.main.activity_add_game.*
 import java.text.SimpleDateFormat
 
 class SearchGameActivity : AppCompatActivity() {
+
+    private var drawer: DrawerLayout? = null
 
     private lateinit var mDateSetListener : DatePickerDialog.OnDateSetListener
     private lateinit var mTimeSetListener : TimePickerDialog.OnTimeSetListener
@@ -45,6 +52,19 @@ class SearchGameActivity : AppCompatActivity() {
     }
 
     private fun setDateTimePicker(){
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawer = findViewById(R.id.drawer_layout)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawer, toolbar,
+            string.open_navigation_drawer, string.close_navigation_drawer
+        )
+        drawer!!.addDrawerListener(toggle)
+        toggle.syncState()
+
         mDateSetListener = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
             chooseDateField.text  = "$i-$i1-$i2"
         }
@@ -101,5 +121,12 @@ class SearchGameActivity : AppCompatActivity() {
                 intent.putExtra("owner", "")
                 startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        if (drawer!!.isDrawerOpen(GravityCompat.START)) {
+            drawer!!.closeDrawer(GravityCompat.START)
+        }
+        super.onBackPressed()
     }
 }

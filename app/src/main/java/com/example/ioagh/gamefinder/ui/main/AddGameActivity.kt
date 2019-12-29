@@ -12,7 +12,12 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.providers.addGameToOwned
@@ -31,7 +36,10 @@ import android.R.string.*
 
 class AddGameActivity : AppCompatActivity() {
 
-    private lateinit var array : ArrayList<String>
+    private var drawer: DrawerLayout? = null
+
+    private val array : Array<String> = arrayOf("1", "2" , "3")
+    //TODO replace with actual gameKinds
     private lateinit var mAuth: FirebaseAuth
 
     private lateinit var mDateSetListener : DatePickerDialog.OnDateSetListener
@@ -41,7 +49,18 @@ class AddGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_add_game)
 
-        array = ArrayList()
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawer = findViewById(R.id.drawer_layout)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawer, toolbar,
+            string.open_navigation_drawer, string.close_navigation_drawer
+        )
+        drawer!!.addDrawerListener(toggle)
+        toggle.syncState()
+
         mAuth = FirebaseAuth.getInstance()
         initView()
     }
@@ -119,6 +138,13 @@ class AddGameActivity : AppCompatActivity() {
                 Toast.makeText(this, "Rozgrywka dodana!", Toast.LENGTH_SHORT).show()
                 finish()
             }
+    }
+
+    override fun onBackPressed() {
+        if (drawer!!.isDrawerOpen(GravityCompat.START)) {
+            drawer!!.closeDrawer(GravityCompat.START)
+        }
+        super.onBackPressed()
     }
 
     private fun setDateTimePicker(){

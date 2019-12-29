@@ -22,8 +22,7 @@
         <activity android:name=".ui.profile.UserGameListActivity" />
         <activity android:name=".ui.main.ChooseGameActivity" />
         <activity
-                android:name=".ui.profile.ProfileActivity"
-                android:theme="@style/AppTheme.NoActionBar" />
+                android:name=".ui.profile.ProfileActivity" />
         <activity android:name=".ui.main.SearchGameActivity" />
         <activity android:name=".ui.main.AddGameActivity" />
         <activity android:name=".ui.main.ApplicationActivity" />

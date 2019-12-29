@@ -11,22 +11,22 @@
             android:icon="@drawable/ic_chat"
             android:title="Konwersacje" />
         <item
-            android:id="@+id/nav_search"
+            android:id="@+id/nav_search_game"
             android:icon="@drawable/ic_search"
-            android:title="Szukaj rozgrywki" />
+            android:title="Search" />
         <item
-                android:id="@+id/nav_my_games"
-                android:icon="@drawable/ic_my_games"
-                android:title="Moje rozgrywki" />
+            android:id="@+id/nav_add_game"
+            android:icon="@drawable/ic_add"
+            android:title="Add game" />
         <item
-                android:id="@+id/nav_joined_games"
-                android:icon="@drawable/ic_joined_games"
-                android:title="Zapisane rozgrywki" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile" />
         <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_logout"
-                android:title="Wyloguj" />
-
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
     </group>
+
 
 </menu>
