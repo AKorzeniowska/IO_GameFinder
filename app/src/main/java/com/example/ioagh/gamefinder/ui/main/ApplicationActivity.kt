@@ -92,10 +92,18 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
                 intent = Intent(this, ChatListActivity::class.java)
                 startActivity(intent)
             }
-//            R.id.nav_search -> {
-//                intent = Intent(this, SearchGameActivity::class.java)
-//                startActivity(intent)
-//            }
+            R.id.nav_search_game -> {
+                intent = Intent(this, SearchGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_add_game -> {
+                intent = Intent(this, AddGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_profile -> {
+                intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
 //            R.id.nav_my_games -> {
 //                intent = Intent(this, ChooseGameActivity::class.java)
 //                intent.putExtra("gameName", "")
@@ -106,9 +114,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
 //                intent.putExtra("date", "")
 //                intent.putExtra("owner", mAuth.currentUser!!.displayName!!)
 //                startActivity(intent)
-//            }
-//            R.id.nav_joined_games -> {
-//
 //            }
             R.id.nav_logout -> {
                 mAuth.signOut()

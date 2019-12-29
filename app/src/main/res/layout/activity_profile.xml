@@ -69,7 +69,8 @@
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/accent"
                 android:text="Moje gry"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:id="@+id/my_games_button"/>
 
             <Button
                 android:layout_width="200dp"
@@ -78,7 +79,8 @@
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/accent"
                 android:text="Planowane gry"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:id="@+id/future_games_button"/>
 
             <Button
                 android:layout_width="200dp"
@@ -86,7 +88,8 @@
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/accent"
                 android:text="Rozegrane gry"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:id="@+id/previous_games_button"/>
         </LinearLayout>
 
         <TextView
