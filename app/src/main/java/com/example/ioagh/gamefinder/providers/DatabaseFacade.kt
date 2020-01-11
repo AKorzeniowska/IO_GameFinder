@@ -101,13 +101,29 @@ fun setViewIfUserJoinedGame(gameId: String, username: String, button: Button){
                     }
                     if (gameListOwned.contains(gameId)){
                         button.isClickable = false
-                        button.text = "To twoja gra gościu"
+                        button.text = "To twoja gra"
                     }
-                    button.visibility = View.VISIBLE
+                setViewIfGameIsFull(gameId, button)
                 }
 
         override fun onCancelled(databaseError: DatabaseError) {
             println("The read failed: " + databaseError.code)
+        }
+    })
+}
+
+fun setViewIfGameIsFull(gameId: String, button: Button){
+    gamesReference.child(gameId).addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onCancelled(p0: DatabaseError) {
+
+        }
+
+        override fun onDataChange(p0: DataSnapshot) {
+            val game = p0.getValue(Game::class.java)
+            if (game!!.maxPlayers == game.players){
+                button.text = "Brak miejsc"
+                button.visibility = View.VISIBLE
+            }
         }
     })
 }
