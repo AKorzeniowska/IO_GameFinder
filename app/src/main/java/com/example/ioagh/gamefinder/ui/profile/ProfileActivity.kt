@@ -2,19 +2,27 @@ package com.example.ioagh.gamefinder.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.R.*
+import com.example.ioagh.gamefinder.ui.main.AddGameActivity
+import com.example.ioagh.gamefinder.ui.main.ChatListActivity
 import com.example.ioagh.gamefinder.ui.main.ChooseGameActivity
+import com.example.ioagh.gamefinder.ui.main.SearchGameActivity
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_profile.*
 
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
 
     private var drawer: DrawerLayout? = null
     lateinit var mAuth: FirebaseAuth
@@ -26,6 +34,14 @@ class ProfileActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        setNavigationViewListener()
+        mAuth = FirebaseAuth.getInstance()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
+        headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
+        nick.text = mAuth.currentUser!!.displayName!!
+
         drawer = findViewById(R.id.drawer_layout)
 
         val toggle = ActionBarDrawerToggle(
@@ -35,7 +51,6 @@ class ProfileActivity : AppCompatActivity() {
         drawer!!.addDrawerListener(toggle)
         toggle.syncState()
 
-        mAuth = FirebaseAuth.getInstance()
         initView()
     }
 
@@ -58,5 +73,58 @@ class ProfileActivity : AppCompatActivity() {
                 intent.putExtra("owner", mAuth.currentUser!!.displayName!!)
                 startActivity(intent)
         }
+
+
+        future_games_button.setOnClickListener(){
+            intent = Intent(this, UserGameListActivity::class.java)
+            intent.putExtra("username", mAuth.currentUser!!.displayName!!)
+            intent.putExtra("gamekinds", NEXT_GAMES)
+            startActivity(intent)
+        }
+
+        previous_games_button.setOnClickListener(){
+            intent = Intent(this, UserGameListActivity::class.java)
+            intent.putExtra("username", mAuth.currentUser!!.displayName!!)
+            intent.putExtra("gamekinds", PREV_GAMES)
+            startActivity(intent)
+        }
+
+        edit_image_button.setOnClickListener() {
+            intent = Intent(this, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when (p0.itemId) {
+            R.id.nav_chat -> {
+                intent = Intent(this, ChatListActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_search_game -> {
+                intent = Intent(this, SearchGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_add_game -> {
+                intent = Intent(this, AddGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_profile -> {
+                intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_logout -> {
+                mAuth.signOut()
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        return true
+    }
+
+    private fun setNavigationViewListener() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
     }
 }

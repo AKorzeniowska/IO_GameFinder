@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.widget.Toast
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
@@ -36,7 +38,9 @@ import com.google.android.gms.location.LocationServices
 class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
+
     private var drawer: DrawerLayout? = null
+
     lateinit var mAuth: FirebaseAuth
     private lateinit var location: Location
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
@@ -54,11 +58,18 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
         //nav_display_name.text = "Zalogowany jako: " + mAuth.currentUser!!.displayName!!
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         drawer = findViewById(R.id.drawer_layout)
+
+        mAuth = FirebaseAuth.getInstance()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
+        headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
 
         val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar,
@@ -105,6 +116,36 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
          map.isMyLocationEnabled = true
     }
 
+
+
+    private fun initView() {
+//        searchGameButton.setOnClickListener() {
+//            val searchGameActivity = Intent(this, SearchGameActivity::class.java)
+//            startActivity(searchGameActivity)
+//        }
+
+//        addGameButton.setOnClickListener() {
+//            val intent = Intent(this, AddGameActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        openChatButton.setOnClickListener() {
+//            val intent = Intent(this, ChatListActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        userProfileButton.setOnClickListener() {
+//            val intent = Intent(this, ProfileActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        logoutButton.setOnClickListener() {
+//            val intent = Intent(this, MainActivity::class.java)
+//            mAuth.signOut()
+//            startActivity(intent)
+//            finish()
+//        }
+    }
 
     override fun onBackPressed() {
         if (drawer!!.isDrawerOpen(GravityCompat.START)) {

@@ -23,7 +23,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/edit_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -96,7 +96,6 @@
             android:id="@+id/nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dziku"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="23sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
@@ -112,7 +111,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

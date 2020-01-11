@@ -6,16 +6,15 @@ import java.util.*
 import kotlin.math.floor
 import kotlin.math.min
 
-val sdfDateFromString = SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.US)
-val sdfStringFromDate = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.US)
 val calendar = GregorianCalendar.getInstance()!!
 
 fun parseStringToDate(dateText: String): Date{
-    return sdfDateFromString.parse(dateText)
+    return sdf.parse(dateText)
 }
 
 fun parseDateToString(date: Date): String{
-    return sdfDateFromString.format(date)
+    return sdf.format(date)
 }
 
 fun getHoursFromDate(date: Date): Int{
@@ -29,7 +28,7 @@ fun getMinutesFromDate(date: Date): Int{
 }
 
 fun getOnlyDateFromDate(date: Date): String{
-    return sdfStringFromDate.format(date)
+    return sdf.format(date)
 }
 
 fun parseMinutesToSring(minutes: Int): String{
@@ -43,4 +42,8 @@ fun parseStringToMinutes(string: String): Int{
     val hours = string.split(':')[0].toInt()
     val minutes = string.split(':')[1].toInt()
     return hours*60 + minutes
+}
+
+fun getTodaysDate(): Date{
+    return Date()
 }

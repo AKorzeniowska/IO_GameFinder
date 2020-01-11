@@ -55,7 +55,6 @@
         <activity android:name=".ui.main.PickedGameActivity"/>
         <activity android:name=".ui.main.ChatListActivity"/>
         <activity android:name=".ui.main.ChatActivity"/>
-        <activity android:name=".ui.profile.UserChatListActivity"/>
         <activity android:name=".ui.profile.EditProfileActivity"/>
         <activity android:name=".ui.profile.UserGameListActivity"/>
         <activity android:name=".ui.main.ChooseGameActivity"/>
