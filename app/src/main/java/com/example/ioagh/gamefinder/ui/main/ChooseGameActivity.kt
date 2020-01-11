@@ -75,7 +75,7 @@ class ChooseGameActivity : AppCompatActivity() {
     }
 
 
-    fun retrieveData(ctx: Context) {
+    private fun retrieveData(ctx: Context) {
         val packageContext = this
         gamesReference.addValueEventListener(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
