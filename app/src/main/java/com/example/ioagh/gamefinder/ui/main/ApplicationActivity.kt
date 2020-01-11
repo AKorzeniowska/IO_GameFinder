@@ -99,6 +99,7 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
             if (it != null) {
                 location = it
                 val supportMapFragment : SupportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+                map.isMyLocationEnabled = true
                 supportMapFragment.getMapAsync(this@ApplicationActivity)
                 val ny = LatLng(location.latitude, location.longitude)
                 var marker = MarkerOptions().position(ny)
@@ -113,38 +114,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
 
      override fun onMapReady(googleMap: GoogleMap) {
          map = googleMap
-         map.isMyLocationEnabled = true
-    }
-
-
-
-    private fun initView() {
-//        searchGameButton.setOnClickListener() {
-//            val searchGameActivity = Intent(this, SearchGameActivity::class.java)
-//            startActivity(searchGameActivity)
-//        }
-
-//        addGameButton.setOnClickListener() {
-//            val intent = Intent(this, AddGameActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        openChatButton.setOnClickListener() {
-//            val intent = Intent(this, ChatListActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        userProfileButton.setOnClickListener() {
-//            val intent = Intent(this, ProfileActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        logoutButton.setOnClickListener() {
-//            val intent = Intent(this, MainActivity::class.java)
-//            mAuth.signOut()
-//            startActivity(intent)
-//            finish()
-//        }
     }
 
     override fun onBackPressed() {
