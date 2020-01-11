@@ -3,7 +3,8 @@ package com.example.ioagh.gamefinder.models
 
 class Game {
     var gameName: String? = null
-    var localization: String? = null
+    var latitude: Double? = null
+    var longitude: Double? = null
     var gameKind: Int? = null
     var gameTypes: List<Int>? = null
     var players: Int? = null
@@ -14,17 +15,30 @@ class Game {
 
     constructor() {}
 
-    constructor(gameName: String, localization: String, gameKind: Int, gameTypes: List<Int>, gamers: Int, maxGamers: Int,date: String, durationInMinutes: Int, owner: String){
+    constructor(
+        gameName: String?,
+        latitude: Double?,
+        longitude: Double?,
+        gameKind: Int?,
+        gameTypes: List<Int>?,
+        players: Int?,
+        maxPlayers: Int?,
+        date: String?,
+        durationInMinutes: Int?,
+        owner: String?
+    ) {
         this.gameName = gameName
-        this.localization = localization
+        this.latitude = latitude
+        this.longitude = longitude
         this.gameKind = gameKind
         this.gameTypes = gameTypes
-        this.players = gamers
-        this.maxPlayers = maxGamers
+        this.players = players
+        this.maxPlayers = maxPlayers
         this.date = date
         this.durationInMinutes = durationInMinutes
         this.owner = owner
     }
+
 
     companion object GameKinds {
         const val GAME_PUB = 1

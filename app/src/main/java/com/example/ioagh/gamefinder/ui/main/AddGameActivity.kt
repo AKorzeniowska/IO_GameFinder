@@ -1,16 +1,15 @@
 package com.example.ioagh.gamefinder.ui.main
 
 import android.R
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.widget.CheckBox
-import android.widget.DatePicker
-import android.widget.TimePicker
-import android.widget.Toast
+import android.util.Log
 import androidx.annotation.NonNull
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +30,11 @@ import kotlinx.android.synthetic.main.activity_search_game.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import android.R.string.*
+import android.widget.*
+import com.sucho.placepicker.AddressData
+import com.sucho.placepicker.Constants
+import com.sucho.placepicker.MapType
+import com.sucho.placepicker.PlacePicker
 
 class AddGameActivity : AppCompatActivity() {
 
@@ -39,9 +42,13 @@ class AddGameActivity : AppCompatActivity() {
 
     private val array : MutableList<String> = mutableListOf()
     private lateinit var mAuth: FirebaseAuth
+    private val game : Game = Game()
+    private lateinit var radioGroup : RadioGroup
 
     private lateinit var mDateSetListener : DatePickerDialog.OnDateSetListener
     private lateinit var mTimeSetListener : TimePickerDialog.OnTimeSetListener
+
+    private val PLACE_PICKER_REQUEST = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +75,8 @@ class AddGameActivity : AppCompatActivity() {
         setGameTypes(this)
         setDateTimePicker()
 
+        radioGroup = findViewById(id.localizationRadioGroup)
+
         addGameButton.setOnClickListener() {
             if (!(gameNameEditText.text.isNullOrBlank() ||
                 numberOfPlayersEditText.text.isNullOrBlank() ||
@@ -80,7 +89,37 @@ class AddGameActivity : AppCompatActivity() {
                 Toast.makeText(this, "Uzupełnij wszystkie pola!", Toast.LENGTH_LONG).show()
             }
         }
+        val button = findViewById<RadioButton>(id.chooseLocalizationRadioButton)
+        button.setOnClickListener {
+            val intent = PlacePicker.IntentBuilder()
+                .setLatLong(50.049683, 19.944544)
+                .showLatLong(true)
+                .setMapZoom(12.0f)
+                .setAddressRequired(true)
+                .hideMarkerShadow(true)
+                .setMapType(MapType.NORMAL)
+             //   .onlyCoordinates(true)
+                .build(this@AddGameActivity)
+            startActivityForResult(intent, PLACE_PICKER_REQUEST)
+        }
 
+        val currentLocalizationButton = findViewById<RadioButton>(id.chooseCurrentLocalizationRadioButton)
+        currentLocalizationButton.setOnClickListener({
+
+        })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                val addressData = data?.getParcelableExtra<AddressData>(Constants.ADDRESS_INTENT)
+                game.longitude = addressData?.longitude
+                game.latitude = addressData?.latitude
+                //addressData?.addressList?.forEach { acc -> Log.d(acc.toString(), "list")}
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     private fun setGameTypes(ctx: Context){
@@ -104,8 +143,6 @@ class AddGameActivity : AppCompatActivity() {
     }
 
     private fun buildGame(): Game {
-        val game = Game()
-
         //game.date = addDateTextView.text.toString() + " " + addTimeTextView.text.toString()
         game.durationInMinutes = parseStringToMinutes(gameTimeEditText.text.toString())
         val list = ArrayList<Int>()
@@ -117,7 +154,14 @@ class AddGameActivity : AppCompatActivity() {
         }
         game.gameTypes = list
         game.gameKind = gameTypeRadioGroup.checkedRadioButtonId
-        game.localization = searchLocalizationEditText.text.toString()
+        when (radioGroup.checkedRadioButtonId) {
+            id.chooseProfileLocalizationRadioButton -> {
+                //TODO fetch data from user profile
+            }
+            else -> {
+                //do nothing
+            }
+        }
         game.players = numberOfPlayersEditText.text.toString().toInt()
         game.gameName = gameNameEditText.text.toString()
         game.maxPlayers = numberOfPlayersEditText.text.toString().toInt()

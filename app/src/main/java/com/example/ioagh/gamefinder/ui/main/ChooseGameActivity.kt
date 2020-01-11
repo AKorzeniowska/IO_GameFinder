@@ -67,7 +67,8 @@ class ChooseGameActivity : AppCompatActivity() {
             intent.getStringExtra("maxNumberOfPeople").toInt()
         else
             null
-        localization = intent.getStringExtra("localization")
+        // TODO fill that with coords
+        //localization = intent.getStringExtra("localization")
         date = intent.getStringExtra("date")
         owner = intent.getStringExtra("owner")
 
@@ -112,7 +113,8 @@ class ChooseGameActivity : AppCompatActivity() {
     fun validate(game: Game): Boolean {
         if ((gameName.isBlank() ||game.gameName!!.contains(gameName)) &&
             (gameKind.isBlank() || gameKind.toInt() == game.gameKind) &&
-            (localization.isBlank() || game.localization!!.contains(localization)) &&
+            // TODO fill validation with proper values
+            //(localization.isBlank() || game.localization!!.contains(localization)) &&
                     //game.date == date &&
             (minPlayers == null || game.maxPlayers!! >= minPlayers!!) &&
             (maxPlayers == null || game.maxPlayers!! <= maxPlayers!!) &&

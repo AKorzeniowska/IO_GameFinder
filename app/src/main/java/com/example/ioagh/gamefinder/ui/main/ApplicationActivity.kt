@@ -19,6 +19,7 @@ import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.Manifest
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.R.layout
+import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -34,6 +35,10 @@ import kotlinx.android.synthetic.main.activity_search_game.*
 import kotlinx.android.synthetic.main.nav_header.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity(), OnMapReadyCallback {
 
@@ -46,6 +51,9 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
     private val REQUEST_CODE : Int = 101
 
+    val firebaseDatabase = FirebaseDatabase.getInstance()
+    val databaseReference = firebaseDatabase.reference
+    val gamesReference = databaseReference.child("games")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +78,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
         headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
-
         val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar,
             R.string.open_navigation_drawer, R.string.close_navigation_drawer
@@ -114,6 +121,24 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
 
      override fun onMapReady(googleMap: GoogleMap) {
          map = googleMap
+         addPinsToMap()
+    }
+
+    private fun addPinsToMap() {
+        gamesReference.addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                println(p0.toString())
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                for (data in p0.children) {
+                    val gamePin = data.getValue(Game::class.java) as Game
+                    val marker = MarkerOptions().position(LatLng(gamePin?.latitude as Double, gamePin?.longitude as Double))
+                    marker.title("Nazwa: " + gamePin.gameName +"\nTyp: " + gamePin.gameKind)
+                    map?.addMarker(marker)
+                }
+            }
+        })
     }
 
     override fun onBackPressed() {
