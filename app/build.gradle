@@ -46,7 +46,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.24.5'
     androidTestImplementation 'org.mockito:mockito-android:2.24.5'
-
+    implementation "com.google.android.gms:play-services-location:17.0.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

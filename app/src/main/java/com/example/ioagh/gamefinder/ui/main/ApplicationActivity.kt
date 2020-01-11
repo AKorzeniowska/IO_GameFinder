@@ -1,14 +1,20 @@
 package com.example.ioagh.gamefinder.ui.main
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.ioagh.gamefinder.MainActivity
+import com.example.ioagh.gamefinder.Manifest
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.R.layout
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
@@ -24,27 +30,30 @@ import kotlinx.android.synthetic.main.activity_application.*
 //import kotlinx.android.synthetic.main.activity_application.searchGameButton
 import kotlinx.android.synthetic.main.activity_search_game.*
 import kotlinx.android.synthetic.main.nav_header.*
-
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
-
     private var drawer: DrawerLayout? = null
-
     lateinit var mAuth: FirebaseAuth
+    private lateinit var location: Location
+    private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
+    private val REQUEST_CODE : Int = 101
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_application)
 
         setNavigationViewListener()
-
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        fetchLastLocation()
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
         //nav_display_name.text = "Zalogowany jako: " + mAuth.currentUser!!.displayName!!
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -59,58 +68,43 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         toggle.syncState()
 
         mAuth = FirebaseAuth.getInstance()
-
-        initView()
-       // initUI()
     }
 
-//    fun initUI() {
-//        mapView?.postDelayed({
-//            mapView?.onCreate(Bundle())
-//            mapView?.getMapAsync {
-//                onMapReady(it)
-//            }
-//        }, 500)
-//    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fetchLastLocation()
+            }
+        }
+    }
+
+    private fun fetchLastLocation() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,  arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
+            return
+        }
+        var task = fusedLocationProviderClient.lastLocation
+        task.addOnSuccessListener {
+            if (it != null) {
+                location = it
+                val supportMapFragment : SupportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+                supportMapFragment.getMapAsync(this@ApplicationActivity)
+                val ny = LatLng(location.latitude, location.longitude)
+                var marker = MarkerOptions().position(ny)
+                marker.title("i'm here")
+                map?.addMarker(marker)
+                map?.moveCamera(CameraUpdateFactory.newLatLng(ny))
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(ny, 14.0f))
+            }
+        }
+        task.addOnFailureListener { Log.e(it.toString(), "ERROR") }
+    }
 
      override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-//        map?.setMinZoomPreference(14.0f)
-        val ny = LatLng(40.7143528, -74.0059731)
-        map?.addMarker(MarkerOptions().position(ny));
-        map?.moveCamera(CameraUpdateFactory.newLatLng(ny))
+         map = googleMap
+         map.isMyLocationEnabled = true
     }
 
-
-
-    private fun initView() {
-//        searchGameButton.setOnClickListener() {
-//            val searchGameActivity = Intent(this, SearchGameActivity::class.java)
-//            startActivity(searchGameActivity)
-//        }
-
-//        addGameButton.setOnClickListener() {
-//            val intent = Intent(this, AddGameActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        openChatButton.setOnClickListener() {
-//            val intent = Intent(this, ChatListActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        userProfileButton.setOnClickListener() {
-//            val intent = Intent(this, ProfileActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        logoutButton.setOnClickListener() {
-//            val intent = Intent(this, MainActivity::class.java)
-//            mAuth.signOut()
-//            startActivity(intent)
-//            finish()
-//        }
-    }
 
     override fun onBackPressed() {
         if (drawer!!.isDrawerOpen(GravityCompat.START)) {
