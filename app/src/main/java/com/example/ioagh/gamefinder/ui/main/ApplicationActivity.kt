@@ -166,17 +166,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
                 intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
             }
-//            R.id.nav_my_games -> {
-//                intent = Intent(this, ChooseGameActivity::class.java)
-//                intent.putExtra("gameName", "")
-//                intent.putExtra("gameKind", "")
-//                intent.putExtra("minNumberOfPeople", "")
-//                intent.putExtra("maxNumberOfPeople", "")
-//                intent.putExtra("localization", "")
-//                intent.putExtra("date", "")
-//                intent.putExtra("owner", mAuth.currentUser!!.displayName!!)
-//                startActivity(intent)
-//            }
             R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)

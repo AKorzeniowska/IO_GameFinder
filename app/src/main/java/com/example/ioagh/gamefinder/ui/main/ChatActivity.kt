@@ -1,27 +1,33 @@
 package com.example.ioagh.gamefinder.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.models.MemberData
 import com.example.ioagh.gamefinder.models.Message
 import com.example.ioagh.gamefinder.ui.adapters.MessageAdapter
+import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.scaledrone.lib.*
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.util.*
 
 
-class ChatActivity : RoomListener, AppCompatActivity() {
+class ChatActivity : NavigationView.OnNavigationItemSelectedListener, RoomListener, AppCompatActivity() {
 
     private var drawer: DrawerLayout? = null
     private val channelID = "odGUUSff4QpqU8tt"
@@ -61,6 +67,12 @@ class ChatActivity : RoomListener, AppCompatActivity() {
         messagesView.adapter = messageAdapter
 
         mAuth = FirebaseAuth.getInstance()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
+        headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
+
+        setNavigationViewListener()
         startScaleDroneChat()
     }
 
@@ -168,5 +180,38 @@ class ChatActivity : RoomListener, AppCompatActivity() {
             drawer!!.closeDrawer(GravityCompat.START)
         }
         super.onBackPressed()
+    }
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when (p0.itemId) {
+            R.id.nav_chat -> {
+                intent = Intent(this, ChatListActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_search_game -> {
+                intent = Intent(this, SearchGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_add_game -> {
+                intent = Intent(this, AddGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_profile -> {
+                intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_logout -> {
+                mAuth.signOut()
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        return true
+    }
+
+    private fun setNavigationViewListener() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
     }
 }

@@ -5,7 +5,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.Intent
+
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -30,13 +30,21 @@ import kotlinx.android.synthetic.main.activity_search_game.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.R.string.*
+import android.content.Intent
+import android.view.MenuItem
+import android.view.View
+import android.widget.*
+import com.example.ioagh.gamefinder.MainActivity
+import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
+import com.google.android.material.navigation.NavigationView
 import android.widget.*
 import com.sucho.placepicker.AddressData
 import com.sucho.placepicker.Constants
 import com.sucho.placepicker.MapType
 import com.sucho.placepicker.PlacePicker
 
-class AddGameActivity : AppCompatActivity() {
+class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
 
     private var drawer: DrawerLayout? = null
 
@@ -67,6 +75,11 @@ class AddGameActivity : AppCompatActivity() {
         toggle.syncState()
 
         mAuth = FirebaseAuth.getInstance()
+        val navigationView = findViewById<NavigationView>(com.example.ioagh.gamefinder.R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(com.example.ioagh.gamefinder.R.layout.nav_header)
+        headerView.findViewById<TextView>(com.example.ioagh.gamefinder.R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
+
+        setNavigationViewListener()
         initView()
     }
 
@@ -143,6 +156,8 @@ class AddGameActivity : AppCompatActivity() {
     }
 
     private fun buildGame(): Game {
+        val game = Game()
+
         //game.date = addDateTextView.text.toString() + " " + addTimeTextView.text.toString()
         game.durationInMinutes = parseStringToMinutes(gameTimeEditText.text.toString())
         val list = ArrayList<Int>()
@@ -187,6 +202,39 @@ class AddGameActivity : AppCompatActivity() {
             drawer!!.closeDrawer(GravityCompat.START)
         }
         super.onBackPressed()
+    }
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when (p0.itemId) {
+            com.example.ioagh.gamefinder.R.id.nav_chat -> {
+                intent = Intent(this, ChatListActivity::class.java)
+                startActivity(intent)
+            }
+            com.example.ioagh.gamefinder.R.id.nav_search_game -> {
+                intent = Intent(this, SearchGameActivity::class.java)
+                startActivity(intent)
+            }
+            com.example.ioagh.gamefinder.R.id.nav_add_game -> {
+                intent = Intent(this, AddGameActivity::class.java)
+                startActivity(intent)
+            }
+            com.example.ioagh.gamefinder.R.id.nav_profile -> {
+                intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+            com.example.ioagh.gamefinder.R.id.nav_logout -> {
+                mAuth.signOut()
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        return true
+    }
+
+    private fun setNavigationViewListener() {
+        val navigationView = findViewById<NavigationView>(com.example.ioagh.gamefinder.R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
     }
 
     private fun setDateTimePicker(){
