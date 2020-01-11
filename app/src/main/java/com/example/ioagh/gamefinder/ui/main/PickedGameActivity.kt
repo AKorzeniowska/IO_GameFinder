@@ -4,18 +4,23 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.models.GameViewModel
 import com.example.ioagh.gamefinder.providers.*
 import com.example.ioagh.gamefinder.ui.adapters.ChooseGameAdapter
+import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -23,7 +28,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_add_game.*
 import kotlinx.android.synthetic.main.activity_picked_game.*
 
-class PickedGameActivity : AppCompatActivity() {
+class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
 
     private var drawer: DrawerLayout? = null
     private lateinit var mAuth: FirebaseAuth
@@ -50,8 +55,14 @@ class PickedGameActivity : AppCompatActivity() {
         toggle.syncState()
 
         mAuth = FirebaseAuth.getInstance()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
+        headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
+
         gameId = intent.getStringExtra("gameHash")
         initView()
+        setNavigationViewListener()
         retrieveBookData(gameId, this)
     }
 
@@ -128,5 +139,38 @@ class PickedGameActivity : AppCompatActivity() {
                 gameKinds.text = inputString.substring(0, inputString.length - 2)
             }
         })
+    }
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when (p0.itemId) {
+            R.id.nav_chat -> {
+                intent = Intent(this, ChatListActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_search_game -> {
+                intent = Intent(this, SearchGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_add_game -> {
+                intent = Intent(this, AddGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_profile -> {
+                intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_logout -> {
+                mAuth.signOut()
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        return true
+    }
+
+    private fun setNavigationViewListener() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
     }
 }

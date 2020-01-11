@@ -7,10 +7,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.widget.CheckBox
-import android.widget.DatePicker
-import android.widget.TimePicker
-import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -32,8 +28,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import android.R.string.*
+import android.content.Intent
+import android.view.MenuItem
+import android.view.View
+import android.widget.*
+import com.example.ioagh.gamefinder.MainActivity
+import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
+import com.google.android.material.navigation.NavigationView
 
-class AddGameActivity : AppCompatActivity() {
+class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
 
     private var drawer: DrawerLayout? = null
 
@@ -60,6 +63,11 @@ class AddGameActivity : AppCompatActivity() {
         toggle.syncState()
 
         mAuth = FirebaseAuth.getInstance()
+        val navigationView = findViewById<NavigationView>(com.example.ioagh.gamefinder.R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(com.example.ioagh.gamefinder.R.layout.nav_header)
+        headerView.findViewById<TextView>(com.example.ioagh.gamefinder.R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
+
+        setNavigationViewListener()
         initView()
     }
 
@@ -143,6 +151,39 @@ class AddGameActivity : AppCompatActivity() {
             drawer!!.closeDrawer(GravityCompat.START)
         }
         super.onBackPressed()
+    }
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when (p0.itemId) {
+            com.example.ioagh.gamefinder.R.id.nav_chat -> {
+                intent = Intent(this, ChatListActivity::class.java)
+                startActivity(intent)
+            }
+            com.example.ioagh.gamefinder.R.id.nav_search_game -> {
+                intent = Intent(this, SearchGameActivity::class.java)
+                startActivity(intent)
+            }
+            com.example.ioagh.gamefinder.R.id.nav_add_game -> {
+                intent = Intent(this, AddGameActivity::class.java)
+                startActivity(intent)
+            }
+            com.example.ioagh.gamefinder.R.id.nav_profile -> {
+                intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+            com.example.ioagh.gamefinder.R.id.nav_logout -> {
+                mAuth.signOut()
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        return true
+    }
+
+    private fun setNavigationViewListener() {
+        val navigationView = findViewById<NavigationView>(com.example.ioagh.gamefinder.R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
     }
 
     private fun setDateTimePicker(){

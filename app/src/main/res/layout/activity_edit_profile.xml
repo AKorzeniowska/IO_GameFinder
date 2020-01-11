@@ -57,18 +57,17 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Nick:"
+                android:text="Imię:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_avatar" />
 
             <EditText
-                android:id="@+id/nickEdit"
+                android:id="@+id/nameEdit"
                 android:layout_width="290dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_button_outline_thin"
                 android:ems="10"
-                android:text="YourNickxxx6969"
                 android:inputType="text"
                 android:paddingStart="20dp"
                 android:singleLine="true"
@@ -85,7 +84,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Adres e-mail:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nickEdit" />
+                app:layout_constraintTop_toBottomOf="@+id/nameEdit" />
 
             <EditText
                 android:id="@+id/emailEdit"
@@ -94,7 +93,6 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_button_outline_thin"
                 android:ems="10"
-                android:text="YourEmail@fmail.com"
                 android:inputType="text"
                 android:paddingStart="20dp"
                 android:singleLine="true"
@@ -157,7 +155,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/confirmPasswordTextView" />
 
             <Button
-                android:id="@+id/joinGameButton"
+                android:id="@+id/acceptChanges"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -180,7 +178,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

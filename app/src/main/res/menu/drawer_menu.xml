@@ -13,19 +13,19 @@
         <item
             android:id="@+id/nav_search_game"
             android:icon="@drawable/ic_search"
-            android:title="Search" />
+            android:title="Szukaj" />
         <item
             android:id="@+id/nav_add_game"
             android:icon="@drawable/ic_add"
-            android:title="Add game" />
+            android:title="Dodaj" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
-            android:title="Profile" />
+            android:title="Profil" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
-            android:title="Logout" />
+            android:title="Wyloguj" />
     </group>
 
 

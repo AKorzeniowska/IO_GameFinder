@@ -6,8 +6,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.DatePicker
+import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,10 +17,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.R
 
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
+import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -29,7 +34,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_add_game.*
 import java.text.SimpleDateFormat
 
-class SearchGameActivity : AppCompatActivity() {
+class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
 
     private var drawer: DrawerLayout? = null
 
@@ -47,6 +52,11 @@ class SearchGameActivity : AppCompatActivity() {
         setContentView(layout.activity_search_game)
 
         mAuth = FirebaseAuth.getInstance()
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
+        headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
+
+        setNavigationViewListener()
         setDateTimePicker()
         searchGame()
     }
@@ -128,5 +138,38 @@ class SearchGameActivity : AppCompatActivity() {
             drawer!!.closeDrawer(GravityCompat.START)
         }
         super.onBackPressed()
+    }
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when (p0.itemId) {
+            R.id.nav_chat -> {
+                intent = Intent(this, ChatListActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_search_game -> {
+                intent = Intent(this, SearchGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_add_game -> {
+                intent = Intent(this, AddGameActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_profile -> {
+                intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_logout -> {
+                mAuth.signOut()
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        return true
+    }
+
+    private fun setNavigationViewListener() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
     }
 }
