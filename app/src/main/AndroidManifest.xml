@@ -55,7 +55,6 @@
         <activity android:name=".ui.main.PickedGameActivity"/>
         <activity android:name=".ui.main.ChatListActivity"/>
         <activity android:name=".ui.main.ChatActivity"/>
-        <activity android:name=".ui.profile.UserChatListActivity"/>
         <activity android:name=".ui.profile.EditProfileActivity"/>
         <activity android:name=".ui.profile.UserGameListActivity"/>
         <activity android:name=".ui.main.ChooseGameActivity"/>
@@ -78,9 +77,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyBLBClcyV_7xClAOFalX7oZJYeP2dR2cZA"/>
 
     </application>
 
