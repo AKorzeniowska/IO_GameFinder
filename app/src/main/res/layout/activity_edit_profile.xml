@@ -91,7 +91,6 @@
             android:id="@+id/nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dziku"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="23sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout3"

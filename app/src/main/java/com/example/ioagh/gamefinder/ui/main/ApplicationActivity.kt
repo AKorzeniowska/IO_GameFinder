@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -51,14 +53,18 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
 
         drawer = findViewById(R.id.drawer_layout)
 
+        mAuth = FirebaseAuth.getInstance()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
+        headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
+
         val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar,
             R.string.open_navigation_drawer, R.string.close_navigation_drawer
         )
         drawer!!.addDrawerListener(toggle)
         toggle.syncState()
-
-        mAuth = FirebaseAuth.getInstance()
 
         initView()
        // initUI()
@@ -137,17 +143,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
                 intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
             }
-//            R.id.nav_my_games -> {
-//                intent = Intent(this, ChooseGameActivity::class.java)
-//                intent.putExtra("gameName", "")
-//                intent.putExtra("gameKind", "")
-//                intent.putExtra("minNumberOfPeople", "")
-//                intent.putExtra("maxNumberOfPeople", "")
-//                intent.putExtra("localization", "")
-//                intent.putExtra("date", "")
-//                intent.putExtra("owner", mAuth.currentUser!!.displayName!!)
-//                startActivity(intent)
-//            }
             R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)

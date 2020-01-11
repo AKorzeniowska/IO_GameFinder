@@ -51,7 +51,7 @@ class ChatListActivity : AppCompatActivity() {
         retrieveUserData(this, mAuth.currentUser!!.displayName!!)
     }
 
-    fun retrieveUserData(ctx: Context, username: String){
+    private fun retrieveUserData(ctx: Context, username: String){
         var usersGamesHashes = ArrayList<String>()
 
         usersReference.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
