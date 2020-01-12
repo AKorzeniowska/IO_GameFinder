@@ -39,33 +39,7 @@ class FirebaseUnitTest {
         mAuth.signInWithEmailAndPassword(email, password)
     }
 
-    @Test
-    fun addGameToDatabaseTest(){
-        //given
-        val game = Game(gameName, localization,
-            Game.OWNER, listOf(1, 2, 3), 5, 9, "2019-12-31 20:00", 270, owner)
 
-        //when
-        key = createGame(game)
-        Thread.sleep(2000)
-
-        //then
-        gamesReference.addValueEventListener(object: ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                println(p0.message)
-            }
-            override fun onDataChange(p0: DataSnapshot) {
-                var isTrue = false
-                for (child in p0.children) {
-                    if (child.key == key) {
-                        isTrue = true
-                        break
-                    }
-                }
-                assertTrue(isTrue)
-            }
-        })
-    }
 
     @After
     fun removeUserFromDatabase() {

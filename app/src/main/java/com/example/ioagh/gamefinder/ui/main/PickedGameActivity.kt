@@ -136,7 +136,7 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
                         inputString += data.getValue(String::class.java) + ", "
                     }
                 }
-                gameKinds.text = inputString.substring(0, inputString.length - 2)
+               // gameKinds.text = inputString.substring(0, inputString.length - 2)
             }
         })
     }

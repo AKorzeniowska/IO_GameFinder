@@ -129,13 +129,16 @@
             app:layout_constraintStart_toStartOf="@+id/maxNumberOfPlayersField"
             app:layout_constraintTop_toBottomOf="@+id/typeOfGameField" />
 
-        <EditText
-            android:id="@+id/searchLocalizationEdit"
-            style="@style/EditTextAddGame"
+        <Button
+            android:id="@+id/searchLocalizationButton"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#FF7F00"
+            android:textColor="#FFFFFF"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Lokalizacja"
-            android:inputType="textPersonName"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Choose localization"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/localizationLabel" />
@@ -147,7 +150,7 @@
             android:layout_marginTop="16dp"
             android:text="Game pub"
             app:layout_constraintStart_toStartOf="@+id/maxNumberOfPlayersField"
-            app:layout_constraintTop_toBottomOf="@+id/searchLocalizationEdit" />
+            app:layout_constraintTop_toBottomOf="@+id/localizationRangeEditText" />
 
         <RadioGroup
             android:id="@+id/gameTypeRadioGroupSearch"
@@ -192,7 +195,7 @@
             android:layout_height="wrap_content"
             android:text="Data"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/searchLocalizationEdit"
+            app:layout_constraintStart_toStartOf="@+id/searchLocalizationButton"
             app:layout_constraintTop_toBottomOf="@+id/gameTypeRadioGroupSearch" />
 
 
@@ -229,6 +232,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/maxNumberOfPlayersField" />
+        <TextView
+                android:text="Zasięg w kilometrach"
+                android:layout_width="155dp"
+                android:layout_height="25dp"
+                android:id="@+id/localizationRangeLabel" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/searchLocalizationButton"
+                app:layout_constraintBottom_toTopOf="@+id/localizationRangeEditText"
+                app:layout_constraintVertical_bias="0.666" app:layout_constraintStart_toStartOf="@+id/localizationLabel"
+                app:layout_constraintVertical_chainStyle="spread_inside"/>
+        <EditText
+                android:layout_width="227dp"
+                android:layout_height="34dp"
+                android:inputType="numberSigned"
+                android:ems="10"
+                android:layout_marginTop="10dp"
+                android:id="@+id/localizationRangeEditText" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/gamePubLabel"
+                app:layout_constraintTop_toBottomOf="@+id/localizationRangeLabel"
+                app:layout_constraintStart_toStartOf="@+id/localizationRangeLabel"
+                app:layout_constraintVertical_bias="0.272"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

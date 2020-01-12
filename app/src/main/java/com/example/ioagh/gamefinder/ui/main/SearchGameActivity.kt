@@ -1,7 +1,7 @@
 package com.example.ioagh.gamefinder.ui.main
 
+import android.app.Activity
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -19,7 +19,6 @@ import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.R
 
 import com.example.ioagh.gamefinder.R.*
-import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.providers.gameTypesReference
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
 import com.google.android.material.navigation.NavigationView
@@ -30,10 +29,15 @@ import kotlinx.android.synthetic.main.activity_search_game.*
 import java.util.*
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_add_game.*
+import com.sucho.placepicker.AddressData
+import com.sucho.placepicker.Constants
+import com.sucho.placepicker.MapType
+import com.sucho.placepicker.PlacePicker
 import java.text.SimpleDateFormat
 
 class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
+
+    private val PLACE_PICKER_REQUEST = 1;
 
     private var drawer: DrawerLayout? = null
 
@@ -42,7 +46,8 @@ class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
     private lateinit var mAuth: FirebaseAuth
     private val array : MutableList<String> = mutableListOf()
     private val chosenArray : MutableList<Int> = mutableListOf()
-
+    private var longitude : Double? = null
+    private var latitude : Double? = null
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,10 +59,40 @@ class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
         val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
         headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
 
+
+        initView()
         setNavigationViewListener()
         setDateTimePicker()
         setGameTypes(this)
         searchGame()
+    }
+
+    private fun initView() {
+        val button = findViewById<Button>(id.searchLocalizationButton)
+        button.setOnClickListener {
+            val intent = PlacePicker.IntentBuilder()
+                .setLatLong(50.049683, 19.944544)
+                .showLatLong(true)
+                .setMapZoom(12.0f)
+                .setAddressRequired(true)
+                .hideMarkerShadow(true)
+                .setMapType(MapType.NORMAL)
+                //   .onlyCoordinates(true)
+                .build(this@SearchGameActivity)
+            startActivityForResult(intent, PLACE_PICKER_REQUEST)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                val addressData = data?.getParcelableExtra<AddressData>(Constants.ADDRESS_INTENT)
+                longitude = addressData?.longitude
+                latitude = addressData?.latitude
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     private fun setGameTypes(ctx: Context){
@@ -142,7 +177,10 @@ class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
                 intent.putExtra("gameKind", chosenArray.toIntArray())
                 intent.putExtra("minNumberOfPeople", minNumberOfPlayersField.text.toString())
                 intent.putExtra("maxNumberOfPeople", maxNumberOfPlayersField.text.toString())
-                intent.putExtra("localization", searchLocalizationEdit.text.toString())
+                intent.putExtra("range", localizationRangeEditText.text.toString())
+                intent.putExtra("longitude", longitude.toString())
+                intent.putExtra("latitude", latitude.toString())
+//                intent.putExtra("localization", searchLocalizationButton.text.toString())
                 intent.putExtra("date", chooseDateField.text.toString())
                 intent.putExtra("owner", "")
                 startActivity(intent)

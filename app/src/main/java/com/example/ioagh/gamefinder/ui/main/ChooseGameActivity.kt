@@ -29,6 +29,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 
 class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
@@ -43,7 +47,9 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
     private lateinit var gameKind: MutableList<Int>
     private var minPlayers: Int? = null
     private var maxPlayers: Int? = null
-    private lateinit var localization: String
+    private var latitude: Double? = null
+    private var longitude: Double? = null
+    private var rangeInKm: Int? = null
     private lateinit var date: String
     private lateinit var owner: String
 
@@ -71,7 +77,6 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
 
         gameName = intent.getStringExtra("gameName")
         gameKind = intent.getIntArrayExtra("gameKind").toMutableList()
-        localization = intent.getStringExtra("minNumberOfPeople")
         minPlayers = if (!intent.getStringExtra("minNumberOfPeople").isBlank())
             intent.getStringExtra("minNumberOfPeople").toInt()
         else
@@ -80,8 +85,20 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
             intent.getStringExtra("maxNumberOfPeople").toInt()
         else
             null
-        // TODO fill that with coords
-        //localization = intent.getStringExtra("localization")
+
+        longitude = if (!intent.getStringExtra("longitude").isBlank())
+            intent.getStringExtra("longitude").toDouble()
+        else
+            null
+        latitude = if (!intent.getStringExtra("latitude").isBlank())
+            intent.getStringExtra("latitude").toDouble()
+        else
+            null
+        rangeInKm = if (!intent.getStringExtra("range").isBlank())
+            intent.getStringExtra("range").toInt()
+        else
+            null
+
         date = intent.getStringExtra("date")
         owner = intent.getStringExtra("owner")
 
@@ -126,16 +143,39 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
 
     fun validate(game: Game): Boolean {
         if ((gameName.isBlank() ||game.gameName!!.contains(gameName)) &&
-            // TODO fill validation with proper values
-            //(localization.isBlank() || game.localization!!.contains(localization)) &&
             (gameKind.isEmpty() || (game.gameTypes != null && game.gameTypes!!.containsAll(gameKind))) &&
                     //game.date == date &&
             (minPlayers == null || game.maxPlayers!! >= minPlayers!!) &&
             (maxPlayers == null || game.maxPlayers!! <= maxPlayers!!) &&
             (owner.isBlank() || game.owner == owner)) {
-            return true
+
+            if (rangeInKm == null) {
+                return true
+            } else if (longitude != null && latitude != null) {
+                return getDistanceFromLatLonInKm(latitude!!, longitude!!, game.latitude!!, game.longitude!!) < rangeInKm!!
+            } else {
+                return true
+            }
         }
         return false
+    }
+
+    private fun getDistanceFromLatLonInKm(lat1 : Double,lon1 : Double ,lat2 : Double,lon2 : Double) : Double {
+        val r = 6371 // Radius of the earth in km
+        val dLat = deg2rad(lat2-lat1)  // deg2rad below
+        val dLon = deg2rad(lon2-lon1)
+        val a =
+            sin(dLat/2) * sin(dLat/2) +
+                    cos(deg2rad(lat1)) * cos(deg2rad(lat2)) *
+                    sin(dLon/2) * sin(dLon/2)
+
+        val c = 2 * atan2(sqrt(a), sqrt(1-a))
+        val d = r * c; // Distance in km
+        return d;
+    }
+
+    private fun deg2rad(deg : Double) : Double {
+        return deg * (Math.PI/180)
     }
 
     override fun onBackPressed() {
