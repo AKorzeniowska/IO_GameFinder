@@ -164,7 +164,7 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         for (i in 0..gameKindCheckBoxes.childCount) {
             if (gameKindCheckBoxes.getChildAt(i) != null) {
                 val checkbox = gameKindCheckBoxes.getChildAt(i) as CheckBox
-                if (checkbox.isChecked) list.add(i)
+                if (checkbox.isChecked) list.add(i + 1)
             }
         }
         game.gameTypes = list
