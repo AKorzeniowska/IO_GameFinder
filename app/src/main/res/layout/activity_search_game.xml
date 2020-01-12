@@ -150,7 +150,7 @@
             app:layout_constraintTop_toBottomOf="@+id/searchLocalizationEdit" />
 
         <RadioGroup
-            android:id="@+id/gameTypeRadioGroup"
+            android:id="@+id/gameTypeRadioGroupSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -193,7 +193,7 @@
             android:text="Data"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/searchLocalizationEdit"
-            app:layout_constraintTop_toBottomOf="@+id/gameTypeRadioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/gameTypeRadioGroupSearch" />
 
 
 

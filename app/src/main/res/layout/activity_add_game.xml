@@ -243,7 +243,6 @@
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/colorAccent"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="Dodaj datę rozgrywki"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@android:color/background_light"
                 app:layout_constraintEnd_toEndOf="parent"

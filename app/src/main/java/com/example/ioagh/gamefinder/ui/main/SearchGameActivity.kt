@@ -2,16 +2,14 @@ package com.example.ioagh.gamefinder.ui.main
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.DatePicker
-import android.widget.TextView
-import android.widget.TimePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,6 +20,7 @@ import com.example.ioagh.gamefinder.R
 
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
+import com.example.ioagh.gamefinder.providers.gameTypesReference
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -39,13 +38,12 @@ class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
     private var drawer: DrawerLayout? = null
 
     private lateinit var mDateSetListener : DatePickerDialog.OnDateSetListener
-    private lateinit var mTimeSetListener : TimePickerDialog.OnTimeSetListener
 
     private lateinit var mAuth: FirebaseAuth
+    private val array : MutableList<String> = mutableListOf()
+    private val chosenArray : MutableList<Int> = mutableListOf()
 
-    private var list: ArrayList<Game> = ArrayList<Game>()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
-    private val databaseReference = firebaseDatabase.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +56,31 @@ class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
 
         setNavigationViewListener()
         setDateTimePicker()
+        setGameTypes(this)
         searchGame()
     }
 
-    private fun setDateTimePicker(){
+    private fun setGameTypes(ctx: Context){
+        gameTypesReference.addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                println(p0.toString())
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                for (data in p0.children){
+                    array.add(data.getValue(String::class.java)!!)
+                }
+
+                for (value in array) {
+                    val checkbox = CheckBox(ctx)
+                    checkbox.text = value
+                    typeOfGameField.addView(checkbox)
+                }
+            }
+        })
+    }
+
+    private fun setDateTimePicker() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -75,15 +94,13 @@ class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
         drawer!!.addDrawerListener(toggle)
         toggle.syncState()
 
-        mDateSetListener = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
-            chooseDateField.text  = "$i-$i1-$i2"
-        }
-//        mTimeSetListener = TimePickerDialog.OnTimeSetListener{
-//                view: TimePicker?, hourOfDay: Int, minute: Int -> chooseTimeField.text =
-//            "$hourOfDay:$minute"
-//        }
+        mDateSetListener =
+            DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
+                val month = "0" + (i1 + 1)
+                chooseDateField.text = "$i-$month-$i2"
+            }
 
-        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
+        val spf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
         chooseDateField.text = spf.format(Calendar.getInstance().time)
 
         chooseDateField.setOnClickListener() {
@@ -92,38 +109,37 @@ class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val dialog = DatePickerDialog(this,
+            val dialog = DatePickerDialog(
+                this,
                 android.R.style.Theme_Holo_Dialog_MinWidth,
                 mDateSetListener,
-                year, month, day)
+                year, month, day
+            )
 
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
         }
 
-        val stf = SimpleDateFormat("hh:mm", Locale.US)
-//        chooseTimeField.text = stf.format(Calendar.getInstance().time)
-//
-//        chooseTimeField.setOnClickListener{
-//            val calendar = Calendar.getInstance()
-//            val hour = calendar.get(Calendar.HOUR_OF_DAY)
-//            val minute = calendar.get(Calendar.MINUTE)
-//
-//            val timeDialog = TimePickerDialog(this,
-//                android.R.style.Theme_Holo_Dialog_MinWidth,
-//                mTimeSetListener,
-//                hour, minute, true)
-//
-//            timeDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//            timeDialog.show()
-//        }
     }
 
     private fun searchGame() {
+
         searchGameButton.setOnClickListener {
-                val intent = Intent(this, ChooseGameActivity::class.java)
+
+            for (i in 0..typeOfGameField.childCount) {
+                if (typeOfGameField.getChildAt(i) != null) {
+                    val checkbox = typeOfGameField.getChildAt(i) as CheckBox
+                    if (checkbox.isChecked) chosenArray.add(i)
+                    else if (!checkbox.isChecked && chosenArray.contains(i)){
+                        chosenArray.remove(i)
+                    }
+                }
+            }
+
+
+            val intent = Intent(this, ChooseGameActivity::class.java)
                 intent.putExtra("gameName", gameNameField.text.toString())
-                intent.putExtra("gameKind", typeOfGameField.text.toString())
+                intent.putExtra("gameKind", chosenArray.toIntArray())
                 intent.putExtra("minNumberOfPeople", minNumberOfPlayersField.text.toString())
                 intent.putExtra("maxNumberOfPeople", maxNumberOfPlayersField.text.toString())
                 intent.putExtra("localization", searchLocalizationEdit.text.toString())

@@ -20,8 +20,6 @@ import com.example.ioagh.gamefinder.providers.usersReference
 import com.example.ioagh.gamefinder.ui.main.AddGameActivity
 import com.example.ioagh.gamefinder.ui.main.ChatListActivity
 import com.example.ioagh.gamefinder.ui.main.SearchGameActivity
-import com.example.ioagh.gamefinder.validators.EmailValidator
-import com.google.android.material.internal.NavigationMenuItemView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -88,36 +86,30 @@ class EditProfileActivity : NavigationView.OnNavigationItemSelectedListener, App
 
     private fun setView(user: User){
         nameEdit.setText(user.name)
+        if (user.age != null) {
+            ageEdit.setText(user.age.toString())
+        } else {
+            ageEdit.setText("")
+        }
     }
 
     private fun updateUser(){
-        if (nameEdit.text.toString() != user.name){
+        var edited = false
+
+        if (nameEdit.text.toString() != "" && nameEdit.text.toString() != user.name){
             user.name = nameEdit.text.toString()
+            edited = true
+        }
+
+        if (ageEdit.text.toString() != "" &&ageEdit.text.toString().toInt() != user.age){
+            user.age = ageEdit.text.toString().toInt()
+            edited = true
+        }
+
+        if (edited){
             usersReference.child(mAuth.currentUser!!.displayName!!).setValue(user)
+            Toast.makeText(this, "Pomyślnie zapisano zmiany", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun validatePasswords(password: String, passwordRepeat: String): Boolean{
-        if (password.length < 6 && password != "" && passwordRepeat != ""){
-            Toast.makeText(this, "hasło zbyt krótkie (minimum 6 znaków)", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        if (password != passwordRepeat){
-            Toast.makeText(this, "podane hasła są różne", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        return true
-    }
-
-    private fun validateEmail(email: String): Boolean{
-        if (!EmailValidator.validate(email)){
-            Toast.makeText(
-                this, R.string.invalid_email_address,
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }
-        return true
     }
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {

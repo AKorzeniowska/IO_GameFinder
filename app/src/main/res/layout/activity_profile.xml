@@ -68,7 +68,6 @@
                 android:id="@+id/nick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nick"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="24sp" />
 
@@ -76,8 +75,7 @@
                 android:id="@+id/email"
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="obajtekmagda@gmail.com" />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,8 +86,7 @@
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Magda" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/coma"
@@ -100,8 +97,7 @@
                 <TextView
                     android:id="@+id/age"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="22" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
 
