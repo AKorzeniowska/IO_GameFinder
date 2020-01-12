@@ -17,6 +17,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.example.ioagh.gamefinder.R
+import com.example.ioagh.gamefinder.providers.usersReference
 import com.example.ioagh.gamefinder.ui.profile.EditProfileActivity
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -44,7 +45,7 @@ class ProfileActivityTest {
         mAuth = FirebaseAuth.getInstance()
         mAuth.signOut()
         mAuth.signInWithEmailAndPassword(email, password)
-        Thread.sleep(2500)
+        Thread.sleep(1500)
     }
 
     @After
@@ -55,10 +56,14 @@ class ProfileActivityTest {
     }
 
     @Test
-    fun openProfile_seeUsersNick(){
+    fun openProfile_seeUsersData(){
         val intent = Intent()
         mActivityRule.launchActivity(intent)
         onView(withId(R.id.nick)).check(matches(withText(mAuth.currentUser!!.displayName!!)))
+        onView(withId(R.id.email)).check(matches(withText(mAuth.currentUser!!.email!!)))
+        Thread.sleep(500)
+        onView(withId(R.id.name)).check(matches(withText("test")))
+        onView(withId(R.id.age)).check(matches(withText("20")))
     }
 
     @Test

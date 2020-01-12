@@ -60,7 +60,6 @@ class EditProfileActivity : NavigationView.OnNavigationItemSelectedListener, App
 
         acceptChanges.setOnClickListener(){
             updateUser()
-            Toast.makeText(this, "Pomyślnie zapisano zmiany", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -101,7 +100,7 @@ class EditProfileActivity : NavigationView.OnNavigationItemSelectedListener, App
             edited = true
         }
 
-        if (ageEdit.text.toString() != "" &&ageEdit.text.toString().toInt() != user.age){
+        if (ageEdit.text.toString() != "" && ageEdit.text.toString().toInt() != user.age){
             user.age = ageEdit.text.toString().toInt()
             edited = true
         }
