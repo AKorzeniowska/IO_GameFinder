@@ -143,7 +143,7 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
 
     fun validate(game: Game): Boolean {
         if ((gameName.isBlank() ||game.gameName!!.contains(gameName)) &&
-            (gameKind.isEmpty() || (game.gameTypes != null && game.gameTypes!!.containsAll(gameKind))) &&
+            (gameKind.isEmpty() || (game.gameTypes != null && game.gameTypes!!.containsAll(gameKind + 1))) &&
                     //game.date == date &&
             (minPlayers == null || game.maxPlayers!! >= minPlayers!!) &&
             (maxPlayers == null || game.maxPlayers!! <= maxPlayers!!) &&
@@ -206,6 +206,7 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
             R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 finish()
             }

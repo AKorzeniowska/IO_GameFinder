@@ -9,26 +9,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.models.Game
 import com.example.ioagh.gamefinder.models.GameViewModel
 import com.example.ioagh.gamefinder.providers.*
-import com.example.ioagh.gamefinder.ui.adapters.ChooseGameAdapter
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_add_game.*
 import kotlinx.android.synthetic.main.activity_picked_game.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -68,16 +64,16 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
         gameId = intent.getStringExtra("gameHash")
         initView()
         setNavigationViewListener()
-        retrieveBookData(gameId, this)
+        retrieveGameData(gameId, this)
     }
 
     override fun onResume() {
         super.onResume()
         initView()
-        retrieveBookData(gameId, this)
+        retrieveGameData(gameId, this)
     }
 
-    private fun retrieveBookData(gameId: String, ctx: Context) {
+    private fun retrieveGameData(gameId: String, ctx: Context) {
         gamesReference.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 println(p0.toString())
@@ -148,7 +144,9 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
                         inputString += data.getValue(String::class.java) + ", "
                     }
                 }
-               // gameKinds.text = inputString.substring(0, inputString.length - 2)
+                if (inputString.length > 2) {
+                    gameKinds.text = inputString.substring(0, inputString.length - 2)
+                } else gameKinds.text = ""
             }
         })
     }
@@ -174,6 +172,7 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
             R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 finish()
             }

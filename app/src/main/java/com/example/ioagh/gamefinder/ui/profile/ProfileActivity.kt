@@ -145,6 +145,7 @@ class ProfileActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
             R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 finish()
             }
