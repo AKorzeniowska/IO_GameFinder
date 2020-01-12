@@ -136,7 +136,9 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
                         inputString += data.getValue(String::class.java) + ", "
                     }
                 }
-               // gameKinds.text = inputString.substring(0, inputString.length - 2)
+                if (inputString.length > 2) {
+                    gameKinds.text = inputString.substring(0, inputString.length - 2)
+                } else gameKinds.text = ""
             }
         })
     }
@@ -162,6 +164,7 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
             R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 finish()
             }

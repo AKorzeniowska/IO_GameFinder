@@ -177,7 +177,7 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
                 //do nothing
             }
         }
-        game.players = numberOfPlayersEditText.text.toString().toInt()
+        game.players = 0
         game.gameName = gameNameEditText.text.toString()
         game.maxPlayers = numberOfPlayersEditText.text.toString().toInt()
         game.date = gameDatePicker.text.toString()
@@ -226,6 +226,7 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
             com.example.ioagh.gamefinder.R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 finish()
             }

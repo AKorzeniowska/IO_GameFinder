@@ -206,6 +206,7 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
             R.id.nav_logout -> {
                 mAuth.signOut()
                 intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 finish()
             }
