@@ -88,23 +88,12 @@ class EditProfileActivity : NavigationView.OnNavigationItemSelectedListener, App
 
     private fun setView(user: User){
         nameEdit.setText(user.name)
-        emailEdit.setText(mAuth.currentUser!!.email)
     }
 
     private fun updateUser(){
         if (nameEdit.text.toString() != user.name){
             user.name = nameEdit.text.toString()
             usersReference.child(mAuth.currentUser!!.displayName!!).setValue(user)
-        }
-        if (emailEdit.text.toString() != mAuth.currentUser!!.email){
-            if (validateEmail(mAuth.currentUser!!.email!!)) {
-                mAuth.currentUser!!.updateEmail(emailEdit.text.toString())
-            }
-        }
-        if (passwordEdit.text.toString() != ""){
-            if (validatePasswords(passwordEdit.text.toString(), confirmPasswordEdit.text.toString())){
-                mAuth.currentUser!!.updatePassword(passwordEdit.text.toString())
-            }
         }
     }
 
