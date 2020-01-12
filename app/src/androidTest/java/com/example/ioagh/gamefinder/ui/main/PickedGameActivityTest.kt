@@ -25,8 +25,8 @@ class PickedGameActivityTest {
     private lateinit var mAuth: FirebaseAuth
 
     @get:Rule
-    var mActivityRule: ActivityTestRule<ProfileActivity>
-            = ActivityTestRule(ProfileActivity::class.java, true, false)
+    var mActivityRule: ActivityTestRule<PickedGameActivity>
+            = ActivityTestRule(PickedGameActivity::class.java, true, false)
 
     @Before
     fun setData(){
