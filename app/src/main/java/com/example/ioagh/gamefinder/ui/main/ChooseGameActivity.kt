@@ -86,15 +86,15 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
         else
             null
 
-        longitude = if (!intent.getStringExtra("longitude").isBlank())
+        longitude = if (!intent.getStringExtra("longitude").isBlank()&& intent.getStringExtra("longitude") != "null")
             intent.getStringExtra("longitude").toDouble()
         else
             null
-        latitude = if (!intent.getStringExtra("latitude").isBlank())
+        latitude = if (!intent.getStringExtra("latitude").isBlank() && intent.getStringExtra("latitude") != "null")
             intent.getStringExtra("latitude").toDouble()
         else
             null
-        rangeInKm = if (!intent.getStringExtra("range").isBlank())
+        rangeInKm = if (!intent.getStringExtra("range").isBlank()&& intent.getStringExtra("range") != "null")
             intent.getStringExtra("range").toInt()
         else
             null

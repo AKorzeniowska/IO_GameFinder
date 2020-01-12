@@ -178,9 +178,14 @@ class SearchGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
                 intent.putExtra("minNumberOfPeople", minNumberOfPlayersField.text.toString())
                 intent.putExtra("maxNumberOfPeople", maxNumberOfPlayersField.text.toString())
                 intent.putExtra("range", localizationRangeEditText.text.toString())
-                intent.putExtra("longitude", longitude.toString())
+                if (longitude != null && latitude != null) {
+                    intent.putExtra("longitude", longitude.toString())
+                    intent.putExtra("latitude", latitude.toString())
+                } else {
+                    intent.putExtra("longitude", " ")
+                    intent.putExtra("latitude", " ")
+                }
                 intent.putExtra("latitude", latitude.toString())
-//                intent.putExtra("localization", searchLocalizationButton.text.toString())
                 intent.putExtra("date", chooseDateField.text.toString())
                 intent.putExtra("owner", "")
                 startActivity(intent)

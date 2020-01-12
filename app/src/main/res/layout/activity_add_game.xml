@@ -64,50 +64,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gameNameTextView" />
 
-            <TextView
-                android:id="@+id/searchLocalizationTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/localization"
-                app:layout_constraintEnd_toEndOf="@+id/gameNameEditText"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/gameNameEditText"
-                app:layout_constraintTop_toBottomOf="@+id/gameNameEditText" />
-
-            <EditText
-                android:id="@+id/searchLocalizationEditText"
-                style="@style/EditTextAddGame"
-                android:background="@drawable/rounded_button_outline_thin"
-                android:ems="10"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/searchLocalizationTextView" />
-
-            <TextView
-                android:id="@+id/chooseLocalizationTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Wybierz lokalizacje"
-                app:layout_constraintBottom_toTopOf="@+id/localizationRadioGroup"
-                app:layout_constraintEnd_toEndOf="@+id/searchLocalizationEditText"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/searchLocalizationEditText"
-                app:layout_constraintTop_toBottomOf="@+id/searchLocalizationEditText" />
 
             <RadioGroup
                 android:id="@+id/localizationRadioGroup"
                 android:layout_width="270dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/searchLocalizationEditText"
+                app:layout_constraintEnd_toEndOf="@+id/gameNameEditText"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/searchLocalizationEditText"
-                app:layout_constraintTop_toBottomOf="@+id/chooseLocalizationTextView">
+                app:layout_constraintStart_toStartOf="@+id/gameNameEditText"
+                app:layout_constraintTop_toBottomOf="@+id/gameNameEditText">
 
                 <RadioButton
                     android:id="@+id/chooseProfileLocalizationRadioButton"
@@ -134,16 +100,6 @@
             </RadioGroup>
 
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
-                android:layout_width="252dp"
-                android:layout_height="191dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/localizationRadioGroup" />
-
             <RadioGroup
                 android:id="@+id/gameTypeRadioGroup"
                 android:layout_width="270dp"
@@ -152,7 +108,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/localizationRadioGroup"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/localizationRadioGroup"
-                app:layout_constraintTop_toBottomOf="@+id/mapView">
+                app:layout_constraintTop_toBottomOf="@+id/localizationRadioGroup">
 
                 <RadioButton
                     android:id="@+id/gameOwnerRadioButton"

@@ -93,7 +93,6 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         addGameButton.setOnClickListener() {
             if (!(gameNameEditText.text.isNullOrBlank() ||
                 numberOfPlayersEditText.text.isNullOrBlank() ||
-                searchLocalizationEditText.text.isNullOrBlank() ||
                 gameTimeEditText.text.isNullOrBlank() ||
                 gameTypeRadioGroup.checkedRadioButtonId == -1)) {
                 val game = buildGame()

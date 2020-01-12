@@ -2,6 +2,9 @@ package com.example.ioagh.gamefinder.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -27,6 +30,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_add_game.*
 import kotlinx.android.synthetic.main.activity_picked_game.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
 
@@ -98,6 +103,13 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
     private fun setGameView(game: Game) {
         gameName.text = game.gameName
         //gameLocalization.text = game.localization
+        val geocoder = Geocoder(getApplicationContext(), Locale.getDefault());
+        val listAddresses = geocoder.getFromLocation(game.latitude!!, game.longitude!!, 1);
+        if(null != listAddresses && listAddresses.size > 0){
+            val location = listAddresses[0].getAddressLine(0)
+            gameLocalization.text = location
+        }
+
         predictedGameTime.text = parseMinutesToSring(game.durationInMinutes!!)
         currentNumberOfPlayers.text = game.players.toString()
         maximumNumberOfPlayers.text = game.maxPlayers.toString()
