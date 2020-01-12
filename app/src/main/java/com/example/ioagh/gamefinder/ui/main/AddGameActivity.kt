@@ -180,6 +180,7 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         game.players = numberOfPlayersEditText.text.toString().toInt()
         game.gameName = gameNameEditText.text.toString()
         game.maxPlayers = numberOfPlayersEditText.text.toString().toInt()
+        game.date = gameDatePicker.text.toString()
 
         if (mAuth.currentUser != null && mAuth.currentUser!!.displayName != null) {
             game.owner = mAuth.currentUser!!.displayName
@@ -238,47 +239,30 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
     }
 
     private fun setDateTimePicker(){
-//        mDateSetListener = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
-//            addDateTextView.text  = "$i-$i1-$i2"
-//        }
-//        mTimeSetListener = TimePickerDialog.OnTimeSetListener{
-//                view: TimePicker?, hourOfDay: Int, minute: Int -> addTimeTextView.text =
-//            "$hourOfDay:$minute"
-//        }
-//
-//        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
-//        addDateTextView.text = spf.format(Calendar.getInstance().time)
-//
-//        addDateTextView.setOnClickListener() {
-//            val calendar = Calendar.getInstance()
-//            val year = calendar.get(Calendar.YEAR)
-//            val month = calendar.get(Calendar.MONTH)
-//            val day = calendar.get(Calendar.DAY_OF_MONTH)
-//
-//            val dialog = DatePickerDialog(this,
-//                R.style.Theme_Holo_Dialog_MinWidth,
-//                mDateSetListener,
-//                year, month, day)
-//
-//            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//            dialog.show()
-//        }
-//
-//        val stf = SimpleDateFormat("hh:mm", Locale.GERMANY)
-//        addTimeTextView.text = stf.format(Calendar.getInstance().time)
-//
-//        addTimeTextView.setOnClickListener{
-//            val calendar = Calendar.getInstance()
-//            val hour = calendar.get(Calendar.HOUR_OF_DAY)
-//            val minute = calendar.get(Calendar.MINUTE)
-//
-//            val timeDialog = TimePickerDialog(this,
-//                R.style.Theme_Holo_Dialog_MinWidth,
-//                mTimeSetListener,
-//                hour, minute, true)
-//
-//            timeDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//            timeDialog.show()
-//        }
+        mDateSetListener =
+            DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, i: Int, i1: Int, i2: Int ->
+                val month = "0" + (i1 + 1)
+                gameDatePicker.text = "$i-$month-$i2"
+            }
+
+        val spf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        gameDatePicker.text = spf.format(Calendar.getInstance().time)
+
+        gameDatePicker.setOnClickListener() {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val dialog = DatePickerDialog(
+                this,
+                android.R.style.Theme_Holo_Dialog_MinWidth,
+                mDateSetListener,
+                year, month, day
+            )
+
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+        }
     }
 }

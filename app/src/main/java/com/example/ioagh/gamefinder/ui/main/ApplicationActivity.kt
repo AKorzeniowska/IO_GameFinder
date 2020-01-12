@@ -109,10 +109,10 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
                 map.isMyLocationEnabled = true
                 supportMapFragment.getMapAsync(this@ApplicationActivity)
                 val ny = LatLng(location.latitude, location.longitude)
-                var marker = MarkerOptions().position(ny)
+                val marker = MarkerOptions().position(ny)
                 marker.title("i'm here")
-                map?.addMarker(marker)
-                map?.moveCamera(CameraUpdateFactory.newLatLng(ny))
+                map.addMarker(marker)
+                map.moveCamera(CameraUpdateFactory.newLatLng(ny))
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(ny, 14.0f))
             }
         }

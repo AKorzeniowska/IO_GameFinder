@@ -82,9 +82,8 @@
                 android:background="@drawable/rounded_button_outline_thin"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="@+id/searchLocalizationTextView"
-                app:layout_constraintHorizontal_bias="0.025"
-                app:layout_constraintStart_toStartOf="@+id/searchLocalizationTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchLocalizationTextView" />
 
             <TextView
@@ -185,12 +184,10 @@
             <EditText
                 android:id="@+id/gamePubEditText"
                 style="@style/EditTextAddGame"
-                android:layout_marginStart="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="@+id/gamePubLabel"
-                app:layout_constraintHorizontal_bias="0.034"
-                app:layout_constraintStart_toStartOf="@+id/gamePubLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gamePubLabel" />
 
             <TextView
@@ -244,29 +241,36 @@
                 app:layout_constraintStart_toStartOf="@+id/numberOfPlayersEditText"
                 app:layout_constraintTop_toBottomOf="@+id/numberOfPlayersEditText" />
 
-            <DatePicker
+            <TextView
                 android:id="@+id/gameDatePicker"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="@+id/gameDateLabel"
+                style="@style/ButtonLabelStyle"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center_horizontal|center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gameDateLabel" />
+
 
             <TextView
                 android:id="@+id/predictedGameTimeLabel"
                 style="@style/ButtonLabelStyle"
                 android:layout_marginTop="16dp"
                 android:text="Przewidywany czas gry"
-                app:layout_constraintStart_toStartOf="@+id/gameDatePicker"
+                app:layout_constraintStart_toStartOf="@+id/gameTimeEditText"
                 app:layout_constraintTop_toBottomOf="@+id/gameDatePicker" />
 
             <EditText
                 android:id="@+id/gameTimeEditText"
                 style="@style/EditTextAddGame"
                 android:ems="10"
-                app:layout_constraintEnd_toEndOf="@+id/predictedGameTimeLabel"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toStartOf="@+id/predictedGameTimeLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/predictedGameTimeLabel" />
 
             <Button
@@ -274,11 +278,11 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="#FF7F00"
+                android:backgroundTint="@color/colorAccent"
                 android:text="Dodaj grę"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"

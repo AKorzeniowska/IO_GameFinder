@@ -40,7 +40,7 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
     private var drawer: DrawerLayout? = null
 
     private lateinit var gameName: String
-    private lateinit var gameKind: String
+    private lateinit var gameKind: MutableList<Int>
     private var minPlayers: Int? = null
     private var maxPlayers: Int? = null
     private lateinit var localization: String
@@ -70,7 +70,7 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
         headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
 
         gameName = intent.getStringExtra("gameName")
-        gameKind = intent.getStringExtra("gameKind")
+        gameKind = intent.getIntArrayExtra("gameKind").toMutableList()
         localization = intent.getStringExtra("minNumberOfPeople")
         minPlayers = if (!intent.getStringExtra("minNumberOfPeople").isBlank())
             intent.getStringExtra("minNumberOfPeople").toInt()
@@ -126,9 +126,9 @@ class ChooseGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
 
     fun validate(game: Game): Boolean {
         if ((gameName.isBlank() ||game.gameName!!.contains(gameName)) &&
-            (gameKind.isBlank() || gameKind.toInt() == game.gameKind) &&
             // TODO fill validation with proper values
             //(localization.isBlank() || game.localization!!.contains(localization)) &&
+            (gameKind.isEmpty() || (game.gameTypes != null && game.gameTypes!!.containsAll(gameKind))) &&
                     //game.date == date &&
             (minPlayers == null || game.maxPlayers!! >= minPlayers!!) &&
             (maxPlayers == null || game.maxPlayers!! <= maxPlayers!!) &&

@@ -97,7 +97,7 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
 
     private fun setGameView(game: Game) {
         gameName.text = game.gameName
-        gameLocalization.text = game.localization
+        //gameLocalization.text = game.localization
         predictedGameTime.text = parseMinutesToSring(game.durationInMinutes!!)
         currentNumberOfPlayers.text = game.players.toString()
         maximumNumberOfPlayers.text = game.maxPlayers.toString()

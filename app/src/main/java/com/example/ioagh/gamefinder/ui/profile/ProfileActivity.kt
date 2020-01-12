@@ -1,5 +1,6 @@
 package com.example.ioagh.gamefinder.ui.profile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -13,19 +14,24 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.R
 import com.example.ioagh.gamefinder.R.*
+import com.example.ioagh.gamefinder.models.User
+import com.example.ioagh.gamefinder.providers.usersReference
 import com.example.ioagh.gamefinder.ui.main.AddGameActivity
 import com.example.ioagh.gamefinder.ui.main.ChatListActivity
 import com.example.ioagh.gamefinder.ui.main.ChooseGameActivity
 import com.example.ioagh.gamefinder.ui.main.SearchGameActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_profile.*
 
 
 class ProfileActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
 
     private var drawer: DrawerLayout? = null
-    lateinit var mAuth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +46,10 @@ class ProfileActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
         headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
-        nick.text = mAuth.currentUser!!.displayName!!
+
+        nick.text = mAuth.currentUser!!.displayName
+        email.text = mAuth.currentUser!!.email
+        retrieveUserData(this)
 
         drawer = findViewById(R.id.drawer_layout)
 
@@ -52,6 +61,26 @@ class ProfileActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         toggle.syncState()
 
         initView()
+    }
+
+    private fun retrieveUserData(ctx: Context){
+        usersReference.child(mAuth.currentUser!!.displayName!!).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val user = dataSnapshot.getValue(User::class.java)!!
+                name.text = user.name
+                age.text = if (user.age != null) user.age.toString() else ""
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("The read failed: " + databaseError.code)
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        retrieveUserData(this)
     }
 
     override fun onBackPressed() {
