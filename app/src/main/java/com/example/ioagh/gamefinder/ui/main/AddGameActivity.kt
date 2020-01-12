@@ -18,10 +18,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.ioagh.gamefinder.R.*
 import com.example.ioagh.gamefinder.models.Game
-import com.example.ioagh.gamefinder.providers.addGameToOwned
-import com.example.ioagh.gamefinder.providers.gameTypesReference
-import com.example.ioagh.gamefinder.providers.gamesReference
-import com.example.ioagh.gamefinder.providers.parseStringToMinutes
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -32,6 +28,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import android.R.string.*
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
@@ -39,6 +36,14 @@ import com.example.ioagh.gamefinder.MainActivity
 import com.example.ioagh.gamefinder.ui.profile.ProfileActivity
 import com.google.android.material.navigation.NavigationView
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import com.example.ioagh.gamefinder.providers.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.sucho.placepicker.AddressData
 import com.sucho.placepicker.Constants
 import com.sucho.placepicker.MapType
@@ -46,8 +51,9 @@ import com.sucho.placepicker.PlacePicker
 
 class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
 
+    private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
     private var drawer: DrawerLayout? = null
-
+    private val REQUEST_CODE : Int = 101
     private val array : MutableList<String> = mutableListOf()
     private lateinit var mAuth: FirebaseAuth
     private val game : Game = Game()
@@ -64,6 +70,8 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
 
         val toolbar = toolbar_add_game
         setSupportActionBar(toolbar)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         drawer = drawer_layout_add_game
 
@@ -94,11 +102,15 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
             if (!(gameNameEditText.text.isNullOrBlank() ||
                 numberOfPlayersEditText.text.isNullOrBlank() ||
                 gameTimeEditText.text.isNullOrBlank() ||
-                gameTypeRadioGroup.checkedRadioButtonId == -1)) {
+                gameTypeRadioGroup.checkedRadioButtonId == -1 || game.latitude == null || game.longitude == null)) {
                 val game = buildGame()
                 createGame(game)
             } else {
-                Toast.makeText(this, "Uzupełnij wszystkie pola!", Toast.LENGTH_LONG).show()
+                if (game.latitude == null) {
+                    Toast.makeText(this, "Nie wybrano lokalizacji", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Uzupełnij wszystkie pola!", Toast.LENGTH_LONG).show()
+                }
             }
         }
         val button = findViewById<RadioButton>(id.chooseLocalizationRadioButton)
@@ -116,9 +128,9 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         }
 
         val currentLocalizationButton = findViewById<RadioButton>(id.chooseCurrentLocalizationRadioButton)
-        currentLocalizationButton.setOnClickListener({
-
-        })
+        currentLocalizationButton.setOnClickListener {
+            fetchLastLocation()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -168,14 +180,6 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         }
         game.gameTypes = list
         game.gameKind = gameTypeRadioGroup.checkedRadioButtonId
-        when (radioGroup.checkedRadioButtonId) {
-            id.chooseProfileLocalizationRadioButton -> {
-                //TODO fetch data from user profile
-            }
-            else -> {
-                //do nothing
-            }
-        }
         game.players = 0
         game.gameName = gameNameEditText.text.toString()
         game.maxPlayers = numberOfPlayersEditText.text.toString().toInt()
@@ -185,6 +189,22 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
             game.owner = mAuth.currentUser!!.displayName
         }
         return game
+    }
+
+
+    private fun fetchLastLocation() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,  arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
+            return
+        }
+        var task = fusedLocationProviderClient.lastLocation
+        task.addOnSuccessListener {
+            if (it != null) {
+                game.latitude = it.latitude
+                game.longitude = it.longitude
+            }
+        }
+        task.addOnFailureListener { Log.e(it.toString(), "ERROR") }
     }
 
     private fun createGame(game: Game){

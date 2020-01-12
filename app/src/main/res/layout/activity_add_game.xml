@@ -68,20 +68,12 @@
             <RadioGroup
                 android:id="@+id/localizationRadioGroup"
                 android:layout_width="270dp"
-                android:layout_height="100dp"
+                android:layout_height="65dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/gameNameEditText"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/gameNameEditText"
                 app:layout_constraintTop_toBottomOf="@+id/gameNameEditText">
-
-                <RadioButton
-                    android:id="@+id/chooseProfileLocalizationRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/accent"
-                    android:text="@string/user_profile_localization" />
 
                 <RadioButton
                     android:id="@+id/chooseCurrentLocalizationRadioButton"
