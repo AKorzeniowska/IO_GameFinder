@@ -109,9 +109,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
                 map.isMyLocationEnabled = true
                 supportMapFragment.getMapAsync(this@ApplicationActivity)
                 val ny = LatLng(location.latitude, location.longitude)
-                val marker = MarkerOptions().position(ny)
-                marker.title("i'm here")
-                map.addMarker(marker)
                 map.moveCamera(CameraUpdateFactory.newLatLng(ny))
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(ny, 14.0f))
             }
@@ -133,9 +130,10 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
             override fun onDataChange(p0: DataSnapshot) {
                 for (data in p0.children) {
                     val gamePin = data.getValue(Game::class.java) as Game
-                    val marker = MarkerOptions().position(LatLng(gamePin?.latitude as Double, gamePin?.longitude as Double))
-                    marker.title("Nazwa: " + gamePin.gameName +"\nTyp: " + gamePin.gameKind)
-                    map?.addMarker(marker)
+                    val marker = MarkerOptions().position(LatLng(gamePin.latitude as Double, gamePin.longitude as Double))
+                    marker.title("Nazwa gry: " + gamePin.gameName)
+                    marker.snippet("Ilość graczy: " + gamePin.players + "/" + gamePin.maxPlayers)
+                    map.addMarker(marker)
                 }
             }
         })
