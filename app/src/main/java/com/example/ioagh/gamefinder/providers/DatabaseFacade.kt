@@ -101,7 +101,7 @@ fun setViewIfUserJoinedGame(gameId: String, username: String, button: Button){
                     }
                     if (gameListOwned.contains(gameId)){
                         button.isClickable = false
-                        button.text = "To twoja gra"
+                        button.text = "To Twoja gra"
                     }
                 setViewIfGameIsFull(gameId, button)
                 }

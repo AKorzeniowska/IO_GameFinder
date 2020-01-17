@@ -49,13 +49,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createAccount(email: String, password: String, passwordRepeat: String, nick: String, name: String, age: String) {
-        if (password.length < 6){
-            Toast.makeText(
-                this, "hasło zbyt krótkie (minimum 6 znaków)",
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
         if (password != passwordRepeat){
             Toast.makeText(
                 this, R.string.two_different_passwords,
@@ -64,9 +57,16 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        if (password == "" || email == "" || nick == ""){
+        if (password.isBlank() || email.isBlank() || nick.isBlank()){
             Toast.makeText(
                 this, R.string.no_registration_data,
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        if (password.length < 6){
+            Toast.makeText(
+                this, R.string.password_too_short,
                 Toast.LENGTH_SHORT
             ).show()
             return
