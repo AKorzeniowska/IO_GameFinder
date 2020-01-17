@@ -58,7 +58,7 @@
             <ImageButton
                 android:id="@+id/chatSendButton"
                 android:layout_width="wrap_content"
-                android:contentDescription="@string/send_message_button"
+                android:contentDescription="@string/send_message"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
