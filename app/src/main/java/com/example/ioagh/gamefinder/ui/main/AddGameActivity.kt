@@ -184,6 +184,8 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         game.gameName = gameNameEditText.text.toString()
         game.maxPlayers = numberOfPlayersEditText.text.toString().toInt()
         game.date = gameDatePicker.text.toString()
+        game.longitude = this.game.longitude
+        game.latitude = this.game.latitude
 
         if (mAuth.currentUser != null && mAuth.currentUser!!.displayName != null) {
             game.owner = mAuth.currentUser!!.displayName
