@@ -29,6 +29,7 @@
 
             <ImageView
                 android:id="@+id/user_avatar"
+                android:contentDescription="@string/user_avatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
@@ -39,7 +40,8 @@
                 app:srcCompat="@drawable/chat_circle" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/edit_avatar"
+                android:contentDescription="@string/edit_user_avatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@null"
@@ -57,7 +59,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Imię:"
+                android:text="@string/name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_avatar" />
 
@@ -70,10 +72,12 @@
                 android:ems="10"
                 android:inputType="text"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/NickTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/NickTextView"
+                tools:ignore="Autofill,LabelFor"/>
 
             <TextView
                 android:id="@+id/ageTextView"
@@ -82,7 +86,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Wiek:"
+                android:text="@string/age"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nameEdit" />
 
@@ -95,10 +99,12 @@
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ageTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/ageTextView"
+                tools:ignore="Autofill,LabelFor" />
 
 
             <Button
@@ -108,7 +114,7 @@
                 android:layout_marginTop="24dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="#FF7F00"
-                android:text="Akceptuj zmiany"
+                android:text="@string/accept_changes"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
