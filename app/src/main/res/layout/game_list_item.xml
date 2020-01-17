@@ -7,6 +7,7 @@
 
     <ImageView
         android:id="@+id/gameView"
+        android:contentDescription="@string/game_picture"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"

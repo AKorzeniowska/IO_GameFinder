@@ -25,7 +25,8 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <ImageButton
-            android:id="@+id/edit_image_button"
+            android:id="@+id/edit_profile_button"
+            android:contentDescription="@string/edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -42,6 +43,7 @@
 
         <ImageView
             android:id="@+id/user_avatar"
+            android:contentDescription="@string/user_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
@@ -92,7 +94,7 @@
                     android:id="@+id/coma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=", " />
+                    android:text="@string/coma" />
 
                 <TextView
                     android:id="@+id/age"
@@ -122,7 +124,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/accent"
-                android:text="Moje gry"
+                android:text="@string/my_games"
                 android:textColor="#FFFFFF" />
 
             <Button
@@ -132,7 +134,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/accent"
-                android:text="Planowane gry"
+                android:text="@string/planned_games"
                 android:textColor="#FFFFFF" />
 
             <Button
@@ -141,7 +143,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/accent"
-                android:text="Rozegrane gry"
+                android:text="@string/played_games"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 

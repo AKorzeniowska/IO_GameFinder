@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="GameKind"
+        android:text="@string/game_type"
         android:textColor="@android:color/black" />
 </LinearLayout>

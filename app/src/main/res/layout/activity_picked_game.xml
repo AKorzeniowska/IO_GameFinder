@@ -35,52 +35,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Nazwa gry"
+                android:text="@string/game_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-            <ImageView
-                android:id="@+id/gameView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gameName"
-                app:srcCompat="@drawable/chess" />
 
             <TextView
                 android:id="@+id/gameKindTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Gatunki:"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gameView" />
+                android:text="@string/game_type"
+                app:layout_constraintStart_toStartOf="@+id/gameKinds"
+                app:layout_constraintTop_toBottomOf="@+id/gameName" />
 
             <TextView
                 android:id="@+id/gameKinds"
-                android:layout_width="wrap_content"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/gameDescription"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gameKindTextView" />
 
             <TextView
                 android:id="@+id/gameDescriptionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Opis:"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/game_description"
+                app:layout_constraintStart_toStartOf="@+id/gameDescription"
                 app:layout_constraintTop_toBottomOf="@+id/gameKinds" />
 
             <TextView
@@ -88,7 +76,10 @@
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_button_outline_thin"
                 android:fontFamily="sans-serif"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,16 +89,15 @@
                 android:id="@+id/gameLocalizationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Lokalizacja:"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/localization"
+                app:layout_constraintStart_toStartOf="@+id/gameLocalization"
                 app:layout_constraintTop_toBottomOf="@+id/gameDescription" />
 
             <TextView
                 android:id="@+id/gameLocalization"
-                android:layout_width="wrap_content"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
@@ -121,16 +111,15 @@
                 android:id="@+id/predictedGameTimeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Przewidywany czas gry:"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/estimated_game_time"
+                app:layout_constraintStart_toStartOf="@+id/predictedGameTime"
                 app:layout_constraintTop_toBottomOf="@+id/gameLocalization" />
 
             <TextView
                 android:id="@+id/predictedGameTime"
-                android:layout_width="wrap_content"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
@@ -144,11 +133,10 @@
                 android:id="@+id/NumberOfPlayersTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Ilość graczy:"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/number_of_players"
+                app:layout_constraintStart_toStartOf="@+id/predictedGameTime"
                 app:layout_constraintTop_toBottomOf="@+id/predictedGameTime" />
 
             <LinearLayout
@@ -170,7 +158,7 @@
                     android:id="@+id/slash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/"
+                    android:text="@string/slash"
                     android:textColor="@android:color/black" />
 
                 <TextView
@@ -194,9 +182,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
-
-
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

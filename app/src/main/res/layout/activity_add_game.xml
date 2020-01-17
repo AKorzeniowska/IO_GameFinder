@@ -33,7 +33,7 @@
                 android:id="@+id/addGameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dodaj grę"
+                android:text="@string/add_game"
                 android:layout_marginTop="24dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,6 +54,7 @@
 
             <EditText
                 android:id="@+id/gameNameEditText"
+                tools:ignore="Autofill,LabelFor"
                 style="@style/EditTextAddGame"
                 android:layout_width="290dp"
                 android:layout_height="36dp"
@@ -64,6 +65,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gameNameTextView" />
 
+            <TextView
+                android:id="@+id/localizationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="16dp"
+                android:text="@string/type_game_name"
+                app:layout_constraintEnd_toEndOf="@+id/gameNameEditText"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/gameNameEditText"
+                app:layout_constraintTop_toBottomOf="@+id/gameNameEditText" />
+
 
             <RadioGroup
                 android:id="@+id/localizationRadioGroup"
@@ -73,7 +86,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gameNameEditText"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/gameNameEditText"
-                app:layout_constraintTop_toBottomOf="@+id/gameNameEditText">
+                app:layout_constraintTop_toBottomOf="@+id/localizationLabel">
 
                 <RadioButton
                     android:id="@+id/chooseCurrentLocalizationRadioButton"
@@ -83,12 +96,13 @@
                     android:buttonTint="@color/accent"
                     android:text="@string/user_current_localization" />
 
-                <RadioButton android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:layout_weight="1"
-                             android:buttonTint="@color/accent"
-                             android:id="@+id/chooseLocalizationRadioButton"
-                             android:text="@string/choose_localization"/>
+                <RadioButton
+                    android:id="@+id/chooseLocalizationRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/accent"
+                    android:text="@string/choose_localization" />
             </RadioGroup>
 
 
@@ -96,11 +110,11 @@
                 android:id="@+id/gameTypeRadioGroup"
                 android:layout_width="270dp"
                 android:layout_height="65dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/localizationRadioGroup"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/localizationRadioGroup"
-                app:layout_constraintTop_toBottomOf="@+id/localizationRadioGroup">
+                app:layout_constraintTop_toBottomOf="@+id/gamePubLabel">
 
                 <RadioButton
                     android:id="@+id/gameOwnerRadioButton"
@@ -122,27 +136,29 @@
             <TextView
                 android:id="@+id/gamePubLabel"
                 style="@style/ButtonLabelStyle"
-                android:layout_marginTop="16dp"
                 android:text="@string/game_pub"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/gameTypeRadioGroup"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/gameTypeRadioGroup"
-                app:layout_constraintTop_toBottomOf="@+id/gameTypeRadioGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/localizationRadioGroup" />
 
             <EditText
+                tools:ignore="Autofill,LabelFor"
                 android:id="@+id/gamePubEditText"
                 style="@style/EditTextAddGame"
                 android:ems="10"
+                android:layout_marginTop="8dp"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gamePubLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/gameTypeRadioGroup" />
 
             <TextView
                 android:id="@+id/textView"
                 style="@style/ButtonLabelStyle"
                 android:layout_marginTop="16dp"
-                android:text="Gatunek"
+                android:text="@string/game_type"
                 app:layout_constraintStart_toStartOf="@+id/gamePubEditText"
                 app:layout_constraintTop_toBottomOf="@+id/gamePubEditText" />
 
@@ -172,6 +188,7 @@
             <EditText
                 android:id="@+id/numberOfPlayersEditText"
                 style="@style/EditTextAddGame"
+                tools:ignore="Autofill,LabelFor"
                 android:layout_width="80dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
@@ -185,7 +202,7 @@
                 android:id="@+id/gameDateLabel"
                 style="@style/ButtonLabelStyle"
                 android:layout_marginTop="16dp"
-                android:text="Data rozgrywki"
+                android:text="@string/game_date"
                 app:layout_constraintStart_toStartOf="@+id/numberOfPlayersEditText"
                 app:layout_constraintTop_toBottomOf="@+id/numberOfPlayersEditText" />
 
@@ -209,7 +226,7 @@
                 android:id="@+id/predictedGameTimeLabel"
                 style="@style/ButtonLabelStyle"
                 android:layout_marginTop="16dp"
-                android:text="Przewidywany czas gry"
+                android:text="@string/estimated_game_time"
                 app:layout_constraintStart_toStartOf="@+id/gameTimeEditText"
                 app:layout_constraintTop_toBottomOf="@+id/gameDatePicker" />
 
@@ -217,9 +234,11 @@
                 android:id="@+id/gameTimeEditText"
                 style="@style/EditTextAddGame"
                 android:ems="10"
+                android:inputType="time"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/predictedGameTimeLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/predictedGameTimeLabel"
+                tools:ignore="Autofill,LabelFor" />
 
             <Button
                 android:id="@+id/addGameButton"
@@ -228,29 +247,18 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="40dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/colorAccent"
-                android:text="Dodaj grę"
+                android:text="@string/add_game"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gameTimeEditText" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addGameButton">
-
-            </FrameLayout>
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
     <com.google.android.material.navigation.NavigationView
