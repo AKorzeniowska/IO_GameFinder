@@ -118,7 +118,7 @@ class ProfileActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
             startActivity(intent)
         }
 
-        edit_image_button.setOnClickListener() {
+        edit_profile_button.setOnClickListener() {
             intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
         }
