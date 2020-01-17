@@ -138,7 +138,7 @@
             android:ems="10"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Choose localization"
+            android:text="Wybierz lokalizację"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/localizationLabel" />
@@ -193,9 +193,9 @@
             android:id="@+id/dateFieldLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/searchLocalizationButton"
+            android:text="Data"
+            app:layout_constraintStart_toStartOf="@+id/gamePubLabel"
             app:layout_constraintTop_toBottomOf="@+id/gameTypeRadioGroupSearch" />
 
 
