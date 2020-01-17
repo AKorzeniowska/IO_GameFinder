@@ -62,6 +62,7 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
         headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
 
         gameId = intent.getStringExtra("gameHash")
+
         initView()
         setNavigationViewListener()
         retrieveGameData(gameId, this)
@@ -92,7 +93,6 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
                     }
                 }
             }
-
         })
     }
 

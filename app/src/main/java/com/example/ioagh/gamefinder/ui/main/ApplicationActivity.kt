@@ -35,12 +35,13 @@ import kotlinx.android.synthetic.main.activity_search_game.*
 import kotlinx.android.synthetic.main.nav_header.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.Marker
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity(), OnMapReadyCallback {
+class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private lateinit var map: GoogleMap
 
@@ -50,10 +51,12 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
     private lateinit var location: Location
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
     private val REQUEST_CODE : Int = 101
+    private val games: HashMap<String, String> = HashMap()
 
     val firebaseDatabase = FirebaseDatabase.getInstance()
     val databaseReference = firebaseDatabase.reference
     val gamesReference = databaseReference.child("games")
+    var game : Game? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,6 +122,7 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
      override fun onMapReady(googleMap: GoogleMap) {
          map = googleMap
          addPinsToMap()
+         map.setOnInfoWindowClickListener(this)
     }
 
     private fun addPinsToMap() {
@@ -134,6 +138,7 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
                     marker.title("Nazwa gry: " + gamePin.gameName)
                     marker.snippet("Ilość graczy: " + gamePin.players + "/" + gamePin.maxPlayers)
                     map.addMarker(marker)
+                    data!!.key?.let { games.put("Nazwa gry: " + gamePin.gameName, it) }
                 }
             }
         })
@@ -178,6 +183,14 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
     private fun setNavigationViewListener() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onInfoWindowClick(marker: Marker?) {
+        val string = games.get(marker!!.title)
+        Log.d(string, string)
+        val intent = Intent(this, PickedGameActivity::class.java)
+        intent.putExtra("gameHash", string)
+        startActivity(intent)
     }
 }
 
