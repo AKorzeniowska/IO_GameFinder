@@ -33,7 +33,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layout_editor_absoluteY="-40dp"
-            tools:listitem="@layout/chat_list_item"></androidx.recyclerview.widget.RecyclerView>
+            tools:listitem="@layout/chat_list_item"/>
 
     </LinearLayout>
 

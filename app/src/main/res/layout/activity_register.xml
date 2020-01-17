@@ -45,6 +45,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:singleLine="true" />
 
         <EditText
@@ -58,6 +59,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:singleLine="true" />
 
         <EditText
@@ -71,6 +73,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:singleLine="true" />
 
         <EditText
@@ -84,6 +87,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:singleLine="true" />
 
         <EditText
@@ -97,6 +101,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:singleLine="true" />
 
         <EditText
@@ -110,6 +115,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:singleLine="true" />
 
         <ImageButton
