@@ -3,6 +3,7 @@ package com.example.ioagh.gamefinder.ui.main
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -54,7 +55,7 @@ class AddGameActivityTest {
 
     @get:Rule
     var mActivityRule: ActivityTestRule<AddGameActivity>
-            = ActivityTestRule(AddGameActivity::class.java)
+            = ActivityTestRule(AddGameActivity::class.java, true, false)
 
     @Before
     fun setData(){
@@ -72,16 +73,34 @@ class AddGameActivityTest {
         Thread.sleep(500)
     }
 
-//    @Test
-//    fun openActivity_seeCurrentDate(){
-//        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
-//        val stf = SimpleDateFormat ("hh:mm", Locale.GERMANY)
-//        onView(withId(R.id.addDateTextView)).check(matches(withText(spf.format(Calendar.getInstance().time))))
-//        onView(withId(R.id.addTimeTextView)).check(matches(withText(stf.format(Calendar.getInstance().time))))
-//    }
+    @Test
+    fun openActivity_seeCurrentDate(){
+        mActivityRule.launchActivity(Intent())
+        Espresso.closeSoftKeyboard()
+        val spf = SimpleDateFormat ("yyyy-MM-dd", Locale.US)
+        onView(withId(R.id.gameDatePicker)).check(matches(withText(spf.format(Calendar.getInstance().time))))
+    }
 
     @Test
     fun noInputData_getWarning(){
+        mActivityRule.launchActivity(Intent())
+        Espresso.closeSoftKeyboard()
+        onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
+
+        onView(withText(R.string.no_given_localization))
+            .inRoot(withDecorView
+                (not(mActivityRule.activity.window.decorView)))
+            .check(matches(isDisplayed()))
+
+        onView(withText("Użyj obecnej lokalizacji")).perform(scrollTo(), click())
+        onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
+
+        onView(withText("Błedny format czasu gry"))
+            .inRoot(withDecorView
+                (not(mActivityRule.activity.window.decorView)))
+            .check(matches(isDisplayed()))
+
+        onView(withId(R.id.gameTimeEditText)).perform(scrollTo(), typeText(duration), closeSoftKeyboard())
         onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
 
         onView(withText(R.string.invalid_game_data))
@@ -97,23 +116,7 @@ class AddGameActivityTest {
                 (not(mActivityRule.activity.window.decorView)))
             .check(matches(isDisplayed()))
 
-        onView(withId(R.id.gameTimeEditText)).perform(scrollTo(), typeText(duration), closeSoftKeyboard())
-        onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
-
-        onView(withText(R.string.invalid_game_data))
-            .inRoot(withDecorView
-                (not(mActivityRule.activity.window.decorView)))
-            .check(matches(isDisplayed()))
-
         onView(withId(R.id.numberOfPlayersEditText)).perform(scrollTo(), typeText(maxPlayers.toString()), closeSoftKeyboard())
-        onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
-
-        onView(withText(R.string.invalid_game_data))
-            .inRoot(withDecorView
-                (not(mActivityRule.activity.window.decorView)))
-            .check(matches(isDisplayed()))
-
-        onView(withId(R.id.searchLocalizationEditText)).perform(scrollTo(), typeText(localization), closeSoftKeyboard())
         onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
 
         onView(withText(R.string.invalid_game_data))

@@ -94,11 +94,14 @@ class ProfileActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         my_games_button.setOnClickListener() {
                 intent = Intent(this, ChooseGameActivity::class.java)
                 intent.putExtra("gameName", "")
-                intent.putExtra("gameKind", "")
+                intent.putExtra("gameKind", mutableListOf<Int>().toIntArray())
                 intent.putExtra("minNumberOfPeople", "")
                 intent.putExtra("maxNumberOfPeople", "")
                 intent.putExtra("localization", "")
                 intent.putExtra("date", "")
+                intent.putExtra("longitude", " ")
+                intent.putExtra("latitude", " ")
+                intent.putExtra("range", " ")
                 intent.putExtra("owner", mAuth.currentUser!!.displayName!!)
                 startActivity(intent)
         }

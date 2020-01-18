@@ -61,7 +61,7 @@ class ProfileActivityTest {
         mActivityRule.launchActivity(intent)
         onView(withId(R.id.nick)).check(matches(withText(mAuth.currentUser!!.displayName!!)))
         onView(withId(R.id.email)).check(matches(withText(mAuth.currentUser!!.email!!)))
-        Thread.sleep(500)
+        Thread.sleep(1500)
         onView(withId(R.id.name)).check(matches(withText("test")))
         onView(withId(R.id.age)).check(matches(withText("20")))
     }
@@ -70,7 +70,7 @@ class ProfileActivityTest {
     fun clickProfileEdit_openEditActivity(){
         val intent = Intent()
         mActivityRule.launchActivity(intent)
-        onView(withId(R.id.edit_image_button)).perform(click())
+        onView(withId(R.id.edit_profile_button)).perform(click())
         Intents.intended(IntentMatchers.hasComponent(EditProfileActivity::class.java.name))
     }
 }

@@ -109,6 +109,7 @@ class PickedGameActivity : NavigationView.OnNavigationItemSelectedListener, AppC
         predictedGameTime.text = parseMinutesToSring(game.durationInMinutes!!)
         currentNumberOfPlayers.text = game.players.toString()
         maximumNumberOfPlayers.text = game.maxPlayers.toString()
+        gameDescription.text  = if (game.description != null) game.description else ""
     }
 
     private fun initView(){

@@ -79,10 +79,10 @@ class RegisterActivityTest {
             .check(matches(isDisplayed()))
 
         onView(ViewMatchers.withId(R.id.passwordRegister))
-            .perform(ViewActions.replaceText(""), ViewActions.closeSoftKeyboard())
+            .perform(ViewActions.clearText(), ViewActions.closeSoftKeyboard())
 
         onView(ViewMatchers.withId(R.id.passwordRegisterRepeat))
-            .perform(ViewActions.replaceText(""), ViewActions.closeSoftKeyboard())
+            .perform(ViewActions.clearText(), ViewActions.closeSoftKeyboard())
 
         onView(ViewMatchers.withId(R.id.emailRegister))
             .perform(ViewActions.typeText(mail), ViewActions.closeSoftKeyboard())
@@ -95,7 +95,7 @@ class RegisterActivityTest {
             .check(matches(isDisplayed()))
 
         onView(ViewMatchers.withId(R.id.emailRegister))
-            .perform(ViewActions.replaceText(""), ViewActions.closeSoftKeyboard())
+            .perform(ViewActions.clearText(), ViewActions.closeSoftKeyboard())
 
         onView(withId(R.id.nickRegister))
             .perform(typeText(nick), ViewActions.closeSoftKeyboard())
@@ -103,6 +103,28 @@ class RegisterActivityTest {
         onView(withId(R.id.registerActivityButton)).perform(click())
 
         onView(withText(R.string.no_registration_data))
+            .inRoot(withDecorView
+                (not(mActivityRule.activity.window.decorView)))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun passwordTooShort_getWarning(){
+        onView(withId(R.id.nickRegister))
+            .perform(typeText(nick), ViewActions.closeSoftKeyboard())
+
+        onView(ViewMatchers.withId(R.id.emailRegister))
+            .perform(ViewActions.typeText(mail), ViewActions.closeSoftKeyboard())
+
+        onView(ViewMatchers.withId(R.id.passwordRegister))
+            .perform(ViewActions.replaceText("x"), ViewActions.closeSoftKeyboard())
+
+        onView(ViewMatchers.withId(R.id.passwordRegisterRepeat))
+            .perform(ViewActions.replaceText("x"), ViewActions.closeSoftKeyboard())
+
+        onView(withId(R.id.registerActivityButton)).perform(click())
+
+        onView(withText(R.string.password_too_short))
             .inRoot(withDecorView
                 (not(mActivityRule.activity.window.decorView)))
             .check(matches(isDisplayed()))
@@ -146,7 +168,7 @@ class RegisterActivityTest {
 
         onView(withId(R.id.registerActivityButton)).perform(click())
 
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         onView(withText(R.string.user_already_exists))
             .inRoot(withDecorView
                 (not(mActivityRule.activity.window.decorView)))

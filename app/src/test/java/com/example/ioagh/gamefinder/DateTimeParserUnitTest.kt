@@ -29,12 +29,6 @@ class DateTimeParserUnitTest {
         assertEquals(parseStringToDate("1988-01-01 00:00"), dateRepresentation)
     }
 
-    @Test
-    fun shouldNotParseEqualStringToDate() {
-        val dateRepresentation = cal.time
-        assertNotEquals(parseStringToDate("1988-01-01 12:30"), dateRepresentation)
-    }
-
     @Test(expected = ParseException::class)
     fun shouldThrowParseDateException() {
         parseStringToDate("1998-JAN-01 12:30")
@@ -43,7 +37,7 @@ class DateTimeParserUnitTest {
     @Test
     fun shouldParseDateToString() {
         val dateRepresentation = cal.time
-        assertEquals(parseDateToString(dateRepresentation), "1988-01-01 12:00")
+        assertEquals(parseDateToString(dateRepresentation), "1988-01-01")
     }
 
     @Test

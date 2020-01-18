@@ -107,7 +107,7 @@ class LoginActivityTest {
 
         onView(withId(R.id.loginActivityButton)).perform(click())
 
-        Thread.sleep(2500)
+        Thread.sleep(2000)
         onView(withText(R.string.login_successful))
             .inRoot(withDecorView
                 (not(mActivityRule.activity.window.decorView)))

@@ -12,6 +12,7 @@ class Game {
     var date: String? = null
     var durationInMinutes: Int? = null
     var owner: String? = null
+    var description: String? = null
 
     constructor() {}
 
@@ -37,6 +38,32 @@ class Game {
         this.date = date
         this.durationInMinutes = durationInMinutes
         this.owner = owner
+    }
+
+    constructor(
+        gameName: String?,
+        latitude: Double?,
+        longitude: Double?,
+        gameKind: Int?,
+        gameTypes: List<Int>?,
+        players: Int?,
+        maxPlayers: Int?,
+        date: String?,
+        durationInMinutes: Int?,
+        owner: String?,
+        description: String?
+    ) {
+        this.gameName = gameName
+        this.latitude = latitude
+        this.longitude = longitude
+        this.gameKind = gameKind
+        this.gameTypes = gameTypes
+        this.players = players
+        this.maxPlayers = maxPlayers
+        this.date = date
+        this.durationInMinutes = durationInMinutes
+        this.owner = owner
+        this.description = description
     }
 
 

@@ -53,6 +53,8 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
     private val REQUEST_CODE : Int = 101
     private val games: HashMap<String, String> = HashMap()
 
+    private lateinit var mapFragment: SupportMapFragment
+
     val firebaseDatabase = FirebaseDatabase.getInstance()
     val databaseReference = firebaseDatabase.reference
     val gamesReference = databaseReference.child("games")
@@ -66,7 +68,7 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         fetchLastLocation()
 
-        val mapFragment = supportFragmentManager
+        mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
@@ -87,8 +89,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         )
         drawer!!.addDrawerListener(toggle)
         toggle.syncState()
-
-        mAuth = FirebaseAuth.getInstance()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -97,6 +97,29 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
                 fetchLastLocation()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setNavigationViewListener()
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        fetchLastLocation()
+
+        mapFragment.getMapAsync(this)
+
+        //nav_display_name.text = "Zalogowany jako: " + mAuth.currentUser!!.displayName!!
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawer = findViewById(R.id.drawer_layout)
+        val toggle = ActionBarDrawerToggle(
+            this, drawer, toolbar,
+            R.string.open_navigation_drawer, R.string.close_navigation_drawer
+        )
+        drawer!!.addDrawerListener(toggle)
+        toggle.syncState()
+        mAuth = FirebaseAuth.getInstance()
     }
 
     private fun fetchLastLocation() {

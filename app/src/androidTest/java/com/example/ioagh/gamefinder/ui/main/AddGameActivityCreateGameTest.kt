@@ -1,5 +1,6 @@
 package com.example.ioagh.gamefinder.ui.main
 
+import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
@@ -39,7 +40,6 @@ class AddGameActivityCreateGameTest {
     private lateinit var mAuth: FirebaseAuth
     private val name = "Test Name"
     private val maxPlayers = 5
-    private val localization = "Test locale"
     private val duration = "2:30"
 
     private val email = "testtest@test.com"
@@ -50,7 +50,7 @@ class AddGameActivityCreateGameTest {
 
     @get:Rule
     var mActivityRule: ActivityTestRule<AddGameActivity>
-            = ActivityTestRule(AddGameActivity::class.java)
+            = ActivityTestRule(AddGameActivity::class.java, true, false)
 
     @Before
     fun setData(){
@@ -66,19 +66,20 @@ class AddGameActivityCreateGameTest {
     fun unsetData(){
         Intents.release()
         usersReference.child(mAuth.currentUser!!.displayName!!).child("createdGames").removeValue()
-        mAuth.signOut()
         gamesReference.child(gameHash).removeValue()
+        mAuth.signOut()
         Thread.sleep(2000)
     }
 
     @Test
     fun inputProperData_gameGetsCreated(){
+        mActivityRule.launchActivity(Intent())
         onView(withId(R.id.gameNameEditText)).perform(scrollTo(), typeText(name), closeSoftKeyboard())
         onView(withId(R.id.gameTimeEditText)).perform(scrollTo(), typeText(duration), closeSoftKeyboard())
-        onView(withId(R.id.searchLocalizationEditText)).perform(scrollTo(), typeText(localization), closeSoftKeyboard())
+        onView(withText("Użyj obecnej lokalizacji")).perform(scrollTo(), click())
         onView(withId(R.id.numberOfPlayersEditText)).perform(scrollTo(), typeText(maxPlayers.toString()), closeSoftKeyboard())
         onView(withId(R.id.gameOwnerRadioButton)).perform(scrollTo(), click())
-        onView(withText("przygodowe")).perform(scrollTo(), click())
+        onView(withText("przygodowa")).perform(scrollTo(), click())
 
         onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
 
@@ -111,10 +112,11 @@ class AddGameActivityCreateGameTest {
                         val gameObject = snapshot.child(game).getValue(Game::class.java)
                         assertEquals(name, gameObject!!.gameName)
                         assertEquals(maxPlayers, gameObject.maxPlayers)
-                        assertEquals(maxPlayers, gameObject.players)
+                        assertEquals(0, gameObject.players)
                         assertEquals(mAuth.currentUser!!.displayName!!, gameObject.owner)
-                        assertEquals(localization, gameObject.localization)
                         assertEquals(parseStringToMinutes(duration), gameObject.durationInMinutes)
+                        assert(gameObject.longitude != null)
+                        assert(gameObject.latitude != null)
                         assert(gameObject.gameTypes != null)
                         assert(gameObject.gameTypes!!.isNotEmpty())
                     }

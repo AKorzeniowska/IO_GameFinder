@@ -6,7 +6,7 @@ import java.util.*
 import kotlin.math.floor
 import kotlin.math.min
 
-val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.US)
+val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
 val calendar = GregorianCalendar.getInstance()!!
 
 fun parseStringToDate(dateText: String): Date{

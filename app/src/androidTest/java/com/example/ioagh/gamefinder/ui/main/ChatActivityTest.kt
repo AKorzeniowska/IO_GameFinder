@@ -58,7 +58,7 @@ class ChatActivityTest {
         val intent = Intent()
         intent.putExtra("chatroom", getRandomString())
         mActivityRule.launchActivity(intent)
-        Thread.sleep(1500)
+        Thread.sleep(2500)
 
         onView(withId(R.id.editText)).perform(replaceText(firstMessage), closeSoftKeyboard())
         onView(withId(R.id.chatSendButton)).perform(click())
@@ -70,7 +70,7 @@ class ChatActivityTest {
         Thread.sleep(1500)
 
         mActivityRule.launchActivity(intent)
-        Thread.sleep(1500)
+        Thread.sleep(2500)
 
         onView(withText(firstMessage)).check(matches(isDisplayed()))
 
@@ -84,7 +84,7 @@ class ChatActivityTest {
         Thread.sleep(1500)
 
         mActivityRule.launchActivity(intent)
-        Thread.sleep(1500)
+        Thread.sleep(2500)
 
         onView(withText(firstMessage)).check(matches(isDisplayed()))
         onView(withText(secondMessage)).check(matches(isDisplayed()))

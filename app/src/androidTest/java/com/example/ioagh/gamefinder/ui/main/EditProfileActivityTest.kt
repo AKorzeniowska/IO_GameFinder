@@ -63,7 +63,7 @@ class EditProfileActivityTest {
     @Test
     fun openEditProfile_seeProperData(){
         mActivityRule.launchActivity(Intent())
-        onView(withId(R.id.edit_image_button)).perform(click())
+        onView(withId(R.id.edit_profile_button)).perform(click())
         Thread.sleep(1500)
 
         onView(withId(R.id.nameEdit)).check(matches(withText(properName)))
@@ -76,7 +76,7 @@ class EditProfileActivityTest {
         val newage = "45"
 
         mActivityRule.launchActivity(Intent())
-        onView(withId(R.id.edit_image_button)).perform(click())
+        onView(withId(R.id.edit_profile_button)).perform(click())
         Thread.sleep(1500)
 
         onView(withId(R.id.nameEdit)).perform(replaceText(newname), closeSoftKeyboard())
@@ -95,7 +95,7 @@ class EditProfileActivityTest {
         onView(withId(R.id.name)).check(matches(withText(newname)))
         onView(withId(R.id.age)).check(matches(withText(newage)))
 
-        onView(withId(R.id.edit_image_button)).perform(click())
+        onView(withId(R.id.edit_profile_button)).perform(click())
         Thread.sleep(1500)
 
         onView(withId(R.id.nameEdit)).check(matches(withText(newname)))
@@ -108,7 +108,7 @@ class EditProfileActivityTest {
         val newage = ""
 
         mActivityRule.launchActivity(Intent())
-        onView(withId(R.id.edit_image_button)).perform(click())
+        onView(withId(R.id.edit_profile_button)).perform(click())
         Thread.sleep(1500)
 
         onView(withId(R.id.nameEdit)).perform(replaceText(newname), closeSoftKeyboard())
@@ -124,7 +124,7 @@ class EditProfileActivityTest {
         Espresso.pressBack()
         Intents.intended(IntentMatchers.hasComponent(ProfileActivity::class.java.name))
 
-        onView(withId(R.id.edit_image_button)).perform(click())
+        onView(withId(R.id.edit_profile_button)).perform(click())
         Thread.sleep(1500)
 
         onView(withId(R.id.nameEdit)).check(matches(withText(properName)))
@@ -134,7 +134,7 @@ class EditProfileActivityTest {
     @Test
     fun leaveDataUnchanged_doNotSaveChanges(){
         mActivityRule.launchActivity(Intent())
-        onView(withId(R.id.edit_image_button)).perform(click())
+        onView(withId(R.id.edit_profile_button)).perform(click())
         Thread.sleep(1500)
 
         Espresso.closeSoftKeyboard()
@@ -148,7 +148,7 @@ class EditProfileActivityTest {
         Espresso.pressBack()
         Intents.intended(IntentMatchers.hasComponent(ProfileActivity::class.java.name))
 
-        onView(withId(R.id.edit_image_button)).perform(click())
+        onView(withId(R.id.edit_profile_button)).perform(click())
         Thread.sleep(1500)
 
         onView(withId(R.id.nameEdit)).check(matches(withText(properName)))

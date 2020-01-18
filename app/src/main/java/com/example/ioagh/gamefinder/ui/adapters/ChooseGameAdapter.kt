@@ -28,6 +28,7 @@ class ChooseGameAdapter(private val gameModels: ArrayList<GameViewModel>, privat
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val gameModel = gameModels[position]
         holder.itemView.gameName.text = gameModel.game.gameName
+        holder.itemView.distance.text = gameModel.game.date
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
