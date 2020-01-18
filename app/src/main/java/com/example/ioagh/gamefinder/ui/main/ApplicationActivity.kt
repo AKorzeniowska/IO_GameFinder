@@ -53,6 +53,8 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
     private val REQUEST_CODE : Int = 101
     private val games: HashMap<String, String> = HashMap()
 
+    private lateinit var mapFragment: SupportMapFragment
+
     val firebaseDatabase = FirebaseDatabase.getInstance()
     val databaseReference = firebaseDatabase.reference
     val gamesReference = databaseReference.child("games")
@@ -66,7 +68,7 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         fetchLastLocation()
 
-        val mapFragment = supportFragmentManager
+        mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
@@ -87,8 +89,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         )
         drawer!!.addDrawerListener(toggle)
         toggle.syncState()
-
-        mAuth = FirebaseAuth.getInstance()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -101,14 +101,11 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
 
     override fun onResume() {
         super.onResume()
-        setContentView(layout.activity_application)
 
         setNavigationViewListener()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         fetchLastLocation()
 
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         //nav_display_name.text = "Zalogowany jako: " + mAuth.currentUser!!.displayName!!
@@ -116,18 +113,6 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         setSupportActionBar(toolbar)
 
         drawer = findViewById(R.id.drawer_layout)
-
-        mAuth = FirebaseAuth.getInstance()
-
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
-        headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
-        val toggle = ActionBarDrawerToggle(
-            this, drawer, toolbar,
-            R.string.open_navigation_drawer, R.string.close_navigation_drawer
-        )
-        drawer!!.addDrawerListener(toggle)
-        toggle.syncState()
 
         mAuth = FirebaseAuth.getInstance()
     }
