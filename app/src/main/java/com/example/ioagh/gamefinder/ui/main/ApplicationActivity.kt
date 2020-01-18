@@ -113,7 +113,12 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         setSupportActionBar(toolbar)
 
         drawer = findViewById(R.id.drawer_layout)
-
+        val toggle = ActionBarDrawerToggle(
+            this, drawer, toolbar,
+            R.string.open_navigation_drawer, R.string.close_navigation_drawer
+        )
+        drawer!!.addDrawerListener(toggle)
+        toggle.syncState()
         mAuth = FirebaseAuth.getInstance()
     }
 
