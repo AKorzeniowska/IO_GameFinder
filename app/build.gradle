@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: "org.sonarqube"
+apply plugin: 'com.justpinch.androidanalyzer'
 
 
 android {
@@ -29,18 +29,6 @@ android {
         unitTests.returnDefaultValues = true
     }
     useLibrary 'android.test.runner'
-
-sonarqube {
-    properties {
-        property "sonar.projectName", "com.example.ioagh.gamefinder"
-        property "sonar.projectKey", "com.example.ioagh.gamefinder"
-        property "sonar.host.url", "localhost:9000"
-        property "sonar.language", "kotlin"
-        property "sonar.sources", "src/main/"
-        property "sonar.login", "admin"
-        property "sonar.password", "admin"
-    }
-}
 }
 
 dependencies {
@@ -79,6 +67,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
     //implementation 'com.google.firebase:firebase-database:19.2.0'
 
+}
+
+androidAnalyzer {
+    applicationId = 'com.example.ioagh.gamefinder'
+    projectName = 'GameFinder'
+    detekt = true
 }
 
 apply plugin: 'com.google.gms.google-services'
