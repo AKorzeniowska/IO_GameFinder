@@ -95,12 +95,12 @@ class AddGameActivityTest {
         onView(withText("Użyj obecnej lokalizacji")).perform(scrollTo(), click())
         onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
 
-        onView(withText(R.string.invalid_game_data))
+        onView(withText("Błedny format czasu gry"))
             .inRoot(withDecorView
                 (not(mActivityRule.activity.window.decorView)))
             .check(matches(isDisplayed()))
 
-        onView(withId(R.id.gameNameEditText)).perform(scrollTo(), typeText(name), closeSoftKeyboard())
+        onView(withId(R.id.gameTimeEditText)).perform(scrollTo(), typeText(duration), closeSoftKeyboard())
         onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
 
         onView(withText(R.string.invalid_game_data))
@@ -108,7 +108,7 @@ class AddGameActivityTest {
                 (not(mActivityRule.activity.window.decorView)))
             .check(matches(isDisplayed()))
 
-        onView(withId(R.id.gameTimeEditText)).perform(scrollTo(), typeText(duration), closeSoftKeyboard())
+        onView(withId(R.id.gameNameEditText)).perform(scrollTo(), typeText(name), closeSoftKeyboard())
         onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
 
         onView(withText(R.string.invalid_game_data))

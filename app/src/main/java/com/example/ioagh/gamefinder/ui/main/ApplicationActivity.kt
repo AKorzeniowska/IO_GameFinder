@@ -99,6 +99,39 @@ class ApplicationActivity : NavigationView.OnNavigationItemSelectedListener, App
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setContentView(layout.activity_application)
+
+        setNavigationViewListener()
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        fetchLastLocation()
+
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+        //nav_display_name.text = "Zalogowany jako: " + mAuth.currentUser!!.displayName!!
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawer = findViewById(R.id.drawer_layout)
+
+        mAuth = FirebaseAuth.getInstance()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView: View = navigationView.inflateHeaderView(R.layout.nav_header)
+        headerView.findViewById<TextView>(R.id.user_name_display).text = mAuth.currentUser!!.displayName!!
+        val toggle = ActionBarDrawerToggle(
+            this, drawer, toolbar,
+            R.string.open_navigation_drawer, R.string.close_navigation_drawer
+        )
+        drawer!!.addDrawerListener(toggle)
+        toggle.syncState()
+
+        mAuth = FirebaseAuth.getInstance()
+    }
+
     private fun fetchLastLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,  arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)

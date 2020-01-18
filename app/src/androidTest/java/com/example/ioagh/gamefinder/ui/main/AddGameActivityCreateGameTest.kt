@@ -79,7 +79,7 @@ class AddGameActivityCreateGameTest {
         onView(withText("Użyj obecnej lokalizacji")).perform(scrollTo(), click())
         onView(withId(R.id.numberOfPlayersEditText)).perform(scrollTo(), typeText(maxPlayers.toString()), closeSoftKeyboard())
         onView(withId(R.id.gameOwnerRadioButton)).perform(scrollTo(), click())
-        onView(withText("przygodowe")).perform(scrollTo(), click())
+        onView(withText("przygodowa")).perform(scrollTo(), click())
 
         onView(withId(R.id.addGameButton)).perform(scrollTo(), click())
 
