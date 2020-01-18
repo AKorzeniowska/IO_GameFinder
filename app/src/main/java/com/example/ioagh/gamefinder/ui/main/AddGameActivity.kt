@@ -102,12 +102,15 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
             if (!(gameNameEditText.text.isNullOrBlank() ||
                 numberOfPlayersEditText.text.isNullOrBlank() ||
                 gameTimeEditText.text.isNullOrBlank() ||
-                gameTypeRadioGroup.checkedRadioButtonId == -1 || game.latitude == null || game.longitude == null)) {
+                gameTypeRadioGroup.checkedRadioButtonId == -1 || game.latitude == null || game.longitude == null ||
+                !validateGameTime(gameTimeEditText.text.toString()))) {
                 val game = buildGame()
                 createGame(game)
             } else {
                 if (game.latitude == null) {
                     Toast.makeText(this, "Nie wybrano lokalizacji", Toast.LENGTH_LONG).show()
+                } else if (!validateGameTime(gameTimeEditText.text.toString())){
+                    Toast.makeText(this, "Błedny format czasu gry", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Uzupełnij wszystkie pola!", Toast.LENGTH_LONG).show()
                 }
@@ -131,6 +134,11 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         currentLocalizationButton.setOnClickListener {
             fetchLastLocation()
         }
+    }
+
+    private fun validateGameTime(gametime: String): Boolean{
+        val regex = "[0-9]+:[0-9][0-9]".toRegex()
+        return regex.matches(gametime)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -169,7 +177,6 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
     private fun buildGame(): Game {
         val game = Game()
 
-        //game.date = addDateTextView.text.toString() + " " + addTimeTextView.text.toString()
         game.durationInMinutes = parseStringToMinutes(gameTimeEditText.text.toString())
         val list = ArrayList<Int>()
         for (i in 0..gameKindCheckBoxes.childCount) {
@@ -186,6 +193,7 @@ class AddGameActivity : NavigationView.OnNavigationItemSelectedListener, AppComp
         game.date = gameDatePicker.text.toString()
         game.longitude = this.game.longitude
         game.latitude = this.game.latitude
+        game.description = gameTimeEditText2.text.toString()
 
         if (mAuth.currentUser != null && mAuth.currentUser!!.displayName != null) {
             game.owner = mAuth.currentUser!!.displayName
